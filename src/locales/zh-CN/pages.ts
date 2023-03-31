@@ -62,4 +62,6 @@ export default {
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': '批量删除',
   'pages.searchTable.batchApproval': '批量审批',
+  'pages.searchTable.foundName': '基金名称',
+  'pages.searchTable.accountAmount': '到账金额',
 };

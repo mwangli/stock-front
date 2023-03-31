@@ -130,9 +130,15 @@ const TableList: React.FC = () => {
         );
       },
     },
+
     {
-      title: <FormattedMessage id="pages.searchTable.titleDesc" defaultMessage="Description" />,
-      dataIndex: 'desc',
+      title: <FormattedMessage id="pages.searchTable.foundName" defaultMessage="Description" />,
+      dataIndex: 'name',
+      valueType: 'textarea',
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.accountAmount" defaultMessage="Description" />,
+      dataIndex: 'accountAmount',
       valueType: 'textarea',
     },
     {
