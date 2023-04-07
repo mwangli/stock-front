@@ -1,5 +1,5 @@
-#!/bin/bash
-
-scp -r Dockerfile root@mwang.online:build
-scp -r dist root@mwang.online:build/dist
-ssh root@mwang.online build/build.sh found-front
+set HOST=root@test
+set APP=found-front
+scp -r Dockerfile %HOST%:build
+scp -r dist %HOST%:build/dist
+ssh %HOST% build/build.sh %APP%

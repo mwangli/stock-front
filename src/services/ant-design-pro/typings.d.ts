@@ -50,13 +50,13 @@ declare namespace API {
     saleAmount: number,
     saleDate: string,
     updateTime: string,
-    // key?: number;
+    key?: number;
     // disabled?: boolean;
     // href?: string;
     // avatar?: string;
     // name?: string;
     // owner?: string;
-    // desc?: string;
+    desc?: string;
     callNo?: number;
     // status?: number;
     // updatedAt?: string;

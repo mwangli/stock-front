@@ -105,7 +105,9 @@ const Login: React.FC = () => {
   const intl = useIntl();
 
   const fetchUserInfo = async () => {
+    debugger
     const userInfo = await initialState?.fetchUserInfo?.();
+    debugger
     if (userInfo) {
       flushSync(() => {
         setInitialState((s) => ({
@@ -119,7 +121,10 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       // 登录
+      // debugger
       const msg = await login({ ...values, type });
+      console.log(msg);
+      // debugger
       if (msg.status === 'ok') {
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
