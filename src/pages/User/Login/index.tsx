@@ -105,9 +105,7 @@ const Login: React.FC = () => {
   const intl = useIntl();
 
   const fetchUserInfo = async () => {
-    debugger
     const userInfo = await initialState?.fetchUserInfo?.();
-    debugger
     if (userInfo) {
       flushSync(() => {
         setInitialState((s) => ({
@@ -174,7 +172,7 @@ const Login: React.FC = () => {
             maxWidth: '75vw',
           }}
           logo={<img alt="logo" src="/logo.svg" />}
-          title="Ant Design"
+          title="Found-Trading"
           subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
           initialValues={{
             autoLogin: true,
