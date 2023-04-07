@@ -24,6 +24,7 @@ import { flushSync } from 'react-dom';
 
 
 
+
 const ActionIcons = () => {
   const langClassName = useEmotionCss(({ token }) => {
     return {
@@ -89,7 +90,7 @@ const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
-
+  let isLongin = false;
   const containerClassName = useEmotionCss(() => {
     return {
       display: 'flex',
@@ -113,6 +114,7 @@ const Login: React.FC = () => {
           currentUser: userInfo,
         }));
       });
+      isLongin=true;
     }
   };
 
@@ -374,3 +376,4 @@ const Login: React.FC = () => {
 };
 
 export default Login;
+export let isLogin: any;
