@@ -90,7 +90,7 @@ const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
-  let isLongin = false;
+  let isLogin = false;
   const containerClassName = useEmotionCss(() => {
     return {
       display: 'flex',
@@ -106,7 +106,11 @@ const Login: React.FC = () => {
   const intl = useIntl();
 
   const fetchUserInfo = async () => {
-    const userInfo = await initialState?.fetchUserInfo?.();
+    // const userInfo = await initialState?.fetchUserInfo?.();
+    const userInfo = {
+      'name':'Admin',
+      'avatar': 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+    };
     if (userInfo) {
       flushSync(() => {
         setInitialState((s) => ({
@@ -114,7 +118,6 @@ const Login: React.FC = () => {
           currentUser: userInfo,
         }));
       });
-      isLongin=true;
     }
   };
 
@@ -126,26 +129,32 @@ const Login: React.FC = () => {
       console.log(msg);
       // debugger
       if (msg.status === 'ok') {
+        isLogin=true;
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
           defaultMessage: '登录成功！',
         });
         message.success(defaultLoginSuccessMessage);
+        localStorage.setItem('token',msg?.data);
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/');
+
+        setInitialState((s) => ({
+          ...s,
+        }));
         return;
       }
       console.log(msg);
       // 如果失败去设置用户错误信息
       setUserLoginState(msg);
     } catch (error) {
-      const defaultLoginFailureMessage = intl.formatMessage({
-        id: 'pages.login.failure',
-        defaultMessage: '登录失败，请重试！',
-      });
-      console.log(error);
-      message.error(defaultLoginFailureMessage);
+      // const defaultLoginFailureMessage = intl.formatMessage({
+      //   id: 'pages.login.failure',
+      //   defaultMessage: '登录失败，请重试！',
+      // });
+      // console.log(error);
+      // message.error(defaultLoginFailureMessage);
     }
   };
   const { status, type: loginType } = userLoginState;
@@ -376,4 +385,4 @@ const Login: React.FC = () => {
 };
 
 export default Login;
-export let isLogin: any;
+export let isLogin: boolean;

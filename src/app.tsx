@@ -4,12 +4,14 @@ import {LinkOutlined} from '@ant-design/icons';
 import type {Settings as LayoutSettings} from '@ant-design/pro-components';
 import {SettingDrawer} from '@ant-design/pro-components';
 import type {RunTimeLayoutConfig} from '@umijs/max';
-import {history, Link, useModel} from '@umijs/max';
+import {history, Link} from '@umijs/max';
+import {useModel} from 'umi';
 import defaultSettings from '../config/defaultSettings';
 import {errorConfig} from './requestErrorConfig';
 import {currentUser as queryCurrentUser} from './services/ant-design-pro/api';
 import React from 'react';
 import {AvatarDropdown, AvatarName} from './components/RightContent/AvatarDropdown';
+import {isLogin} from '@/pages/User/Login';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -18,13 +20,13 @@ const loginPath = '/user/login';
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */
-export async function getInitialState(): Promise<{
+export async function getInitialState(aa: any): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: API.CurrentUser;
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
 }> {
-  // const { initialState } = useModel('@@initialState');
+
   const fetchUserInfo = async () => {
     try {
       const msg = await queryCurrentUser({
@@ -38,15 +40,18 @@ export async function getInitialState(): Promise<{
   };
   // 如果不是登录页面，执行
   const {location} = history;
-  const isLogin = false;
-  if ( location.pathname !== loginPath) {
-    history.push(loginPath)
+  if (location.pathname !== loginPath) {
+    // history.push(loginPath)
     // const currentUser = await fetchUserInfo();
-    // return {
-    //   fetchUserInfo,
-    //   currentUser,
-    //   settings: defaultSettings as Partial<LayoutSettings>,
-    // };
+    const currentUser = {
+      'name': 'Admin',
+      'avatar': 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+    };
+    return {
+      fetchUserInfo,
+      currentUser,
+      settings: defaultSettings as Partial<LayoutSettings>,
+    };
   }
   return {
     fetchUserInfo,
