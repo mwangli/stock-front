@@ -8,7 +8,7 @@ PASS=Dknhfre1st
 
 cd build
 docker build -t $APP -f Dockerfile .
-docker login --username=$USER --password=$PASS $REGISTER
+# docker login --username=$USER --password=$PASS $REGISTER
 docker tag $APP $REGISTER/$NS/$APP
 docker push $REGISTER/$NS/$APP
 
