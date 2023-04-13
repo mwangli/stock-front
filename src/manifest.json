@@ -1,6 +1,6 @@
 {
-  "name": "Ant Design Pro111",
-  "short_name": "Ant Design Pro222",
+  "name": "Ant Design Pro",
+  "short_name": "Ant Design Pro",
   "display": "standalone",
   "start_url": "./?utm_source=homescreen",
   "theme_color": "#002140",
