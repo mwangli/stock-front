@@ -8,6 +8,7 @@ const genList = (current: number, pageSize: number) => {
 
   for (let i = 0; i < pageSize; i += 1) {
     const index = (current - 1) * 10 + i;
+    // @ts-ignore
     tableListDataSource.push({
       key: index,
       disabled: i % 6 === 0,
@@ -122,6 +123,7 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
     case 'post':
       (() => {
         const i = Math.ceil(Math.random() * 10000);
+        // @ts-ignore
         const newRule: API.RuleListItem = {
           key: tableListDataSource.length,
           href: 'https://ant.design',

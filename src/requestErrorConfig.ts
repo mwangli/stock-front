@@ -72,8 +72,7 @@ export const errorConfig: RequestConfig = {
               message.error(errorMessage);
           }
         }
-      }
-      else if (error.response) {
+      } else if (error.response) {
         // Axios 的错误
         // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
         message.error(`Response status:${error.response.status}`);
@@ -93,8 +92,8 @@ export const errorConfig: RequestConfig = {
   requestInterceptors: [
     (config: RequestOptions) => {
       // 拦截请求配置，进行个性化处理。
-      const token = localStorage.getItem('token');
-      config.headers = {... config.headers, token};
+      const token = localStorage.getItem('token') || '';
+      config.headers = {...config.headers, token};
       return {...config};
     },
   ],
@@ -109,8 +108,8 @@ export const errorConfig: RequestConfig = {
       //   message.error('请求失败！');
       // }
 
-      if (data?.errorCode === '1001') {
-        message.error('token无效！');
+      if (data?.errorCode == 1001) {
+        // message.error('token无效！');
         history.push('/user/login')
         // debugger
       }

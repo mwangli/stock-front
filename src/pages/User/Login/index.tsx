@@ -87,6 +87,7 @@ const LoginMessage: React.FC<{
 };
 
 const Login: React.FC = () => {
+  // @ts-ignore
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
@@ -128,7 +129,7 @@ const Login: React.FC = () => {
       const msg = await login({ ...values, type });
       console.log(msg);
       // debugger
-      if (msg.status === 'ok') {
+      if (msg?.success === true) {
         isLogin=true;
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
