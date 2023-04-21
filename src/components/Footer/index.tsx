@@ -20,8 +20,8 @@ const Footer: React.FC = () => {
       copyright={`${currentYear} ${defaultMessage}`}
       links={[
         {
-          key: 'Found-Trading System v2.8',
-          title: 'Found-Trading System v2.8',
+          key: 'Found-Trading System',
+          title: 'Found-Trading System v2.9',
           href: 'https://github.com/mwangli',
           blankTarget: true,
         },
