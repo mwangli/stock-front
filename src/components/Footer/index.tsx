@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
       links={[
         {
           key: 'Found-Trading System',
-          title: 'Found-Trading System v2.2.2',
+          title: 'Found-Trading System v2.3',
           href: 'https://github.com/mwangli',
           blankTarget: true,
         },
