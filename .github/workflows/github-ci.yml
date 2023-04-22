@@ -29,5 +29,5 @@ jobs:
         with:
           host: 124.220.36.95
           user: root
-          pass: Dknhfre1st
+          pass: ${{ secrets.PASS }}
           run: kubectl rollout restart deploy found-front
