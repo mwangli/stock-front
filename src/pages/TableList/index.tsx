@@ -139,6 +139,7 @@ const TableList: React.FC = () => {
       title: <FormattedMessage id="pages.searchTable.buyDate" defaultMessage="Description"/>,
       dataIndex: 'buyDate',
       valueType: 'date',
+      sorter: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.buyPrice" defaultMessage="Description"/>,
@@ -146,6 +147,7 @@ const TableList: React.FC = () => {
       valueType: 'textarea',
       hideInTable: true,
       hideInSearch: true,
+      sorter: true,
       renderText: (val: string) =>
         val ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.yuan',
@@ -158,6 +160,7 @@ const TableList: React.FC = () => {
       valueType: 'textarea',
       hideInTable: true,
       hideInSearch: true,
+      sorter: true,
       renderText: (val: string) =>
         val ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.piece',
@@ -185,6 +188,7 @@ const TableList: React.FC = () => {
       title: <FormattedMessage id="pages.searchTable.saleDate" defaultMessage="Description"/>,
       dataIndex: 'saleDate',
       valueType: 'date',
+      sorter: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.salePrice" defaultMessage="Description"/>,
@@ -192,6 +196,7 @@ const TableList: React.FC = () => {
       valueType: 'textarea',
       hideInTable: true,
       hideInSearch: true,
+      sorter: true,
       renderText: (val: string) =>
         val ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.yuan',
@@ -204,6 +209,7 @@ const TableList: React.FC = () => {
       valueType: 'textarea',
       hideInTable: true,
       hideInSearch: true,
+      sorter: true,
       renderText: (val: string) =>
         val ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.piece',
@@ -230,6 +236,7 @@ const TableList: React.FC = () => {
       sortDirections: [],
       hideInForm: true,
       hideInSearch: true,
+      sorter: true,
       renderText: (val: string) =>
         val ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.yuan',
@@ -240,6 +247,7 @@ const TableList: React.FC = () => {
       title: <FormattedMessage id="pages.searchTable.holdDays" defaultMessage="Description"/>,
       dataIndex: 'holdDays',
       valueType: 'textarea',
+      sorter: true,
       renderText: (val: string) =>
         val ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.day',
@@ -264,6 +272,8 @@ const TableList: React.FC = () => {
       title: <FormattedMessage id="pages.searchTable.titleStatus" defaultMessage="Status"/>,
       dataIndex: 'sold',
       hideInForm: true,
+      order: 1,
+      sorter: true,
       valueEnum: {
         // 2: {
         //   text: (
@@ -292,6 +302,7 @@ const TableList: React.FC = () => {
       valueType: 'dateTime',
       hideInTable: true,
       hideInSearch: true,
+      sorter: true,
     },
     {
       title: (

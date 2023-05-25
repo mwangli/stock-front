@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import {request} from '@umijs/max';
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
@@ -41,7 +41,7 @@ export async function getNotices(options?: { [key: string]: any }) {
 }
 
 /** 获取规则列表 GET /api/listFoundTrading */
-export async function   listFoundTrading(
+export async function listFoundTrading(
   params: {
     // query
     /** 当前的页码 */
@@ -54,11 +54,12 @@ export async function   listFoundTrading(
   sort: any,
   options?: { [key: string]: any },
 ) {
-  console.log(JSON.stringify(sort));
   return request<API.RuleList>('/api/foundTrading', {
     method: 'GET',
     params: {
       ...params,
+      sortKey: Object.keys(sort)[0],
+      sortOrder: Object.values(sort)[0],
     },
     ...(options || {}),
   });
