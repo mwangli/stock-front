@@ -1,5 +1,4 @@
 import { addRule, removeRule, rule, updateRule } from '@/services/ant-design-pro/api';
-import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import {
   FooterToolbar,
@@ -115,8 +114,8 @@ const TableList: React.FC = () => {
           defaultMessage="Rule name"
         />
       ),
-      dataIndex: 'name',
-      tip: 'The rule name is the unique key',
+      dataIndex: 'code',
+      tip: 'The stock code is the unique key',
       render: (dom, entity) => {
         return (
           <a
@@ -137,72 +136,137 @@ const TableList: React.FC = () => {
       valueType: 'textarea',
     },
     {
-      title: <FormattedMessage id="pages.searchTable.accountAmount" defaultMessage="Description" />,
-      dataIndex: 'accountAmount',
+      title: <FormattedMessage id="pages.searchTable.buyDate" defaultMessage="Description" />,
+      dataIndex: 'buyDate',
+      valueType: 'date',
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.buyNumber" defaultMessage="Description" />,
+      dataIndex: 'buyNumber',
       valueType: 'textarea',
+      hideInTable: true,
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.buyPrice" defaultMessage="Description" />,
+      dataIndex: 'buyPrice',
+      valueType: 'textarea',
+      hideInTable: true,
     },
     {
       title: (
         <FormattedMessage
-          id="pages.searchTable.titleCallNo"
+          id="pages.searchTable.buyAmount"
           defaultMessage="Number of service calls"
         />
       ),
-      dataIndex: 'callNo',
+      dataIndex: 'buyAmount',
       sorter: true,
       hideInForm: true,
       renderText: (val: string) =>
         `${val}${intl.formatMessage({
-          id: 'pages.searchTable.tenThousand',
-          defaultMessage: ' 万 ',
+          id: 'pages.searchTable.yuan',
+          defaultMessage: ' 元 ',
         })}`,
     },
     {
+      title: <FormattedMessage id="pages.searchTable.saleDate" defaultMessage="Description" />,
+      dataIndex: 'saleDate',
+      valueType: 'date',
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.saleNumber" defaultMessage="Description" />,
+      dataIndex: 'saleNumber',
+      valueType: 'textarea',
+      hideInTable: true,
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.salePrice" defaultMessage="Description" />,
+      dataIndex: 'salePrice',
+      valueType: 'textarea',
+      hideInTable: true,
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.saleAmount" defaultMessage="saleAmount" />,
+      dataIndex: 'saleAmount',
+      sorter: true,
+      hideInForm: true,
+      renderText: (val: string) =>
+        val
+          ? `${val}${intl.formatMessage({
+              id: 'pages.searchTable.yuan',
+              defaultMessage: ' 元 ',
+            })}`
+          : '-',
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.income" defaultMessage="income" />,
+      dataIndex: 'income',
+      sorter: true,
+      hideInForm: true,
+      renderText: (val: string) =>
+        val
+          ? `${val}${intl.formatMessage({
+              id: 'pages.searchTable.yuan',
+              defaultMessage: ' 元 ',
+            })}`
+          : '-',
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.holdDays" defaultMessage="Description" />,
+      dataIndex: 'holdDays',
+      valueType: 'textarea',
+    },
+    {
+      title: (
+        <FormattedMessage id="pages.searchTable.dailyIncomeRate" defaultMessage="dailyIncomeRate" />
+      ),
+      dataIndex: 'dailyIncomeRate',
+      sorter: true,
+      // hideInForm: true,
+      // renderText: (val: string) =>
+      //   `${val}${intl.formatMessage({
+      //     id: 'pages.searchTable.yuan',
+      //     defaultMessage: ' 元 ',
+      //   })}`,
+    },
+    {
       title: <FormattedMessage id="pages.searchTable.titleStatus" defaultMessage="Status" />,
-      dataIndex: 'status',
+      dataIndex: 'sold',
       hideInForm: true,
       valueEnum: {
-        0: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.default"
-              defaultMessage="Shut down"
-            />
-          ),
-          status: 'Default',
-        },
+        // 2: {
+        //   text: (
+        //     <FormattedMessage
+        //       id="pages.searchTable.nameStatus.default"
+        //       defaultMessage="Shut down"
+        //     />
+        //   ),
+        //   status: 'Default',
+        // },
         1: {
-          text: (
-            <FormattedMessage id="pages.searchTable.nameStatus.running" defaultMessage="Running" />
-          ),
+          text: <FormattedMessage id="pages.searchTable.titleStatus.sold" defaultMessage="sold" />,
           status: 'Processing',
         },
-        2: {
+        0: {
           text: (
-            <FormattedMessage id="pages.searchTable.nameStatus.online" defaultMessage="Online" />
-          ),
-          status: 'Success',
-        },
-        3: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.abnormal"
-              defaultMessage="Abnormal"
-            />
+            <FormattedMessage id="pages.searchTable.titleStatus.notSold" defaultMessage="notSold" />
           ),
           status: 'Error',
         },
       },
     },
     {
+      title: <FormattedMessage id="pages.searchTable.createTime" defaultMessage="Description" />,
+      dataIndex: 'createTime',
+      valueType: 'dateTime',
+      hideInTable: true,
+    },
+    {
       title: (
-        <FormattedMessage
-          id="pages.searchTable.titleUpdatedAt"
-          defaultMessage="Last scheduled time"
-        />
+        <FormattedMessage id="pages.searchTable.updateTime" defaultMessage="Last updateTime" />
       ),
       sorter: true,
-      dataIndex: 'updatedAt',
+      dataIndex: 'updateTime',
       valueType: 'dateTime',
       renderFormItem: (item, { defaultRender, ...rest }, form) => {
         const status = form.getFieldValue('status');
@@ -223,28 +287,28 @@ const TableList: React.FC = () => {
         return defaultRender(item);
       },
     },
-    {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating" />,
-      dataIndex: 'option',
-      valueType: 'option',
-      render: (_, record) => [
-        <a
-          key="config"
-          onClick={() => {
-            handleUpdateModalOpen(true);
-            setCurrentRow(record);
-          }}
-        >
-          <FormattedMessage id="pages.searchTable.config" defaultMessage="Configuration" />
-        </a>,
-        <a key="subscribeAlert" href="https://procomponents.ant.design/">
-          <FormattedMessage
-            id="pages.searchTable.subscribeAlert"
-            defaultMessage="Subscribe to alerts"
-          />
-        </a>,
-      ],
-    },
+    // {
+    //   title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating" />,
+    //   dataIndex: 'option',
+    //   valueType: 'option',
+    //   render: (_, record) => [
+    //     <a
+    //       key="config"
+    //       onClick={() => {
+    //         handleUpdateModalOpen(true);
+    //         setCurrentRow(record);
+    //       }}
+    //     >
+    //       <FormattedMessage id="pages.searchTable.config" defaultMessage="Configuration" />
+    //     </a>,
+    //     <a key="subscribeAlert" href="https://procomponents.ant.design/">
+    //       <FormattedMessage
+    //         id="pages.searchTable.subscribeAlert"
+    //         defaultMessage="Subscribe to alerts"
+    //       />
+    //     </a>,
+    //   ],
+    // },
   ];
 
   return (
@@ -260,23 +324,24 @@ const TableList: React.FC = () => {
           labelWidth: 120,
         }}
         toolBarRender={() => [
-          <Button
-            type="primary"
-            key="primary"
-            onClick={() => {
-              handleModalOpen(true);
-            }}
-          >
-            <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
-          </Button>,
+          // 新建按钮
+          // <Button
+          //   type="primary"
+          //   key="primary"
+          //   onClick={() => {
+          //     handleModalOpen(true);
+          //   }}
+          // >
+          //   <PlusOutlined/> <FormattedMessage id="pages.searchTable.new" defaultMessage="New"/>
+          // </Button>,
         ]}
         request={rule}
         columns={columns}
-        rowSelection={{
-          onChange: (_, selectedRows) => {
-            setSelectedRows(selectedRows);
-          },
-        }}
+        // rowSelection={{
+        //   onChange: (_, selectedRows) => {
+        //     setSelectedRows(selectedRows);
+        //   },
+        // }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
