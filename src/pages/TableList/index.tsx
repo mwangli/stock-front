@@ -145,12 +145,14 @@ const TableList: React.FC = () => {
       dataIndex: 'buyNumber',
       valueType: 'textarea',
       hideInTable: true,
+      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.buyPrice" defaultMessage="Description" />,
       dataIndex: 'buyPrice',
       valueType: 'textarea',
       hideInTable: true,
+      hideInSearch: true,
     },
     {
       title: (
@@ -162,6 +164,7 @@ const TableList: React.FC = () => {
       dataIndex: 'buyAmount',
       sorter: true,
       hideInForm: true,
+      hideInSearch: true,
       renderText: (val: string) =>
         `${val}${intl.formatMessage({
           id: 'pages.searchTable.yuan',
@@ -178,18 +181,21 @@ const TableList: React.FC = () => {
       dataIndex: 'saleNumber',
       valueType: 'textarea',
       hideInTable: true,
+      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.salePrice" defaultMessage="Description" />,
       dataIndex: 'salePrice',
       valueType: 'textarea',
       hideInTable: true,
+      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.saleAmount" defaultMessage="saleAmount" />,
       dataIndex: 'saleAmount',
       sorter: true,
       hideInForm: true,
+      hideInSearch: true,
       renderText: (val: string) =>
         val
           ? `${val}${intl.formatMessage({
@@ -203,6 +209,7 @@ const TableList: React.FC = () => {
       dataIndex: 'income',
       sorter: true,
       hideInForm: true,
+      hideInSearch: true,
       renderText: (val: string) =>
         val
           ? `${val}${intl.formatMessage({
@@ -222,6 +229,7 @@ const TableList: React.FC = () => {
       ),
       dataIndex: 'dailyIncomeRate',
       sorter: true,
+      hideInSearch: true,
       // hideInForm: true,
       // renderText: (val: string) =>
       //   `${val}${intl.formatMessage({
@@ -260,6 +268,7 @@ const TableList: React.FC = () => {
       dataIndex: 'createTime',
       valueType: 'dateTime',
       hideInTable: true,
+      hideInSearch: true,
     },
     {
       title: (
@@ -268,6 +277,7 @@ const TableList: React.FC = () => {
       sorter: true,
       dataIndex: 'updateTime',
       valueType: 'dateTime',
+      hideInSearch: true,
       renderFormItem: (item, { defaultRender, ...rest }, form) => {
         const status = form.getFieldValue('status');
         if (`${status}` === '0') {
