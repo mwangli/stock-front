@@ -51,6 +51,12 @@ export default [
     path: '/list',
     component: './TableList',
   },
+  // {
+  //   name: 'analysis',
+  //   icon: 'analysis',
+  //   path: '/analysis',
+  //   component: './analysis',
+  // },
   {
     path: '/',
     redirect: '/welcome',

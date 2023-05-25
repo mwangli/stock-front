@@ -40,17 +40,21 @@ export async function getNotices(options?: { [key: string]: any }) {
   });
 }
 
-/** 获取规则列表 GET /api/rule */
-export async function rule(
+/** 获取规则列表 GET /api/listFoundTrading */
+export async function   listFoundTrading(
   params: {
     // query
     /** 当前的页码 */
     current?: number;
     /** 页面的容量 */
     pageSize?: number;
+    name?: string;
+    code?: string;
   },
+  sort: any,
   options?: { [key: string]: any },
 ) {
+  console.log(JSON.stringify(sort));
   return request<API.RuleList>('/api/foundTrading', {
     method: 'GET',
     params: {
