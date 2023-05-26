@@ -18,7 +18,7 @@ const topColResponsiveProps = {
   style: { marginBottom: 24 },
 };
 
-const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: DataItem[] }) => (
+const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: any }) => (
   <Row gutter={24}>
     <Col {...topColResponsiveProps}>
       <ChartCard
@@ -30,7 +30,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Dat
           </Tooltip>
         }
         loading={loading}
-        total={() => <Yuan>12356</Yuan>}
+        total={() => <Yuan>$111</Yuan>}
         footer={<Field label="昨日收益金额" value={`￥${numeral(12423).format('0,0')}`} />}
         contentHeight={46}
       >

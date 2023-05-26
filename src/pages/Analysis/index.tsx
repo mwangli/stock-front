@@ -96,8 +96,8 @@ const Analysis: FC<AnalysisProps> = () => {
     setCurrentTabKey(key);
   };
 
-  const activeKey = currentTabKey || (data?.offlineData[0] && data?.offlineData[0].name) || '';
-
+  // const activeKey = currentTabKey || (data?.offlineData[0] && data?.offlineData[0].name) || '';
+     const activeKey = '';
   return (
     <GridContent>
       <>
@@ -109,7 +109,7 @@ const Analysis: FC<AnalysisProps> = () => {
         <Suspense fallback={null}>
           <SalesCard
             rangePickerValue={rangePickerValue}
-            salesData={data?.salesData || []}
+            salesData={data?.incomeList || []}
             isActive={isActive}
             handleRangePickerChange={handleRangePickerChange}
             loading={loading}
