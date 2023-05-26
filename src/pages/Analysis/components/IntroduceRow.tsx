@@ -22,15 +22,15 @@ const IntroduceRow = ({loading, visitData}: { loading: boolean; visitData: any }
     <Col {...topColResponsiveProps}>
       <ChartCard
         bordered={false}
-        title="今日收益金额"
+        title="最近收益金额"
         action={
-          <Tooltip title="今日收益金额">
+          <Tooltip title="最近收益金额">
             <InfoCircleOutlined/>
           </Tooltip>
         }
         loading={loading}
         total={`￥${numeral(visitData?.income).format('0.00')}`}
-        footer={<Field label="昨日收益金额:" value={`${numeral(visitData?.preIncome).format('0.00')}元`}/>}
+        footer={<Field label="上次收益金额:" value={`${numeral(visitData?.preIncome).format('0.00')}元`}/>}
         contentHeight={46}
       >
         {/*<Trend flag="up" style={{ marginRight: 16 }}>*/}
@@ -38,7 +38,7 @@ const IntroduceRow = ({loading, visitData}: { loading: boolean; visitData: any }
         {/*  <span className={styles.trendText}>12%</span>*/}
         {/*</Trend>*/}
         <Trend flag={visitData?.income - visitData?.preIncome> 0 ? "up" : "down"}>
-          比较昨日
+          比较上次
           <span
             className={''}>{numeral((visitData?.income - visitData?.preIncome)).format('0.00')}</span>
         </Trend>
@@ -70,21 +70,21 @@ const IntroduceRow = ({loading, visitData}: { loading: boolean; visitData: any }
       <ChartCard
         bordered={false}
         loading={loading}
-        title="收益率"
+        title="日收益率"
         action={
-          <Tooltip title="收益率">
+          <Tooltip title="日收益率">
             <InfoCircleOutlined/>
           </Tooltip>
         }
         total={`${numeral(visitData?.incomeRate).format('0.0000')}%`}
-        footer={<Field label="平均收益率:" value={`${numeral(visitData?.avgRate).format('0.0000')}%`}/>}
+        footer={<Field label="平均日收益率:" value={`${numeral(visitData?.avgDailyRate).format('0.0000')}%`}/>}
         contentHeight={46}
       >
         <TinyArea
           color="#975FE4"
           height={46}
           smooth
-          data={visitData?.rateList?.map((i:any) => {return i.y})}
+          data={visitData?.dailyRateList?.map((i:any) => {return i.y})}
         />
       </ChartCard>
     </Col>

@@ -41,6 +41,19 @@ const columns = [
     ),
   },
   {
+    title: '收益率',
+    dataIndex: 'z',
+    key: 'z',
+    // sorter: (a: { count: number }, b: { count: number }) => a.count - b.count,
+    // className: styles.alignRight,
+    render: (text: React.ReactNode, record: { status: number }) => (
+      // <Trend flag={record.status === 1 ? 'down' : 'up'}>
+      //   <span style={{ marginRight: 4 }}>{text}%</span>
+      // </Trend>
+      `${numeral(text).format('0.0000')}%`
+    ),
+  },
+  {
     title: '持有天数',
     dataIndex: 't',
     key: 't',
@@ -48,14 +61,14 @@ const columns = [
   },
   {
     title: '日收益率',
-    dataIndex: 'z',
-    key: 'z',
+    dataIndex: 's',
+    key: 's',
     // sorter: (a: { range: number }, b: { range: number }) => a.range - b.range,
     render: (text: React.ReactNode, record: { status: number }) => (
       // <Trend flag={record.status === 1 ? 'down' : 'up'}>
       //   <span style={{ marginRight: 4 }}>{text}%</span>
       // </Trend>
-      `${text}%`
+      `${numeral(text).format('0.0000')}%`
     ),
   },
 ];
@@ -76,30 +89,30 @@ const TopSearch = ({
   <Card
     loading={loading}
     bordered={false}
-    title="日收益率统计"
+    title="收益率排行"
     extra={dropdownGroup}
     style={{
       height: '100%',
     }}
   >
     <Row gutter={68}>
-      <Col sm={24} xs={24} style={{ marginBottom: 24 }}>
-        <NumberInfo
-          // subTitle={
-          //   <span>
-          //     日收益率趋势
-          //     {/*<Tooltip title="日收益率趋势">*/}
-          //     {/*  <InfoCircleOutlined style={{ marginLeft: 8 }} />*/}
-          //     {/*</Tooltip>*/}
-          //   </span>
-          // }
-          // gap={8}
-          total={`${numeral(dailyIncomeRate).format('0.0000')}%`}
-          // status="up"
-          // subTotal={17.1}
-        />
-        <TinyArea  height={108}  smooth data={visitData2?.map((i:any) => {return i.y})} color={''} />
-      </Col>
+      {/*<Col sm={24} xs={24} style={{ marginBottom: 24 }}>*/}
+      {/*  <NumberInfo*/}
+      {/*    // subTitle={*/}
+      {/*    //   <span>*/}
+      {/*    //     日收益率趋势*/}
+      {/*    //     /!*<Tooltip title="日收益率趋势">*!/*/}
+      {/*    //     /!*  <InfoCircleOutlined style={{ marginLeft: 8 }} />*!/*/}
+      {/*    //     /!*</Tooltip>*!/*/}
+      {/*    //   </span>*/}
+      {/*    // }*/}
+      {/*    // gap={8}*/}
+      {/*    total={`${numeral(dailyIncomeRate).format('0.0000')}%`}*/}
+      {/*    // status="up"*/}
+      {/*    // subTotal={17.1}*/}
+      {/*  />*/}
+      {/*  /!*<TinyArea  height={108}  smooth data={visitData2?.map((i:any) => {return i.y})} color={''} />*!/*/}
+      {/*</Col>*/}
       {/*<Col sm={12} xs={24} style={{ marginBottom: 24 }}>*/}
       {/*  <NumberInfo*/}
       {/*    subTitle={*/}

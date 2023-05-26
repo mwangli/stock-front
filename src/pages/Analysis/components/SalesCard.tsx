@@ -61,11 +61,11 @@ const SalesCard = ({
                 本年
               </a>
             </div>
-            {/*<RangePicker*/}
-            {/*  value={rangePickerValue}*/}
-            {/*  onChange={handleRangePickerChange}*/}
-            {/*  style={{width: 256}}*/}
-            {/*/>*/}
+            <RangePicker
+              value={rangePickerValue}
+              onChange={handleRangePickerChange}
+              style={{width: 256}}
+            />
           </div>
         }
         size="large"
@@ -127,11 +127,12 @@ const SalesCard = ({
             </Col>
           </Row>
         </TabPane>
-        <TabPane tab="收益率" key="views">
+        <TabPane tab="日收益率" key="views">
           <Row>
             <Col xl={16} lg={12} md={12} sm={24} xs={24}>
               <div className={styles.salesBar}>
-                <Column
+                <Area
+                  smooth
                   height={300}
                   data={salesData2 as any}
                   xField="x"
@@ -160,7 +161,7 @@ const SalesCard = ({
                       alias: '日期',
                     },
                     y: {
-                      alias: '收益率(%)',
+                      alias: '日收益率(%)',
                     },
                   }}
                 />
@@ -168,7 +169,7 @@ const SalesCard = ({
             </Col>
             <Col xl={8} lg={12} md={12} sm={24} xs={24}>
               <div className={styles.salesRank}>
-                <h4 className={styles.rankingTitle}>收益率排行</h4>
+                <h4 className={styles.rankingTitle}>日收益率排行</h4>
                 <ul className={styles.rankingList}>
                   {rateOrder.map((item, i) => (
                     <li key={item.x}>

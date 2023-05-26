@@ -110,9 +110,9 @@ const Analysis: FC<AnalysisProps> = () => {
           <SalesCard
             rangePickerValue={rangePickerValue}
             salesData={data?.incomeList || []}
-            salesData2={data?.rateList || []}
+            salesData2={data?.dailyRateList || []}
             incomeOrder={data?.incomeOrder || []}
-            rateOrder={data?.rateOrder || []}
+            rateOrder={data?.dailyRateOrder || []}
             isActive={isActive}
             handleRangePickerChange={handleRangePickerChange}
             loading={loading}
@@ -132,7 +132,7 @@ const Analysis: FC<AnalysisProps> = () => {
               <TopSearch
                 loading={loading}
                 visitData2={data?.dailyRateList || []}
-                searchData={data?.dailyRateOrder || []}
+                searchData={data?.rateOrder || []}
                 dailyIncomeRate={data?.dailyIncomeRate || {}}
                 dropdownGroup={dropdownGroup}
               />
