@@ -98,7 +98,7 @@ const TopSearch = ({
           // status="up"
           // subTotal={17.1}
         />
-        <TinyArea xField="x" height={108}  forceFit yField="y" smooth data={visitData2} />
+        <TinyArea  height={108}  smooth data={visitData2?.map((i:any) => {return i.y})} color={''} />
       </Col>
       {/*<Col sm={12} xs={24} style={{ marginBottom: 24 }}>*/}
       {/*  <NumberInfo*/}

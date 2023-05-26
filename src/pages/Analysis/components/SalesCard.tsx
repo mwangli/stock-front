@@ -61,11 +61,11 @@ const SalesCard = ({
                 本年
               </a>
             </div>
-            <RangePicker
-              value={rangePickerValue}
-              onChange={handleRangePickerChange}
-              style={{width: 256}}
-            />
+            {/*<RangePicker*/}
+            {/*  value={rangePickerValue}*/}
+            {/*  onChange={handleRangePickerChange}*/}
+            {/*  style={{width: 256}}*/}
+            {/*/>*/}
           </div>
         }
         size="large"
@@ -77,35 +77,29 @@ const SalesCard = ({
               <div className={styles.salesBar}>
                 <Column
                   height={300}
-                  forceFit
+                  // forceFit
                   data={salesData as any}
                   xField="x"
                   yField="y"
                   xAxis={{
-                    visible: true,
+                    // visible: true,
                     title: {
-                      visible: false,
+                      // visible: false,
                     },
                   }}
                   yAxis={{
-                    visible: true,
+                    // visible: true,
                     title: {
-                      visible: false,
+                      // visible: false,
                     },
                   }}
-                  title={{
-                    visible: true,
-                    text: '收益统计',
-                    style: {
-                      fontSize: 14,
-                    },
-                  }}
+                  // title={''}
                   meta={{
                     y: {
                       alias: '收益金额(元)',
                     },
-                    z: {
-                      alias: '股票代码',
+                    x: {
+                      alias: '日期',
                     },
                   }}
                 />
@@ -139,30 +133,32 @@ const SalesCard = ({
               <div className={styles.salesBar}>
                 <Column
                   height={300}
-                  forceFit
                   data={salesData2 as any}
                   xField="x"
                   yField="y"
                   xAxis={{
-                    visible: true,
+                    // visible: true,
                     title: {
-                      visible: false,
+                      // visible: false,
                     },
                   }}
                   yAxis={{
-                    visible: true,
+                    // visible: true,
                     title: {
-                      visible: false,
+                      // visible: false,
                     },
                   }}
-                  title={{
-                    visible: true,
-                    text: '收益率统计',
-                    style: {
-                      fontSize: 14,
-                    },
-                  }}
+                  // title={{
+                  //   visible: true,
+                  //   text: '收益率统计',
+                  //   style: {
+                  //     fontSize: 14,
+                  //   },
+                  // }}
                   meta={{
+                    x: {
+                      alias: '日期',
+                    },
                     y: {
                       alias: '收益率(%)',
                     },

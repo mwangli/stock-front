@@ -60,7 +60,7 @@ const IntroduceRow = ({loading, visitData}: { loading: boolean; visitData: any }
         footer={<Field label="平均收益金额:" value={`${numeral(visitData?.avgIncome).format('0,0')}元`}/>}
         contentHeight={46}
       >
-        <TinyColumn xField="x" height={46} forceFit yField="y" data={visitData?.incomeList}
+        <TinyColumn  height={46} data={visitData?.incomeList?.map((i:any) => {return i.y})}
 
         />
 
@@ -82,12 +82,9 @@ const IntroduceRow = ({loading, visitData}: { loading: boolean; visitData: any }
       >
         <TinyArea
           color="#975FE4"
-          xField="x"
           height={46}
-          forceFit
-          yField="y"
           smooth
-          data={visitData?.rateList}
+          data={visitData?.rateList?.map((i:any) => {return i.y})}
         />
       </ChartCard>
     </Col>
@@ -104,12 +101,12 @@ const IntroduceRow = ({loading, visitData}: { loading: boolean; visitData: any }
         total={`${numeral(visitData?.accountInfo?.usedAmount/visitData?.accountInfo?.totalAmount*100).format('0.00')} %`}
         footer={
           <div style={{whiteSpace: 'nowrap', overflow: 'hidden'}}>
-            <Trend style={{marginRight: 16}}>
+            <Trend flag={''} style={{marginRight: 16}}>
               持仓金额:
               <span
                 className={''}>{`${numeral(visitData?.accountInfo?.usedAmount).format('0.00')}元`}</span>
             </Trend>
-            <Trend>
+            <Trend flag={''}>
               空闲金额:
               <span className={''}>{`${numeral(visitData?.accountInfo?.availableAmount).format('0.00')}元`}</span>
             </Trend>
@@ -118,19 +115,10 @@ const IntroduceRow = ({loading, visitData}: { loading: boolean; visitData: any }
         contentHeight={46}
       >
         <Progress
-          height={46}
+          height={32}
           percent={visitData?.accountInfo?.usedAmount/visitData?.accountInfo?.totalAmount}
           color="#13C2C2"
-          forceFit
-          size={8}
-          marker={[
-            {
-              value: 0.8,
-              style: {
-                stroke: '#13C2C2',
-              },
-            },
-          ]}
+          autoFit
         />
       </ChartCard>
     </Col>

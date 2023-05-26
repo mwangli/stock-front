@@ -47,7 +47,7 @@
   "dependencies": {
 
     "numeral": "^2.0.6",
-    "@ant-design/charts": "^0.9.4",
+    "@ant-design/charts": "^1.4.2",
 
     "@ant-design/icons": "^4.8.0",
     "@ant-design/pro-components": "^2.3.57",
