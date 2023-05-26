@@ -43,4 +43,20 @@ export interface AnalysisData {
   salesTypeDataOnline: DataItem[];
   salesTypeDataOffline: DataItem[];
   radarData: RadarData[];
+
+  income,
+  preIncome,
+  totalIncome,
+  avgIncome,
+  dailyIncomeRate,
+  accountInfo,
+  incomeList,
+  rateList,
+  dailyRateList: DataItem[],
+  avgDailyRate,
+  incomeOrder,
+  rateOrder,
+  dailyRateOrder,
+  holdDaysList: DataItem[],
+  test: DataItem[],
 }

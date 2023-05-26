@@ -5,7 +5,7 @@ import styles from './index.less';
 
 export type TrendProps = {
   colorful?: boolean;
-  flag: 'up' | 'down';
+  flag: 'up' | 'down' | '';
   style?: React.CSSProperties;
   reverseColor?: boolean;
   className?: string;

@@ -1,17 +1,17 @@
-import { Card, Col, DatePicker, Row, Tabs } from 'antd';
-import type { RangePickerProps } from 'antd/es/date-picker/generatePicker';
+import {Card, Col, DatePicker, Row, Tabs} from 'antd';
+import type {RangePickerProps} from 'antd/es/date-picker/generatePicker';
 import type moment from 'moment';
-import { Column } from '@ant-design/charts';
+import {Area, Column} from '@ant-design/charts';
 
 import numeral from 'numeral';
-import type { DataItem } from '../data';
+import type {DataItem} from '../data';
 import styles from '../style.less';
 
 type RangePickerValue = RangePickerProps<moment.Moment>['value'];
 export type TimeType = 'today' | 'week' | 'month' | 'year';
 
-const { RangePicker } = DatePicker;
-const { TabPane } = Tabs;
+const {RangePicker} = DatePicker;
+const {TabPane} = Tabs;
 
 const rankingListData: { title: string; total: number }[] = [];
 for (let i = 0; i < 7; i += 1) {
@@ -22,21 +22,27 @@ for (let i = 0; i < 7; i += 1) {
 }
 
 const SalesCard = ({
-  rangePickerValue,
-  salesData,
-  isActive,
-  handleRangePickerChange,
-  loading,
-  selectDate,
-}: {
+                     rangePickerValue,
+                     salesData,
+                     salesData2,
+                     incomeOrder,
+                     rateOrder,
+                     isActive,
+                     handleRangePickerChange,
+                     loading,
+                     selectDate,
+                   }: {
   rangePickerValue: RangePickerValue;
   isActive: (key: TimeType) => string;
   salesData: DataItem[];
+  salesData2: DataItem[];
+  incomeOrder: DataItem[];
+  rateOrder: DataItem[];
   loading: boolean;
   handleRangePickerChange: (dates: RangePickerValue, dateStrings: [string, string]) => void;
   selectDate: (key: TimeType) => void;
 }) => (
-  <Card loading={loading} bordered={false} bodyStyle={{ padding: 0 }}>
+  <Card loading={loading} bordered={false} bodyStyle={{padding: 0}}>
     <div className={styles.salesCard}>
       <Tabs
         tabBarExtraContent={
@@ -58,14 +64,14 @@ const SalesCard = ({
             <RangePicker
               value={rangePickerValue}
               onChange={handleRangePickerChange}
-              style={{ width: 256 }}
+              style={{width: 256}}
             />
           </div>
         }
         size="large"
-        tabBarStyle={{ marginBottom: 24 }}
+        tabBarStyle={{marginBottom: 24}}
       >
-        <TabPane tab="销售额" key="sales">
+        <TabPane tab="收益金额" key="sales">
           <Row>
             <Col xl={16} lg={12} md={12} sm={24} xs={24}>
               <div className={styles.salesBar}>
@@ -89,14 +95,17 @@ const SalesCard = ({
                   }}
                   title={{
                     visible: true,
-                    text: '销售趋势',
+                    text: '收益统计',
                     style: {
                       fontSize: 14,
                     },
                   }}
                   meta={{
                     y: {
-                      alias: '销售量',
+                      alias: '收益金额(元)',
+                    },
+                    z: {
+                      alias: '股票代码',
                     },
                   }}
                 />
@@ -104,18 +113,18 @@ const SalesCard = ({
             </Col>
             <Col xl={8} lg={12} md={12} sm={24} xs={24}>
               <div className={styles.salesRank}>
-                <h4 className={styles.rankingTitle}>门店销售额排名</h4>
+                <h4 className={styles.rankingTitle}>收益金额排行</h4>
                 <ul className={styles.rankingList}>
-                  {rankingListData.map((item, i) => (
-                    <li key={item.title}>
+                  {incomeOrder.map((item, i) => (
+                    <li key={item.x}>
                       <span className={`${styles.rankingItemNumber} ${i < 3 ? styles.active : ''}`}>
                         {i + 1}
                       </span>
-                      <span className={styles.rankingItemTitle} title={item.title}>
-                        {item.title}
+                      <span className={styles.rankingItemTitle} title={item.x}>
+                        {item.x}
                       </span>
                       <span className={styles.rankingItemValue}>
-                        {numeral(item.total).format('0,0')}
+                        {`${numeral(item.y).format('0.00')} 元`}
                       </span>
                     </li>
                   ))}
@@ -124,14 +133,14 @@ const SalesCard = ({
             </Col>
           </Row>
         </TabPane>
-        <TabPane tab="访问量" key="views">
+        <TabPane tab="收益率" key="views">
           <Row>
             <Col xl={16} lg={12} md={12} sm={24} xs={24}>
               <div className={styles.salesBar}>
                 <Column
                   height={300}
                   forceFit
-                  data={salesData as any}
+                  data={salesData2 as any}
                   xField="x"
                   yField="y"
                   xAxis={{
@@ -148,14 +157,14 @@ const SalesCard = ({
                   }}
                   title={{
                     visible: true,
-                    text: '访问量趋势',
+                    text: '收益率统计',
                     style: {
                       fontSize: 14,
                     },
                   }}
                   meta={{
                     y: {
-                      alias: '访问量',
+                      alias: '收益率(%)',
                     },
                   }}
                 />
@@ -163,17 +172,17 @@ const SalesCard = ({
             </Col>
             <Col xl={8} lg={12} md={12} sm={24} xs={24}>
               <div className={styles.salesRank}>
-                <h4 className={styles.rankingTitle}>门店访问量排名</h4>
+                <h4 className={styles.rankingTitle}>收益率排行</h4>
                 <ul className={styles.rankingList}>
-                  {rankingListData.map((item, i) => (
-                    <li key={item.title}>
+                  {rateOrder.map((item, i) => (
+                    <li key={item.x}>
                       <span className={`${styles.rankingItemNumber} ${i < 3 ? styles.active : ''}`}>
                         {i + 1}
                       </span>
-                      <span className={styles.rankingItemTitle} title={item.title}>
-                        {item.title}
+                      <span className={styles.rankingItemTitle} title={item.x}>
+                        {item.x}
                       </span>
-                      <span>{numeral(item.total).format('0,0')}</span>
+                      <span>{`${numeral(item.y).format('0.0000')} %`}</span>
                     </li>
                   ))}
                 </ul>

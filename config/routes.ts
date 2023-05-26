@@ -22,12 +22,12 @@ export default [
       },
     ],
   },
-  {
-    path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
-    component: './Welcome',
-  },
+  // {
+  //   path: '/welcome',
+  //   name: 'welcome',
+  //   icon: 'smile',
+  //   component: './Welcome',
+  // },
   {
     path: '/admin',
     name: 'admin',
@@ -46,20 +46,20 @@ export default [
     ],
   },
   {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
-  },
-  {
     name: 'list.analysis',
     icon: 'AreaChart',
     path: '/analysis',
     component: './Analysis',
   },
   {
+    name: 'list.table-list',
+    icon: 'table',
+    path: '/list',
+    component: './TableList',
+  },
+  {
     path: '/',
-    redirect: '/welcome',
+    redirect: '/analysis',
   },
   {
     path: '*',

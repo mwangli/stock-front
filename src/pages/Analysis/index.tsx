@@ -103,13 +103,16 @@ const Analysis: FC<AnalysisProps> = () => {
       <>
         {/*第一排四个小图*/}
         <Suspense fallback={<PageLoading />}>
-          <IntroduceRow loading={loading} visitData={data?.visitData || []} />
+          <IntroduceRow loading={loading} visitData={data || {} } />
         </Suspense>
         {/*中间的柱状图*/}
         <Suspense fallback={null}>
           <SalesCard
             rangePickerValue={rangePickerValue}
             salesData={data?.incomeList || []}
+            salesData2={data?.rateList || []}
+            incomeOrder={data?.incomeOrder || []}
+            rateOrder={data?.rateOrder || []}
             isActive={isActive}
             handleRangePickerChange={handleRangePickerChange}
             loading={loading}
@@ -123,12 +126,14 @@ const Analysis: FC<AnalysisProps> = () => {
             marginTop: 24,
           }}
         >
+          {/*第三块折线图*/}
           <Col xl={12} lg={24} md={24} sm={24} xs={24}>
             <Suspense fallback={null}>
               <TopSearch
                 loading={loading}
-                visitData2={data?.visitData2 || []}
-                searchData={data?.searchData || []}
+                visitData2={data?.dailyRateList || []}
+                searchData={data?.dailyRateOrder || []}
+                dailyIncomeRate={data?.dailyIncomeRate || {}}
                 dropdownGroup={dropdownGroup}
               />
             </Suspense>
@@ -139,22 +144,22 @@ const Analysis: FC<AnalysisProps> = () => {
                 dropdownGroup={dropdownGroup}
                 salesType={salesType}
                 loading={loading}
-                salesPieData={salesPieData || []}
+                salesPieData={data?.holdDaysList || []}
                 handleChangeSalesType={handleChangeSalesType}
               />
             </Suspense>
           </Col>
         </Row>
 
-        <Suspense fallback={null}>
-          <OfflineData
-            activeKey={activeKey}
-            loading={loading}
-            offlineData={data?.offlineData || []}
-            offlineChartData={data?.offlineChartData || []}
-            handleTabChange={handleTabChange}
-          />
-        </Suspense>
+        {/*<Suspense fallback={null}>*/}
+        {/*  <OfflineData*/}
+        {/*    activeKey={activeKey}*/}
+        {/*    loading={loading}*/}
+        {/*    offlineData={data?.offlineData || []}*/}
+        {/*    offlineChartData={data?.offlineChartData || []}*/}
+        {/*    handleTabChange={handleTabChange}*/}
+        {/*  />*/}
+        {/*</Suspense>*/}
       </>
     </GridContent>
   );
