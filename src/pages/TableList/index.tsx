@@ -232,7 +232,6 @@ const TableList: React.FC = () => {
     {
       title: <FormattedMessage id="pages.searchTable.income" defaultMessage="income"/>,
       dataIndex: 'income',
-      sorter: false,
       sortDirections: [],
       hideInForm: true,
       hideInSearch: true,
