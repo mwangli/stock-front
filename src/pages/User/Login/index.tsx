@@ -107,11 +107,11 @@ const Login: React.FC = () => {
   const intl = useIntl();
 
   const fetchUserInfo = async () => {
-    // const userInfo = await initialState?.fetchUserInfo?.();
-    const userInfo = {
-      'name':'Admin',
-      'avatar': 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-    };
+    const userInfo = await initialState?.fetchUserInfo?.();
+    // const userInfo = {
+    //   'name':'Admin',
+    //   'avatar': 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+    // };
     if (userInfo) {
       flushSync(() => {
         setInitialState((s) => ({
@@ -139,7 +139,7 @@ const Login: React.FC = () => {
         localStorage.setItem('token',msg?.data);
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
-        history.push(urlParams.get('redirect') || '/');
+        history.push(urlParams.get('redirect') || '/welcome');
 
         setInitialState((s) => ({
           ...s,

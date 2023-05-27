@@ -1,24 +1,24 @@
-import type { FC } from 'react';
-import { Suspense, useState } from 'react';
-import { EllipsisOutlined } from '@ant-design/icons';
-import { Col, Dropdown, Menu, Row } from 'antd';
-import { GridContent } from '@ant-design/pro-layout';
-import type { RadioChangeEvent } from 'antd/es/radio';
-import type { RangePickerProps } from 'antd/es/date-picker/generatePicker';
+import type {FC} from 'react';
+import {Suspense, useState} from 'react';
+import {EllipsisOutlined} from '@ant-design/icons';
+import {Col, Dropdown, Menu, Row} from 'antd';
+import {GridContent} from '@ant-design/pro-layout';
+import type {RadioChangeEvent} from 'antd/es/radio';
+import type {RangePickerProps} from 'antd/es/date-picker/generatePicker';
 import type moment from 'moment';
 import IntroduceRow from './components/IntroduceRow';
+import type {TimeType} from './components/SalesCard';
 import SalesCard from './components/SalesCard';
 import TopSearch from './components/TopSearch';
 import ProportionSales from './components/ProportionSales';
-import OfflineData from './components/OfflineData';
-import { useRequest } from 'umi';
+import {useRequest} from 'umi';
 
-import { fakeChartData } from './service';
+import {fakeChartData} from './service';
 import PageLoading from './components/PageLoading';
-import type { TimeType } from './components/SalesCard';
-import { getTimeDistance } from './utils/utils';
-import type { AnalysisData } from './data';
+import {getTimeDistance} from './utils/utils';
+import type {AnalysisData} from './data';
 import styles from './style.less';
+import {PageContainer} from "@ant-design/pro-components";
 
 type RangePickerValue = RangePickerProps<moment.Moment>['value'];
 
@@ -36,7 +36,7 @@ const Analysis: FC<AnalysisProps> = () => {
     getTimeDistance('year'),
   );
 
-  const { loading, data } = useRequest(fakeChartData);
+  const {loading, data} = useRequest(fakeChartData);
 
   const selectDate = (type: TimeType) => {
     setRangePickerValue(getTimeDistance(type));
@@ -83,7 +83,7 @@ const Analysis: FC<AnalysisProps> = () => {
   const dropdownGroup = (
     <span className={styles.iconGroup}>
       <Dropdown overlay={menu} placement="bottomRight">
-        <EllipsisOutlined />
+        <EllipsisOutlined/>
       </Dropdown>
     </span>
   );
@@ -97,71 +97,73 @@ const Analysis: FC<AnalysisProps> = () => {
   };
 
   // const activeKey = currentTabKey || (data?.offlineData[0] && data?.offlineData[0].name) || '';
-     const activeKey = '';
+  const activeKey = '';
   return (
-    <GridContent>
-      <>
-        {/*第一排四个小图*/}
-        <Suspense fallback={<PageLoading />}>
-          <IntroduceRow loading={loading} visitData={data || {} } />
-        </Suspense>
-        {/*中间的柱状图*/}
-        <Suspense fallback={null}>
-          <SalesCard
-            rangePickerValue={rangePickerValue}
-            salesData={data?.incomeList || []}
-            salesData2={data?.dailyRateList || []}
-            incomeOrder={data?.incomeOrder || []}
-            rateOrder={data?.dailyRateOrder || []}
-            isActive={isActive}
-            handleRangePickerChange={handleRangePickerChange}
-            loading={loading}
-            selectDate={selectDate}
-          />
-        </Suspense>
+    <PageContainer>
+      <GridContent>
+        <>
+          {/*第一排四个小图*/}
+          <Suspense fallback={<PageLoading/>}>
+            <IntroduceRow loading={loading} visitData={data || {}}/>
+          </Suspense>
+          {/*中间的柱状图*/}
+          <Suspense fallback={null}>
+            <SalesCard
+              rangePickerValue={rangePickerValue}
+              salesData={data?.incomeList || []}
+              salesData2={data?.dailyRateList || []}
+              incomeOrder={data?.incomeOrder || []}
+              rateOrder={data?.dailyRateOrder || []}
+              isActive={isActive}
+              handleRangePickerChange={handleRangePickerChange}
+              loading={loading}
+              selectDate={selectDate}
+            />
+          </Suspense>
 
-        <Row
-          gutter={24}
-          style={{
-            marginTop: 24,
-          }}
-        >
-          {/*第三块折线图*/}
-          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-            <Suspense fallback={null}>
-              <TopSearch
-                loading={loading}
-                visitData2={data?.dailyRateList || []}
-                searchData={data?.rateOrder || []}
-                dailyIncomeRate={data?.dailyIncomeRate || {}}
-                dropdownGroup={dropdownGroup}
-              />
-            </Suspense>
-          </Col>
-          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-            <Suspense fallback={null}>
-              <ProportionSales
-                dropdownGroup={dropdownGroup}
-                salesType={salesType}
-                loading={loading}
-                salesPieData={data?.holdDaysList || []}
-                handleChangeSalesType={handleChangeSalesType}
-              />
-            </Suspense>
-          </Col>
-        </Row>
+          <Row
+            gutter={24}
+            style={{
+              marginTop: 24,
+            }}
+          >
+            {/*第三块折线图*/}
+            <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+              <Suspense fallback={null}>
+                <TopSearch
+                  loading={loading}
+                  visitData2={data?.dailyRateList || []}
+                  searchData={data?.rateOrder || []}
+                  dailyIncomeRate={data?.dailyIncomeRate || {}}
+                  dropdownGroup={dropdownGroup}
+                />
+              </Suspense>
+            </Col>
+            <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+              <Suspense fallback={null}>
+                <ProportionSales
+                  dropdownGroup={dropdownGroup}
+                  salesType={salesType}
+                  loading={loading}
+                  salesPieData={data?.holdDaysList || []}
+                  handleChangeSalesType={handleChangeSalesType}
+                />
+              </Suspense>
+            </Col>
+          </Row>
 
-        {/*<Suspense fallback={null}>*/}
-        {/*  <OfflineData*/}
-        {/*    activeKey={activeKey}*/}
-        {/*    loading={loading}*/}
-        {/*    offlineData={data?.offlineData || []}*/}
-        {/*    offlineChartData={data?.offlineChartData || []}*/}
-        {/*    handleTabChange={handleTabChange}*/}
-        {/*  />*/}
-        {/*</Suspense>*/}
-      </>
-    </GridContent>
+          {/*<Suspense fallback={null}>*/}
+          {/*  <OfflineData*/}
+          {/*    activeKey={activeKey}*/}
+          {/*    loading={loading}*/}
+          {/*    offlineData={data?.offlineData || []}*/}
+          {/*    offlineChartData={data?.offlineChartData || []}*/}
+          {/*    handleTabChange={handleTabChange}*/}
+          {/*  />*/}
+          {/*</Suspense>*/}
+        </>
+      </GridContent>
+    </PageContainer>
   );
 };
 

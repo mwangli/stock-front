@@ -40,7 +40,7 @@ export async function getNotices(options?: { [key: string]: any }) {
   });
 }
 
-/** 获取规则列表 GET /api/listFoundTrading */
+/** 获取交易记录 GET /api/listFoundTrading */
 export async function listFoundTrading(
   params: {
     // query
@@ -55,6 +55,31 @@ export async function listFoundTrading(
   options?: { [key: string]: any },
 ) {
   return request<API.RuleList>('/api/foundTrading', {
+    method: 'GET',
+    params: {
+      ...params,
+      sortKey: Object.keys(sort)[0],
+      sortOrder: Object.values(sort)[0],
+    },
+    ...(options || {}),
+  });
+}
+
+/** 获取交易记录 GET /api/listFoundTrading */
+export async function listStockInfo(
+  params: {
+    // query
+    /** 当前的页码 */
+    current?: number;
+    /** 页面的容量 */
+    pageSize?: number;
+    name?: string;
+    code?: string;
+  },
+  sort: any,
+  options?: { [key: string]: any },
+) {
+  return request<API.RuleList>('/api/stockInfo', {
     method: 'GET',
     params: {
       ...params,
@@ -88,3 +113,4 @@ export async function removeRule(options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+

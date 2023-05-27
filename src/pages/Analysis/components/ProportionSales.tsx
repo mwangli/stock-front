@@ -18,7 +18,7 @@ const config = {
   label: {
     type: 'inner',
     offset: '-50%',
-    content: '天数:{name}\n数量:{value}',
+    content: '{name}\n数量:{value}',
     style: {
       textAlign: 'center',
       fontSize: 14,
@@ -32,14 +32,14 @@ const config = {
       type: 'element-active',
     },
   ],
-  meta: {
-    x: {
-      alias: "持有天数1"
-    },
-    y: {
-      alias: "占比数量1"
-    }
-  },
+  // meta: {
+  //   x: {
+  //     alias: "持有天数1"
+  //   },
+  //   y: {
+  //     alias: "占比数量1"
+  //   }
+  // },
   statistic: {
     // title: "",
     content: {
@@ -53,7 +53,7 @@ const config = {
   },
   tooltip: {
     formatter: (datum: Datum) => {
-      return {name: '持有天数 ' + datum.x, value: '占比数量 ' + datum.y};
+      return {name:   datum.x, value: '占比数量 ' + datum.y};
     },
   },
 };

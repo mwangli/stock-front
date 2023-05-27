@@ -22,12 +22,12 @@ export default [
       },
     ],
   },
-  // {
-  //   path: '/welcome',
-  //   name: 'welcome',
-  //   icon: 'smile',
-  //   component: './Welcome',
-  // },
+  {
+    path: '/welcome',
+    name: 'welcome',
+    icon: 'smile',
+    component: './Welcome',
+  },
   {
     path: '/admin',
     name: 'admin',
@@ -47,7 +47,7 @@ export default [
   },
   {
     name: 'list.analysis',
-    icon: 'AreaChart',
+    icon: 'BarChartOutlined',
     path: '/analysis',
     component: './Analysis',
   },
@@ -58,8 +58,26 @@ export default [
     component: './TableList',
   },
   {
+    name: 'list.stock-info',
+    icon: 'FundOutlined',
+    path: '/info',
+    component: './TableList2',
+  },
+  {
+    name: 'list.time-job',
+    icon: 'FieldTimeOutlined',
+    path: '/job',
+    component: './TableList3',
+  },
+  {
+    name: 'list.run-logs',
+    icon: 'OrderedListOutlined',
+    path: '/logs',
+    component: './TableList3',
+  },
+  {
     path: '/',
-    redirect: '/analysis',
+    redirect: '/welcome',
   },
   {
     path: '*',

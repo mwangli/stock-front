@@ -6,6 +6,7 @@ import React from 'react';
 
 const Admin: React.FC = () => {
   const intl = useIntl();
+
   return (
     <PageContainer
       content={intl.formatMessage({

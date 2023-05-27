@@ -25,7 +25,7 @@ const columns = [
     title: '股票信息',
     dataIndex: 'x',
     key: 'x',
-    render: (text: React.ReactNode) => <a href="/list">{text}</a>,
+    render: (text: React.ReactNode) => <a>{text}</a>,
   },
   {
     title: '收益金额',

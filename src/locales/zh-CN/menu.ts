@@ -1,5 +1,5 @@
 export default {
-  'menu.welcome': '欢迎',
+  'menu.welcome': '欢迎页面',
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',
   'menu.admin': '管理页',
@@ -23,7 +23,10 @@ export default {
   'menu.form.advanced-form': '高级表单',
   'menu.list': '列表页',
   'menu.list.table-list': '交易记录',
+  'menu.list.stock-info': '实时价格',
+  'menu.list.time-job': '定时任务',
   'menu.list.analysis': '数据分析',
+  'menu.list.run-logs': '日运行志',
   'menu.list.basic-list': '标准列表',
   'menu.list.card-list': '卡片列表',
   'menu.list.search-list': '搜索列表',
