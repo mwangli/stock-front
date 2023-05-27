@@ -37,6 +37,8 @@ declare namespace API {
   };
 
   type RuleListItem = {
+    status: String;
+    data: any;
     name: string,
     accountAmount: number,
     accountDate: string,

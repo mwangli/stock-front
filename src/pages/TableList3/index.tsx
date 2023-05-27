@@ -1,4 +1,4 @@
-import {addRule, listFoundTrading, removeRule, updateRule} from '@/services/ant-design-pro/api';
+import {addRule, listJob, pauseJob, removeRule, resumeJob, runJob, updateRule} from '@/services/ant-design-pro/api';
 import type {ActionType, ProColumns, ProDescriptionsItemProps} from '@ant-design/pro-components';
 import {
   FooterToolbar,
@@ -34,6 +34,20 @@ const handleAdd = async (fields: API.RuleListItem) => {
   }
 };
 
+const handleRun = async (fields: any) => {
+  const hide = message.loading('正在添加');
+  try {
+    await updateRule({...fields});
+    hide();
+    message.success('Added successfully');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('Adding failed, please try again!');
+    return false;
+  }
+};
+
 /**
  * @en-US Update node
  * @zh-CN 更新节点
@@ -47,6 +61,7 @@ const handleUpdate = async (fields: FormValueType) => {
       name: fields.name,
       desc: fields.desc,
       key: fields.key,
+      body: {}
     });
     hide();
 
@@ -110,196 +125,52 @@ const TableList: React.FC = () => {
     {
       title: (
         <FormattedMessage
-          id="pages.searchTable.updateForm.ruleName.nameLabel"
+          id="pages.searchTable.jobId"
           defaultMessage="Rule name"
         />
       ),
-      dataIndex: 'code',
-      tip: 'The stock code is the unique key',
-      render: (dom, entity) => {
+      dataIndex: 'id',
+      hideInSearch: true,
+      // tip: 'The jobId is the unique key',
+      render: (dom, entityn, index) => {
         return (
           <a
             onClick={() => {
-              setCurrentRow(entity);
-              setShowDetail(true);
+              // setCurrentRow(entity);
+              // setShowDetail(true);
             }}
           >
-            {dom}
+            {index + 1}
           </a>
         );
       },
     },
 
     {
-      title: <FormattedMessage id="pages.searchTable.foundName" defaultMessage="Description"/>,
+      title: <FormattedMessage id="pages.searchTable.jobName" defaultMessage="Description"/>,
       dataIndex: 'name',
       valueType: 'textarea',
     },
     {
-      title: <FormattedMessage id="pages.searchTable.buyDate" defaultMessage="Description"/>,
-      dataIndex: 'buyDate',
-      valueType: 'date',
-      sorter: true,
-    },
-    {
-      title: <FormattedMessage id="pages.searchTable.buyPrice" defaultMessage="Description"/>,
-      dataIndex: 'buyPrice',
+      title: <FormattedMessage id="pages.searchTable.jobClassName" defaultMessage="Description"/>,
+      dataIndex: 'className',
       valueType: 'textarea',
-      hideInTable: true,
-      hideInSearch: true,
-      sorter: true,
-      renderText: (val: string) =>
-        val ? `${val}${intl.formatMessage({
-          id: 'pages.searchTable.yuan',
-          defaultMessage: ' 元 ',
-        })}` : '-',
     },
     {
-      title: <FormattedMessage id="pages.searchTable.buyNumber" defaultMessage="Description"/>,
-      dataIndex: 'buyNumber',
+      title: <FormattedMessage id="pages.searchTable.jobDescription" defaultMessage="Description"/>,
+      dataIndex: 'description',
       valueType: 'textarea',
-      hideInTable: true,
       hideInSearch: true,
-      sorter: true,
-      renderText: (val: string) =>
-        val ? `${val}${intl.formatMessage({
-          id: 'pages.searchTable.piece',
-          defaultMessage: ' 股 ',
-        })}` : '-',
     },
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.buyAmount"
-          defaultMessage="Number of service calls"
-        />
-      ),
-      dataIndex: 'buyAmount',
-      sorter: true,
-      hideInForm: true,
-      hideInSearch: true,
-      renderText: (val: string) =>
-        `${val}${intl.formatMessage({
-          id: 'pages.searchTable.yuan',
-          defaultMessage: ' 元 ',
-        })}`,
-    },
-    {
-      title: <FormattedMessage id="pages.searchTable.saleDate" defaultMessage="Description"/>,
-      dataIndex: 'saleDate',
-      valueType: 'date',
-      sorter: true,
-    },
-    {
-      title: <FormattedMessage id="pages.searchTable.salePrice" defaultMessage="Description"/>,
-      dataIndex: 'salePrice',
+      title: <FormattedMessage id="pages.searchTable.jobCronExpression" defaultMessage="Description"/>,
+      dataIndex: 'cron',
       valueType: 'textarea',
-      hideInTable: true,
-      hideInSearch: true,
-      sorter: true,
-      renderText: (val: string) =>
-        val ? `${val}${intl.formatMessage({
-          id: 'pages.searchTable.yuan',
-          defaultMessage: ' 元 ',
-        })}` : '-',
-    },
-    {
-      title: <FormattedMessage id="pages.searchTable.saleNumber" defaultMessage="Description"/>,
-      dataIndex: 'saleNumber',
-      valueType: 'textarea',
-      hideInTable: true,
-      hideInSearch: true,
-      sorter: true,
-      renderText: (val: string) =>
-        val ? `${val}${intl.formatMessage({
-          id: 'pages.searchTable.piece',
-          defaultMessage: ' 元 ',
-        })}` : '-',
-    },
-    {
-      title: <FormattedMessage id="pages.searchTable.saleAmount" defaultMessage="saleAmount"/>,
-      dataIndex: 'saleAmount',
-      sorter: true,
-      hideInForm: true,
-      hideInSearch: true,
-      renderText: (val: string) =>
-        val ? `${val}${intl.formatMessage({
-            id: 'pages.searchTable.yuan',
-            defaultMessage: ' 元 ',
-          })}`
-          : '-',
-    },
-    {
-      title: <FormattedMessage id="pages.searchTable.income" defaultMessage="income"/>,
-      dataIndex: 'income',
-      sortDirections: [],
-      hideInForm: true,
-      hideInSearch: true,
-      sorter: true,
-      renderText: (val: string) =>
-        val ? `${val}${intl.formatMessage({
-          id: 'pages.searchTable.yuan',
-          defaultMessage: ' 元 ',
-        })}` : '-',
-    },
-    {
-      title: <FormattedMessage id="pages.searchTable.holdDays" defaultMessage="Description"/>,
-      dataIndex: 'holdDays',
-      valueType: 'textarea',
-      sorter: true,
-      renderText: (val: string) =>
-        val ? `${val}${intl.formatMessage({
-          id: 'pages.searchTable.day',
-          defaultMessage: ' 天 ',
-        })}` : '-',
-    },
-    {
-      title: (
-        <FormattedMessage id="pages.searchTable.dailyIncomeRate" defaultMessage="dailyIncomeRate"/>
-      ),
-      dataIndex: 'dailyIncomeRate',
-      sorter: true,
-      hideInSearch: true,
-      hideInForm: true,
-      renderText: (val: string) =>
-        val ? `${val}${intl.formatMessage({
-          id: 'pages.searchTable.percent',
-          defaultMessage: ' % ',
-        })}` : '-',
-    },
-    {
-      title: <FormattedMessage id="pages.searchTable.titleStatus" defaultMessage="Status"/>,
-      dataIndex: 'sold',
-      hideInForm: true,
-      order: 1,
-      sorter: true,
-      valueEnum: {
-        // 2: {
-        //   text: (
-        //     <FormattedMessage
-        //       id="pages.searchTable.nameStatus.default"
-        //       defaultMessage="Shut down"
-        //     />
-        //   ),
-        //   status: 'Default',
-        // },
-        1: {
-          text: <FormattedMessage id="pages.searchTable.titleStatus.sold" defaultMessage="sold"/>,
-          status: 'Processing',
-        },
-        0: {
-          text: (
-            <FormattedMessage id="pages.searchTable.titleStatus.notSold" defaultMessage="notSold"/>
-          ),
-          status: 'Error',
-        },
-      },
     },
     {
       title: <FormattedMessage id="pages.searchTable.createTime" defaultMessage="Description"/>,
       dataIndex: 'createTime',
       valueType: 'dateTime',
-      hideInTable: true,
       hideInSearch: true,
       sorter: true,
     },
@@ -330,28 +201,99 @@ const TableList: React.FC = () => {
         return defaultRender(item);
       },
     },
-    // {
-    //   title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating" />,
-    //   dataIndex: 'option',
-    //   valueType: 'option',
-    //   render: (_, record) => [
-    //     <a
-    //       key="config"
-    //       onClick={() => {
-    //         handleUpdateModalOpen(true);
-    //         setCurrentRow(record);
-    //       }}
-    //     >
-    //       <FormattedMessage id="pages.searchTable.config" defaultMessage="Configuration" />
-    //     </a>,
-    //     <a key="subscribeAlert" href="https://procomponents.ant.design/">
-    //       <FormattedMessage
-    //         id="pages.searchTable.subscribeAlert"
-    //         defaultMessage="Subscribe to alerts"
-    //       />
-    //     </a>,
-    //   ],
-    // },
+    {
+      title: <FormattedMessage id="pages.searchTable.jobStatus" defaultMessage="Status"/>,
+      dataIndex: 'status',
+      hideInForm: true,
+      order: 1,
+      sorter: true,
+      valueEnum: {
+        // 2: {
+        //   text: (
+        //     <FormattedMessage
+        //       id="pages.searchTable.nameStatus.default"
+        //       defaultMessage="Shut down"
+        //     />
+        //   ),
+        //   status: 'Default',
+        // },
+        1: {
+          text: <FormattedMessage id="pages.searchTable.jobStatus.running" defaultMessage="sold"/>,
+          status: 'Processing',
+        },
+        0: {
+          text: (
+            <FormattedMessage id="pages.searchTable.jobStatus.paused" defaultMessage="notSold"/>
+          ),
+          status: 'Default',
+        },
+      },
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating"/>,
+      dataIndex: 'option',
+      valueType: 'option',
+      render: (_, record) => [
+        <a key="subscribeAlert"
+           onClick={async (_) => {
+             let res = await runJob({data: {...record}});
+             console.log(res)
+             if (res) {
+               message.success(`${record?.name},任务执行成功`)
+             } else {
+               message.error(`${record?.name},任务执行失败`)
+             }
+
+           }}
+        ><FormattedMessage
+          id="pages.searchTable.runJob"
+          defaultMessage="Subscribe to alerts"
+        />
+        </a>,
+        <a
+          key="config"
+          onClick={async (_) => {
+            let res;
+            if (record.status == "1") {
+              res = await pauseJob({
+                data: {
+                  ...record
+                }
+              });
+            } else {
+              res = await resumeJob({
+                data: {
+                  ...record
+                }
+              });
+            }
+            if (res) {
+              message.success(`任务${record.status == "1" ? "停止" : "恢复"}成功`)
+            } else {
+              message.error(`任务${record.status == "1" ? "停止" : "恢复"}失败`)
+            }
+            if (actionRef.current) {
+              actionRef.current.reload();
+            }
+          }}
+        >
+          <FormattedMessage id={record.status == "1" ? "pages.searchTable.stopJob" : "pages.searchTable.startJob"}
+                            defaultMessage="Configuration"/>
+        </a>,
+        <a key="subscribeAlert">
+          <FormattedMessage
+            id="pages.searchTable.updateJob"
+            defaultMessage="Subscribe to alerts"
+          />
+        </a>,
+        // <a key="subscribeAlert">
+        //   <FormattedMessage
+        //     id="pages.searchTable.deleteJob"
+        //     defaultMessage="Subscribe to alerts"
+        //   />
+        // </a>,
+      ],
+    }
   ];
 
   return (
@@ -378,7 +320,7 @@ const TableList: React.FC = () => {
           //   <PlusOutlined/> <FormattedMessage id="pages.searchTable.new" defaultMessage="New"/>
           // </Button>,
         ]}
-        request={listFoundTrading}
+        request={listJob}
         columns={columns}
         // rowSelection={{
         //   onChange: (_, selectedRows) => {

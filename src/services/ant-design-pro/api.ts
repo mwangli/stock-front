@@ -90,10 +90,35 @@ export async function listStockInfo(
   });
 }
 
+/** 获取定时任务 GET /api/job */
+export async function listJob(
+  params: {
+    // query
+    /** 当前的页码 */
+    current?: number;
+    /** 页面的容量 */
+    pageSize?: number;
+    name?: string;
+    code?: string;
+  },
+  // sort: any,
+  options?: { [key: string]: any },
+) {
+  return request<API.RuleList>('/api/job', {
+    method: 'GET',
+    params: {
+      ...params,
+      // sortKey: Object.keys(sort)[0],
+      // sortOrder: Object.values(sort)[0],
+    },
+    ...(options || {}),
+  });
+}
+
 /** 新建规则 PUT /api/rule */
 export async function updateRule(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/rule', {
-    method: 'PUT',
+  return request<API.RuleListItem>('/api/job/run', {
+    method: 'POST',
     ...(options || {}),
   });
 }
@@ -110,6 +135,48 @@ export async function addRule(options?: { [key: string]: any }) {
 export async function removeRule(options?: { [key: string]: any }) {
   return request<Record<string, any>>('/api/rule', {
     method: 'DELETE',
+    ...(options || {}),
+  });
+}
+
+export async function createJob(options?: { [key: string]: any }) {
+  return request<API.RuleListItem>('/api/job', {
+    method: 'POST',
+    ...(options || {}),
+  });
+}
+
+export async function modifyJob(options?: { [key: string]: any }) {
+  return request<API.RuleListItem>('/api/job', {
+    method: 'PUT',
+    ...(options || {}),
+  });
+}
+
+export async function deleteJob(options?: { [key: string]: any }) {
+  return request<API.RuleListItem>('/api/job', {
+    method: 'DELETE',
+    ...(options || {}),
+  });
+}
+
+export async function runJob(options?: { [key: string]: any }) {
+  return request<API.RuleListItem>('/api/job/run', {
+    method: 'POST',
+    ...(options || {}),
+  });
+}
+
+export async function pauseJob(options?: { [key: string]: any }) {
+  return request<API.RuleListItem>('/api/job/pause', {
+    method: 'POST',
+    ...(options || {}),
+  });
+}
+
+export async function resumeJob(options?: { [key: string]: any }) {
+  return request<API.RuleListItem>('/api/job/resume', {
+    method: 'POST',
     ...(options || {}),
   });
 }

@@ -162,7 +162,7 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       sorter: true,
       renderText: (val: string) =>
-        val ? `${val} %` : '-',
+        val != null ? `${val} %` : '-',
     },
     // {
     //   title: <FormattedMessage id="pages.searchTable.income" defaultMessage="income"/>,
