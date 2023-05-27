@@ -61,11 +61,11 @@ const SalesCard = ({
                 本年
               </a>
             </div>
-            <RangePicker
-              value={rangePickerValue}
-              onChange={handleRangePickerChange}
-              style={{width: 256}}
-            />
+            {/*<RangePicker*/}
+            {/*  value={rangePickerValue}*/}
+            {/*  onChange={handleRangePickerChange}*/}
+            {/*  style={{width: 256}}*/}
+            {/*/>*/}
           </div>
         }
         size="large"
