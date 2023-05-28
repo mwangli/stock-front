@@ -42,11 +42,11 @@ export async function getInitialState(aa: any): Promise<{
   const {location} = history;
   if (location.pathname !== loginPath) {
     // history.push(loginPath)
-    const currentUser = await fetchUserInfo();
-    // const currentUser = {
-    //   'name': 'Admin',
-    //   'avatar': 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-    // };
+    // const currentUser = await fetchUserInfo();
+    const currentUser = {
+      'name': 'Admin',
+      'avatar': 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+    };
     return {
       fetchUserInfo,
       currentUser,

@@ -108,4 +108,13 @@ export default {
   'pages.searchTable.updateJob': '修改',
   'pages.searchTable.deleteJob': '删除',
   'pages.searchTable.runJob': '执行',
+  'pages.searchTable.updateForm.jobConfig': '任务配置',
+  'pages.modalForm.updateJob': '修改任务',
+  'pages.modalForm.message.className': '任务全类名必填',
+  'pages.modalForm.message.cron': '执行表达式必填',
+  'pages.modalForm.message.jobName': '任务名称必须填写',
+  'pages.searchTable.updateForm.scheduleConfig': '任务调度设置',
+  'pages.searchTable.placeholder.jobClassName': '请输入任务全限定类名',
+  'pages.searchTable.placeholder.jobDesc': '请输入任务描述信息',
+
 };

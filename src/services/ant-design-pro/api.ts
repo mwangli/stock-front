@@ -147,7 +147,7 @@ export async function createJob(options?: { [key: string]: any }) {
 }
 
 export async function modifyJob(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/job', {
+  return request<API.ApiResponse>('/api/job', {
     method: 'PUT',
     ...(options || {}),
   });

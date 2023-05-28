@@ -1,7 +1,15 @@
-import {addRule, listJob, pauseJob, removeRule, resumeJob, runJob, updateRule} from '@/services/ant-design-pro/api';
+import {
+  addRule,
+  createJob,
+  deleteJob,
+  listJob,
+  modifyJob,
+  pauseJob,
+  resumeJob,
+  updateRule
+} from '@/services/ant-design-pro/api';
 import type {ActionType, ProColumns, ProDescriptionsItemProps} from '@ant-design/pro-components';
 import {
-  FooterToolbar,
   ModalForm,
   PageContainer,
   ProDescriptions,
@@ -14,6 +22,7 @@ import {Button, Drawer, Input, message} from 'antd';
 import React, {useRef, useState} from 'react';
 import type {FormValueType} from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
+import {PlusOutlined} from "@ant-design/icons";
 
 /**
  * @en-US Add node
@@ -35,15 +44,15 @@ const handleAdd = async (fields: API.RuleListItem) => {
 };
 
 const handleRun = async (fields: any) => {
-  const hide = message.loading('正在添加');
+  const hide = message.loading('正在执行');
   try {
-    await updateRule({...fields});
+    await updateRule({data: fields});
     hide();
-    message.success('Added successfully');
+    message.success('任务执行成功');
     return true;
   } catch (error) {
     hide();
-    message.error('Adding failed, please try again!');
+    message.error('任务执行失败');
     return false;
   }
 };
@@ -55,21 +64,18 @@ const handleRun = async (fields: any) => {
  * @param fields
  */
 const handleUpdate = async (fields: FormValueType) => {
-  const hide = message.loading('Configuring');
+  const hide = message.loading('任务创建中..');
   try {
-    await updateRule({
-      name: fields.name,
-      desc: fields.desc,
-      key: fields.key,
-      body: {}
+    await createJob({
+      data: {...fields}
     });
     hide();
 
-    message.success('Configuration is successful');
+    message.success('任务创建完成！');
     return true;
   } catch (error) {
     hide();
-    message.error('Configuration failed, please try again!');
+    message.error('任务创建失败！');
     return false;
   }
 };
@@ -80,19 +86,16 @@ const handleUpdate = async (fields: FormValueType) => {
  *
  * @param selectedRows
  */
-const handleRemove = async (selectedRows: API.RuleListItem[]) => {
+const handleRemove = async (selectedRows: API.RuleListItem) => {
   const hide = message.loading('正在删除');
-  if (!selectedRows) return true;
   try {
-    await removeRule({
-      key: selectedRows.map((row) => row.key),
-    });
+    await deleteJob({data: selectedRows});
     hide();
-    message.success('Deleted successfully and will refresh soon');
+    message.success('删除任务成功！');
     return true;
   } catch (error) {
     hide();
-    message.error('Delete failed, please try again');
+    message.error('删除任务失败！');
     return false;
   }
 };
@@ -235,15 +238,8 @@ const TableList: React.FC = () => {
       valueType: 'option',
       render: (_, record) => [
         <a key="subscribeAlert"
-           onClick={async (_) => {
-             let res = await runJob({data: {...record}});
-             console.log(res)
-             if (res) {
-               message.success(`${record?.name},任务执行成功`)
-             } else {
-               message.error(`${record?.name},任务执行失败`)
-             }
-
+           onClick={async () => {
+             await handleRun(record)
            }}
         ><FormattedMessage
           id="pages.searchTable.runJob"
@@ -280,18 +276,35 @@ const TableList: React.FC = () => {
           <FormattedMessage id={record.status == "1" ? "pages.searchTable.stopJob" : "pages.searchTable.startJob"}
                             defaultMessage="Configuration"/>
         </a>,
-        <a key="subscribeAlert">
+        <a key="subscribeAlert"
+           onClick={() => {
+             // handleUpdateModalOpen(true);
+
+             setCurrentRow(record);
+             handleModalOpen(true);
+           }}
+        >
           <FormattedMessage
             id="pages.searchTable.updateJob"
             defaultMessage="Subscribe to alerts"
           />
         </a>,
-        // <a key="subscribeAlert">
-        //   <FormattedMessage
-        //     id="pages.searchTable.deleteJob"
-        //     defaultMessage="Subscribe to alerts"
-        //   />
-        // </a>,
+        <a key="subscribeAlert"
+           onClick={async () => {
+             // setCurrentRow(record);
+             const success = await handleRemove(record);
+             if (success) {
+               if (actionRef.current) {
+                 actionRef.current.reload();
+               }
+             }
+           }}
+        >
+          <FormattedMessage
+            id="pages.searchTable.deleteJob"
+            defaultMessage="Subscribe to alerts"
+          />
+        </a>,
       ],
     }
   ];
@@ -310,15 +323,15 @@ const TableList: React.FC = () => {
         }}
         toolBarRender={() => [
           // 新建按钮
-          // <Button
-          //   type="primary"
-          //   key="primary"
-          //   onClick={() => {
-          //     handleModalOpen(true);
-          //   }}
-          // >
-          //   <PlusOutlined/> <FormattedMessage id="pages.searchTable.new" defaultMessage="New"/>
-          // </Button>,
+          <Button
+            type="primary"
+            key="primary"
+            onClick={() => {
+              handleUpdateModalOpen(true);
+            }}
+          >
+            <PlusOutlined/> <FormattedMessage id="pages.searchTable.new" defaultMessage="New"/>
+          </Button>,
         ]}
         request={listJob}
         columns={columns}
@@ -328,63 +341,71 @@ const TableList: React.FC = () => {
         //   },
         // }}
       />
-      {selectedRowsState?.length > 0 && (
-        <FooterToolbar
-          extra={
-            <div>
-              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="Chosen"/>{' '}
-              <a style={{fontWeight: 600}}>{selectedRowsState.length}</a>{' '}
-              <FormattedMessage id="pages.searchTable.item" defaultMessage="项"/>
-              &nbsp;&nbsp;
-              <span>
-                <FormattedMessage
-                  id="pages.searchTable.totalServiceCalls"
-                  defaultMessage="Total number of service calls"
-                />{' '}
-                {selectedRowsState.reduce((pre, item) => pre + item.callNo!, 0)}{' '}
-                <FormattedMessage id="pages.searchTable.tenThousand" defaultMessage="万"/>
-              </span>
-            </div>
-          }
-        >
-          <Button
-            onClick={async () => {
-              await handleRemove(selectedRowsState);
-              setSelectedRows([]);
-              actionRef.current?.reloadAndRest?.();
-            }}
-          >
-            <FormattedMessage
-              id="pages.searchTable.batchDeletion"
-              defaultMessage="Batch deletion"
-            />
-          </Button>
-          <Button type="primary">
-            <FormattedMessage
-              id="pages.searchTable.batchApproval"
-              defaultMessage="Batch approval"
-            />
-          </Button>
-        </FooterToolbar>
-      )}
+      {/*{selectedRowsState?.length > 0 && (*/}
+      {/*  <FooterToolbar*/}
+      {/*    extra={*/}
+      {/*      <div>*/}
+      {/*        <FormattedMessage id="pages.searchTable.chosen" defaultMessage="Chosen"/>{' '}*/}
+      {/*        <a style={{fontWeight: 600}}>{selectedRowsState.length}</a>{' '}*/}
+      {/*        <FormattedMessage id="pages.searchTable.item" defaultMessage="项"/>*/}
+      {/*        &nbsp;&nbsp;*/}
+      {/*        <span>*/}
+      {/*          <FormattedMessage*/}
+      {/*            id="pages.searchTable.totalServiceCalls"*/}
+      {/*            defaultMessage="Total number of service calls"*/}
+      {/*          />{' '}*/}
+      {/*          {selectedRowsState.reduce((pre, item) => pre + item.callNo!, 0)}{' '}*/}
+      {/*          <FormattedMessage id="pages.searchTable.tenThousand" defaultMessage="万"/>*/}
+      {/*        </span>*/}
+      {/*      </div>*/}
+      {/*    }*/}
+      {/*  >*/}
+      {/*    <Button*/}
+      {/*      onClick={async () => {*/}
+      {/*        await handleRemove(selectedRowsState);*/}
+      {/*        setSelectedRows([]);*/}
+      {/*        actionRef.current?.reloadAndRest?.();*/}
+      {/*      }}*/}
+      {/*    >*/}
+      {/*      <FormattedMessage*/}
+      {/*        id="pages.searchTable.batchDeletion"*/}
+      {/*        defaultMessage="Batch deletion"*/}
+      {/*      />*/}
+      {/*    </Button>*/}
+      {/*    <Button type="primary">*/}
+      {/*      <FormattedMessage*/}
+      {/*        id="pages.searchTable.batchApproval"*/}
+      {/*        defaultMessage="Batch approval"*/}
+      {/*      />*/}
+      {/*    </Button>*/}
+      {/*  </FooterToolbar>*/}
+      {/*)}*/}
       <ModalForm
+        initialValues={currentRow}
         title={intl.formatMessage({
-          id: 'pages.searchTable.createForm.newRule',
-          defaultMessage: 'New rule',
+          id: 'pages.modalForm.updateJob',
+          defaultMessage: '修改任务',
         })}
-        width="400px"
+        width={520}
+        style={{padding: '16px 20px 24px'}}
         open={createModalOpen}
         onOpenChange={handleModalOpen}
         onFinish={async (value) => {
-          const success = await handleAdd(value as API.RuleListItem);
-          if (success) {
+          const res = await modifyJob({
+            data: {...value}
+          });
+          if (res?.success) {
             handleModalOpen(false);
             if (actionRef.current) {
               actionRef.current.reload();
             }
+            message.success("任务修改成功")
+          } else {
+            message.error(`任务修改失败`)
           }
         }}
       >
+        <ProFormText width="md" name="id" hidden={true}/>
         <ProFormText
           rules={[
             {
@@ -399,15 +420,56 @@ const TableList: React.FC = () => {
           ]}
           width="md"
           name="name"
+          label={intl.formatMessage({
+            id: 'pages.searchTable.jobName',
+            defaultMessage: '任务名称',
+          })}
+          // initialValue={currentRow?.name }
         />
-        <ProFormTextArea width="md" name="desc"/>
+        <ProFormTextArea width="md" name="description" label={intl.formatMessage({
+          id: 'pages.searchTable.jobDescription',
+          defaultMessage: '任务描述',
+        })}/>
+        <ProFormTextArea width="md" name="className"
+                         label={intl.formatMessage({
+                           id: 'pages.searchTable.jobClassName',
+                           defaultMessage: '任务全类名',
+                         })}
+                         rules={[
+                           {
+                             required: true,
+                             message: (
+                               <FormattedMessage
+                                 id="pages.modalForm.message.className"
+                                 defaultMessage="className is required"
+                               />
+                             ),
+                           }]}
+
+        />
+        <ProFormText width="md" name="cron"
+                     label={intl.formatMessage({
+                       id: 'pages.searchTable.jobCronExpression',
+                       defaultMessage: '执行表达式',
+                     })}
+                     rules={[
+                       {
+                         required: true,
+                         message: (
+                           <FormattedMessage
+                             id="pages.modalForm.message.cron"
+                             defaultMessage="jobCronExpression is required"
+                           />
+                         ),
+                       }]}
+        />
       </ModalForm>
       <UpdateForm
         onSubmit={async (value) => {
           const success = await handleUpdate(value);
           if (success) {
             handleUpdateModalOpen(false);
-            setCurrentRow(undefined);
+            // setCurrentRow(undefined);
             if (actionRef.current) {
               actionRef.current.reload();
             }

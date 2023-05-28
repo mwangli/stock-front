@@ -37,6 +37,7 @@ declare namespace API {
   };
 
   type RuleListItem = {
+    success: any;
     status: String;
     data: any;
     name: string,
