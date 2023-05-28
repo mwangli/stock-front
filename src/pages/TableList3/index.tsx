@@ -1,14 +1,4 @@
-import {
-  addRule,
-  createJob,
-  deleteJob,
-  listJob,
-  modifyJob,
-  pauseJob,
-  resumeJob,
-  runJob,
-  updateRule
-} from '@/services/ant-design-pro/api';
+import {createJob, deleteJob, listJob, modifyJob, pauseJob, resumeJob, runJob} from '@/services/ant-design-pro/api';
 import type {ActionType, ProColumns, ProDescriptionsItemProps} from '@ant-design/pro-components';
 import {
   ModalForm,
@@ -31,29 +21,15 @@ import {PlusOutlined} from "@ant-design/icons";
  * @param fields
  */
 const handleAdd = async (fields: API.RuleListItem) => {
-  const hide = message.loading('正在添加');
+  const hide = message.loading('正在创建任务...');
   try {
-    await addRule({...fields});
+    await createJob({data: fields});
     hide();
-    message.success('Added successfully');
+    message.success('任务创建成功！');
     return true;
   } catch (error) {
     hide();
-    message.error('Adding failed, please try again!');
-    return false;
-  }
-};
-
-const handleRun = async (fields: any) => {
-  const hide = message.loading('正在执行');
-  try {
-    await updateRule({data: fields});
-    hide();
-    message.success('任务执行成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('任务执行失败');
+    message.error('任务创建失败');
     return false;
   }
 };
@@ -65,18 +41,15 @@ const handleRun = async (fields: any) => {
  * @param fields
  */
 const handleUpdate = async (fields: FormValueType) => {
-  const hide = message.loading('任务创建中..');
+  const hide = message.loading('正在修改任务...');
   try {
-    await createJob({
-      data: {...fields}
-    });
+    await modifyJob({data: fields});
     hide();
-
-    message.success('任务创建完成！');
+    message.success('任务修改成功！');
     return true;
   } catch (error) {
     hide();
-    message.error('任务创建失败！');
+    message.error('任务修改失败！');
     return false;
   }
 };
@@ -87,10 +60,10 @@ const handleUpdate = async (fields: FormValueType) => {
  *
  * @param selectedRows
  */
-const handleRemove = async (selectedRows: API.RuleListItem) => {
-  const hide = message.loading('正在删除');
+const handleRemove = async (fields: FormValueType) => {
+  const hide = message.loading('正在删除任务...');
   try {
-    await deleteJob({data: selectedRows});
+    await deleteJob({data: fields});
     hide();
     message.success('删除任务成功！');
     return true;
@@ -101,14 +74,55 @@ const handleRemove = async (selectedRows: API.RuleListItem) => {
   }
 };
 
+
+const handlePause = async (fields: FormValueType) => {
+  const hide = message.loading('正在停止任务...');
+  try {
+    await pauseJob({data: fields});
+    hide();
+    message.success('停止任务成功！');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('停止任务失败！');
+    return false;
+  }
+};
+
+const handleResume = async (fields: FormValueType) => {
+  const hide = message.loading('正在恢复任务...');
+  try {
+    await resumeJob({data: fields});
+    hide();
+    message.success('恢复任务成功！');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('恢复任务失败！');
+    return false;
+  }
+};
+
+const handleRun = async (fields: FormValueType) => {
+  const hide = message.loading('正在执行任务...');
+  try {
+    await runJob({data: fields});
+    hide();
+    message.success('执行任务成功！');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('执行任务失败！');
+    return false;
+  }
+};
+
 const TableList: React.FC = () => {
   /**
    * @en-US Pop-up window of new window
    * @zh-CN 新建窗口的弹窗
    *  */
   const [createModalOpen, handleModalOpen] = useState<boolean>(false);
-  const [createModalOpen2, handleModalOpen2] = useState<boolean>(false);
-  const [createModalOpen3, handleModalOpen3] = useState<boolean>(false);
   /**
    * @en-US The pop-up window of the distribution update window
    * @zh-CN 分布更新窗口的弹窗
@@ -241,15 +255,9 @@ const TableList: React.FC = () => {
       valueType: 'option',
       render: (_, record) => [
         <a key="k1"
-           onClick= {() => {
-             // await handleRun(record)
-             setCurrentRow(record)
-             setCurrentRow(record)
-             setCurrentRow(record)
-             setCurrentRow(record)
-             setCurrentRow(record)
-             handleModalOpen2(true)
-             console.log(currentRow)
+           onClick={async () => {
+             setCurrentRow(record);
+             await handleRun(record)
            }}
         ><FormattedMessage
           id="pages.searchTable.runJob"
@@ -257,46 +265,34 @@ const TableList: React.FC = () => {
         />
         </a>,
         <a
-          key="config"
+          key="k2"
           onClick={async (_) => {
-            let res;
+            setCurrentRow(record);
             if (record.status == "1") {
-              res = await pauseJob({
-                data: {
-                  ...record
+              const success = await handlePause(record)
+              if (success) {
+                if (actionRef.current) {
+                  actionRef.current.reload();
                 }
-              });
+              }
             } else {
-              res = await resumeJob({
-                data: {
-                  ...record
+              const success = await handleResume(record)
+              if (success) {
+                if (actionRef.current) {
+                  actionRef.current.reload();
                 }
-              });
+              }
             }
-            if (res) {
-              message.success(`任务${record.status == "1" ? "停止" : "恢复"}成功`)
-            } else {
-              message.error(`任务${record.status == "1" ? "停止" : "恢复"}失败`)
-            }
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
+            actionRef?.current?.reload()
           }}
         >
           <FormattedMessage id={record.status == "1" ? "pages.searchTable.stopJob" : "pages.searchTable.startJob"}
                             defaultMessage="Configuration"/>
         </a>,
-        <a key="k2"
+        <a key="k3"
            onClick={() => {
-             // handleUpdateModalOpen(true);
-
              setCurrentRow(record)
-             setCurrentRow(record)
-             setCurrentRow(record)
-             setCurrentRow(record)
-             setCurrentRow(record)
-             handleModalOpen3(true)
-             console.log(currentRow)
+             handleUpdateModalOpen(true);
            }}
         >
           <FormattedMessage
@@ -304,9 +300,9 @@ const TableList: React.FC = () => {
             defaultMessage="Subscribe to alerts"
           />
         </a>,
-        <a key="k3"
+        <a key="k4"
            onClick={async () => {
-             // setCurrentRow(record);
+             setCurrentRow(record);
              const success = await handleRemove(record);
              if (success) {
                if (actionRef.current) {
@@ -332,7 +328,7 @@ const TableList: React.FC = () => {
           defaultMessage: 'Enquiry form',
         })}
         actionRef={actionRef}
-        rowKey="id"
+        rowKey="key"
         search={{
           labelWidth: 120,
         }}
@@ -342,7 +338,7 @@ const TableList: React.FC = () => {
             type="primary"
             key="primary"
             onClick={() => {
-              handleUpdateModalOpen(true);
+              handleModalOpen(true);
             }}
           >
             <PlusOutlined/> <FormattedMessage id="pages.searchTable.new" defaultMessage="New"/>
@@ -396,30 +392,21 @@ const TableList: React.FC = () => {
       {/*  </FooterToolbar>*/}
       {/*)}*/}
       <ModalForm
-        initialValues={currentRow}
         title={intl.formatMessage({
-          id: 'pages.modalForm.updateJob',
-          defaultMessage: '修改任务',
+          id: 'pages.searchTable.createForm.newRule',
+          defaultMessage: 'New rule',
         })}
-        width={480}
-        style={{padding: '16px 20px 24px'}}
+        width="520px"
         open={createModalOpen}
         onOpenChange={handleModalOpen}
         onFinish={async (value) => {
-          const res = await modifyJob({
-            data: {...value}
-          });
-          if (res?.success) {
+          const success = await handleAdd(value as API.RuleListItem);
+          if (success) {
             handleModalOpen(false);
-            // setCurrentRow(undefined)
-            message.success("任务修改成功")
-          } else {
-            message.error(`任务修改失败`)
+            if (actionRef.current) {
+              actionRef.current.reload();
+            }
           }
-          if (actionRef.current) {
-            actionRef.current.reload();
-          }
-          return true;
         }}
       >
         <ProFormText width="md" name="id" hidden={true}/>
@@ -441,7 +428,6 @@ const TableList: React.FC = () => {
             id: 'pages.searchTable.jobName',
             defaultMessage: '任务名称',
           })}
-          // initialValue={currentRow?.name }
         />
         <ProFormTextArea width="md" name="description" label={intl.formatMessage({
           id: 'pages.searchTable.jobDescription',
@@ -477,147 +463,22 @@ const TableList: React.FC = () => {
                            />
                          ),
                        }]}
+                     initialValue={"0 0 9-15 * * ?"}
         />
-      </ModalForm>
-
-      <ModalForm
-        // initialValues={currentRow}
-        title={intl.formatMessage({
-          id: 'pages.searchTable.runJob',
-          defaultMessage: '执行任务',
-        })}
-        width={420}
-        style={{padding: '16px 20px 24px'}}
-        open={createModalOpen2}
-        onOpenChange={handleModalOpen2}
-        // destroyOnClose
-        onFinish={async (value) => {
-          const res = await runJob({
-            data: {...currentRow, ...value}
-          });
-          if (res?.success) {
-            handleModalOpen2(false);
-            setCurrentRow(undefined)
-            message.success("任务执行成功")
-          } else {
-            message.error(`任务执行失败`)
-          }
-          // if (actionRef.current) {
-          //   actionRef.current.reload();
-          // }
-          return true;
-        }}
-      >
-        <ProFormTextArea width="md" name="id" hidden initialValue={currentRow?.id }/>
-
         <ProFormTextArea width="md" name="token"
                          label={intl.formatMessage({
                            id: 'pages.searchTable.token',
                            defaultMessage: 'token',
                          })}
+                         hidden={true}
         />
       </ModalForm>
-
-      <ModalForm
-        initialValues={currentRow}
-        title={intl.formatMessage({
-          id: 'pages.searchTable.runJob',
-          defaultMessage: '执行任务',
-        })}
-        width={420}
-        style={{padding: '16px 20px 24px'}}
-        open={createModalOpen3}
-        onOpenChange={handleModalOpen3}
-        // destroyOnClose
-        onFinish={async (value) => {
-          const res = await runJob({
-            data: {...currentRow, ...value}
-          });
-          if (res?.success) {
-            handleModalOpen3(false);
-            setCurrentRow(undefined)
-            message.success("任务执行成功")
-          } else {
-            message.error(`任务执行失败`)
-          }
-          if (actionRef.current) {
-            actionRef.current.reload();
-          }
-          return true;
-        }}
-      >
-        <ProFormTextArea width="md" name="id" hidden initialValue={currentRow?.id }/>
-
-        <ProFormTextArea width="md" name="token"
-                         label={intl.formatMessage({
-                           id: 'pages.searchTable.token',
-                           defaultMessage: 'token',
-                         })}
-        />
-        <ProFormText width="md" name="id" hidden={true}/>
-        <ProFormText
-          rules={[
-            {
-              required: true,
-              message: (
-                <FormattedMessage
-                  id="pages.searchTable.ruleName"
-                  defaultMessage="Rule name is required"
-                />
-              ),
-            },
-          ]}
-          width="md"
-          name="name"
-          label={intl.formatMessage({
-            id: 'pages.searchTable.jobName',
-            defaultMessage: '任务名称',
-          })}
-          // initialValue={currentRow?.name }
-        />
-        <ProFormTextArea width="md" name="description" label={intl.formatMessage({
-          id: 'pages.searchTable.jobDescription',
-          defaultMessage: '任务描述',
-        })}/>
-        <ProFormTextArea width="md" name="className"
-                         label={intl.formatMessage({
-                           id: 'pages.searchTable.jobClassName',
-                           defaultMessage: '任务全类名',
-                         })}
-                         rules={[
-                           {
-                             required: true,
-                             message: (
-                               <FormattedMessage
-                                 id="pages.modalForm.message.className"
-                                 defaultMessage="className is required"
-                               />
-                             ),
-                           }]}/>
-        <ProFormText width="md" name="cron"
-                     label={intl.formatMessage({
-                       id: 'pages.searchTable.jobCronExpression',
-                       defaultMessage: '执行表达式',
-                     })}
-                     rules={[
-                       {
-                         required: true,
-                         message: (
-                           <FormattedMessage
-                             id="pages.modalForm.message.cron"
-                             defaultMessage="jobCronExpression is required"
-                           />
-                         ),
-                       }]}
-        />
-      </ModalForm>
-
       <UpdateForm
         onSubmit={async (value) => {
           const success = await handleUpdate(value);
           if (success) {
             handleUpdateModalOpen(false);
-            // setCurrentRow(undefined);
+            setCurrentRow(undefined);
             if (actionRef.current) {
               actionRef.current.reload();
             }
