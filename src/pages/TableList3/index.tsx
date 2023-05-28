@@ -108,6 +108,7 @@ const TableList: React.FC = () => {
    *  */
   const [createModalOpen, handleModalOpen] = useState<boolean>(false);
   const [createModalOpen2, handleModalOpen2] = useState<boolean>(false);
+  const [createModalOpen3, handleModalOpen3] = useState<boolean>(false);
   /**
    * @en-US The pop-up window of the distribution update window
    * @zh-CN 分布更新窗口的弹窗
@@ -137,11 +138,11 @@ const TableList: React.FC = () => {
       dataIndex: 'id',
       hideInSearch: true,
       // tip: 'The jobId is the unique key',
-      render: (dom, entityn, index) => {
+      render: (dom, entity, index) => {
         return (
           <a
             onClick={() => {
-              // setCurrentRow(entity);
+              setCurrentRow(entity);
               // setShowDetail(true);
             }}
           >
@@ -239,11 +240,16 @@ const TableList: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
-        <a key="subscribeAlert"
-           onClick={async () => {
+        <a key="k1"
+           onClick= {() => {
              // await handleRun(record)
              setCurrentRow(record)
+             setCurrentRow(record)
+             setCurrentRow(record)
+             setCurrentRow(record)
+             setCurrentRow(record)
              handleModalOpen2(true)
+             console.log(currentRow)
            }}
         ><FormattedMessage
           id="pages.searchTable.runJob"
@@ -280,12 +286,17 @@ const TableList: React.FC = () => {
           <FormattedMessage id={record.status == "1" ? "pages.searchTable.stopJob" : "pages.searchTable.startJob"}
                             defaultMessage="Configuration"/>
         </a>,
-        <a key="subscribeAlert"
+        <a key="k2"
            onClick={() => {
              // handleUpdateModalOpen(true);
 
-             setCurrentRow(record);
-             handleModalOpen(true);
+             setCurrentRow(record)
+             setCurrentRow(record)
+             setCurrentRow(record)
+             setCurrentRow(record)
+             setCurrentRow(record)
+             handleModalOpen3(true)
+             console.log(currentRow)
            }}
         >
           <FormattedMessage
@@ -293,7 +304,7 @@ const TableList: React.FC = () => {
             defaultMessage="Subscribe to alerts"
           />
         </a>,
-        <a key="subscribeAlert"
+        <a key="k3"
            onClick={async () => {
              // setCurrentRow(record);
              const success = await handleRemove(record);
@@ -321,7 +332,7 @@ const TableList: React.FC = () => {
           defaultMessage: 'Enquiry form',
         })}
         actionRef={actionRef}
-        rowKey="key"
+        rowKey="id"
         search={{
           labelWidth: 120,
         }}
@@ -399,8 +410,8 @@ const TableList: React.FC = () => {
             data: {...value}
           });
           if (res?.success) {
-             handleModalOpen(false);
-             setCurrentRow(undefined)
+            handleModalOpen(false);
+            // setCurrentRow(undefined)
             message.success("任务修改成功")
           } else {
             message.error(`任务修改失败`)
@@ -408,6 +419,7 @@ const TableList: React.FC = () => {
           if (actionRef.current) {
             actionRef.current.reload();
           }
+          return true;
         }}
       >
         <ProFormText width="md" name="id" hidden={true}/>
@@ -449,9 +461,7 @@ const TableList: React.FC = () => {
                                  defaultMessage="className is required"
                                />
                              ),
-                           }]}
-
-        />
+                           }]}/>
         <ProFormText width="md" name="cron"
                      label={intl.formatMessage({
                        id: 'pages.searchTable.jobCronExpression',
@@ -471,7 +481,7 @@ const TableList: React.FC = () => {
       </ModalForm>
 
       <ModalForm
-        initialValues={currentRow}
+        // initialValues={currentRow}
         title={intl.formatMessage({
           id: 'pages.searchTable.runJob',
           defaultMessage: '执行任务',
@@ -480,6 +490,7 @@ const TableList: React.FC = () => {
         style={{padding: '16px 20px 24px'}}
         open={createModalOpen2}
         onOpenChange={handleModalOpen2}
+        // destroyOnClose
         onFinish={async (value) => {
           const res = await runJob({
             data: {...currentRow, ...value}
@@ -494,11 +505,83 @@ const TableList: React.FC = () => {
           // if (actionRef.current) {
           //   actionRef.current.reload();
           // }
+          return true;
         }}
       >
+        <ProFormTextArea width="md" name="id" hidden initialValue={currentRow?.id }/>
+
         <ProFormTextArea width="md" name="token"
                          label={intl.formatMessage({
                            id: 'pages.searchTable.token',
+                           defaultMessage: 'token',
+                         })}
+        />
+      </ModalForm>
+
+      <ModalForm
+        initialValues={currentRow}
+        title={intl.formatMessage({
+          id: 'pages.searchTable.runJob',
+          defaultMessage: '执行任务',
+        })}
+        width={420}
+        style={{padding: '16px 20px 24px'}}
+        open={createModalOpen3}
+        onOpenChange={handleModalOpen3}
+        // destroyOnClose
+        onFinish={async (value) => {
+          const res = await runJob({
+            data: {...currentRow, ...value}
+          });
+          if (res?.success) {
+            handleModalOpen3(false);
+            setCurrentRow(undefined)
+            message.success("任务执行成功")
+          } else {
+            message.error(`任务执行失败`)
+          }
+          if (actionRef.current) {
+            actionRef.current.reload();
+          }
+          return true;
+        }}
+      >
+        <ProFormTextArea width="md" name="id" hidden initialValue={currentRow?.id }/>
+
+        <ProFormTextArea width="md" name="token"
+                         label={intl.formatMessage({
+                           id: 'pages.searchTable.token',
+                           defaultMessage: 'token',
+                         })}
+        />
+        <ProFormText width="md" name="id" hidden={true}/>
+        <ProFormText
+          rules={[
+            {
+              required: true,
+              message: (
+                <FormattedMessage
+                  id="pages.searchTable.ruleName"
+                  defaultMessage="Rule name is required"
+                />
+              ),
+            },
+          ]}
+          width="md"
+          name="name"
+          label={intl.formatMessage({
+            id: 'pages.searchTable.jobName',
+            defaultMessage: '任务名称',
+          })}
+          // initialValue={currentRow?.name }
+        />
+        <ProFormTextArea width="md" name="description" label={intl.formatMessage({
+          id: 'pages.searchTable.jobDescription',
+          defaultMessage: '任务描述',
+        })}/>
+        <ProFormTextArea width="md" name="className"
+                         label={intl.formatMessage({
+                           id: 'pages.searchTable.jobClassName',
                            defaultMessage: '任务全类名',
                          })}
                          rules={[
@@ -510,7 +593,22 @@ const TableList: React.FC = () => {
                                  defaultMessage="className is required"
                                />
                              ),
-                           }]}
+                           }]}/>
+        <ProFormText width="md" name="cron"
+                     label={intl.formatMessage({
+                       id: 'pages.searchTable.jobCronExpression',
+                       defaultMessage: '执行表达式',
+                     })}
+                     rules={[
+                       {
+                         required: true,
+                         message: (
+                           <FormattedMessage
+                             id="pages.modalForm.message.cron"
+                             defaultMessage="jobCronExpression is required"
+                           />
+                         ),
+                       }]}
         />
       </ModalForm>
 
