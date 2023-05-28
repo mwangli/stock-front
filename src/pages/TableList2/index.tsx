@@ -10,13 +10,18 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import {FormattedMessage, useIntl} from '@umijs/max';
-import {Button, Col, Drawer, Input, message} from 'antd';
+import {Button, Col, Drawer, Dropdown, Input, message, Modal, Row, Tabs} from 'antd';
 import React, {Suspense, useRef, useState} from 'react';
 import type {FormValueType} from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 import numeral from "numeral";
 import TopSearch from "@/pages/Analysis/components/TopSearch";
-import {PlusOutlined} from "@ant-design/icons";
+import {EllipsisOutlined, PlusOutlined} from "@ant-design/icons";
+import styles from "@/pages/Analysis/style.less";
+import menu from "@/locales/zh-CN/menu";
+import SalesCard from "@/pages/Analysis/components/SalesCard";
+import {Area, Column} from "@ant-design/charts";
+import TabPane from 'antd/es/tabs/TabPane';
 
 /**
  * @en-US Add node
@@ -98,6 +103,8 @@ const TableList: React.FC = () => {
   const [updateModalOpen, handleUpdateModalOpen] = useState<boolean>(false);
 
   const [showDetail, setShowDetail] = useState<boolean>(false);
+
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<API.RuleListItem>();
@@ -271,8 +278,9 @@ const TableList: React.FC = () => {
         <a
           key="config"
           onClick={() => {
-            handleUpdateModalOpen(true);
+            // handleUpdateModalOpen(true);
             setCurrentRow(record);
+            setModalOpen(true);
           }}
         >
           <FormattedMessage id="pages.searchTable.priceList" defaultMessage="价格曲线" />
@@ -285,6 +293,14 @@ const TableList: React.FC = () => {
       ],
     },
   ];
+
+  // const dropdownGroup = (
+  //   <span className={styles.iconGroup}>
+  //     <Dropdown overlay={menu} placement="bottomRight">
+  //       <EllipsisOutlined/>
+  //     </Dropdown>
+  //   </span>
+  // );
 
   return (
     <PageContainer>
@@ -357,6 +373,58 @@ const TableList: React.FC = () => {
           </Button>
         </FooterToolbar>
       )}
+
+      <Modal
+        width={1200}
+        bodyStyle={{ padding: '32px 40px 48px' }}
+        destroyOnClose
+        title={intl.formatMessage({
+          id: 'pages.searchTable.pricesList',
+          defaultMessage: '价格趋势',
+        })}
+
+        open={modalOpen}
+        footer={null}
+        onCancel={() => {
+          setModalOpen(false);
+      }}
+      >
+
+        <Area
+          smooth
+          height={420}
+          data={currentRow?.pricesList || []}
+          xField="x"
+          yField="y"
+          xAxis={{
+            // visible: true,
+            title: {
+              // visible: false,
+            },
+          }}
+          yAxis={{
+            // visible: true,
+            title: {
+              // visible: false,
+            },
+          }}
+          // title={{
+          //   visible: true,
+          //   text: '收益率统计',
+          //   style: {
+          //     fontSize: 14,
+          //   },
+          // }}
+          meta={{
+            x: {
+              alias: '日期',
+            },
+            y: {
+              alias: '日收益率(%)',
+            },
+          }}
+        />
+      </Modal>
       <ModalForm
         title={intl.formatMessage({
           id: 'pages.searchTable.createForm.newRule',

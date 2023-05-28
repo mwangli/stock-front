@@ -395,13 +395,14 @@ const TableList: React.FC = () => {
             data: {...value}
           });
           if (res?.success) {
-            handleModalOpen(false);
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
+             handleModalOpen(false);
+             setCurrentRow(undefined)
             message.success("任务修改成功")
           } else {
             message.error(`任务修改失败`)
+          }
+          if (actionRef.current) {
+            actionRef.current.reload();
           }
         }}
       >

@@ -28,7 +28,7 @@ export default {
   'pages.admin.subPage.alertMessage': 'umi ui 现已发布，欢迎使用 npm run ui 启动体验。',
   'pages.searchTable.createForm.newRule': '新建规则',
   'pages.searchTable.updateForm.ruleConfig': '规则配置',
-  'pages.searchTable.updateForm.basicConfig': '基本信息',
+  'pages.searchTable.updateForm.basicConfig': '任务基本信息',
   'pages.searchTable.updateForm.ruleName.nameLabel': '股票代码',
   'pages.searchTable.updateForm.ruleName.nameRules': '请输入规则名称！',
   'pages.searchTable.updateForm.ruleDesc.descLabel': '规则描述',
@@ -116,5 +116,6 @@ export default {
   'pages.searchTable.updateForm.scheduleConfig': '任务调度设置',
   'pages.searchTable.placeholder.jobClassName': '请输入任务全限定类名',
   'pages.searchTable.placeholder.jobDesc': '请输入任务描述信息',
+  'pages.searchTable.pricesList': '价格趋势',
 
 };
