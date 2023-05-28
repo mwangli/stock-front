@@ -64,6 +64,9 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
                          hidden={true}
         />
         <ProFormText width="md" name="id" hidden={true}/>
+        <ProFormText width="md" name="sort"
+                     label={"任务排序"}
+        />
         <ProFormText
           rules={[
             {
