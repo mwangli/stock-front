@@ -69,12 +69,12 @@ export default [
     path: '/job',
     component: './TableList3',
   },
-  {
-    name: 'list.run-logs',
-    icon: 'OrderedListOutlined',
-    path: '/logs',
-    component: './TableList3',
-  },
+  // {
+  //   name: 'list.run-logs',
+  //   icon: 'OrderedListOutlined',
+  //   path: '/logs',
+  //   component: './TableList3',
+  // },
   {
     path: '/',
     redirect: '/welcome',
