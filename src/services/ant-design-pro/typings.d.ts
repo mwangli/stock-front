@@ -37,6 +37,7 @@ declare namespace API {
   };
 
   type RuleListItem = {
+    increaseRateList: Record<string, any>[];
     pricesList: Record<string, any>[];
     prices: any[];
     dailyIncomeRate: {};

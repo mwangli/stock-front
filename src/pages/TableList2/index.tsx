@@ -10,18 +10,13 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import {FormattedMessage, useIntl} from '@umijs/max';
-import {Button, Col, Drawer, Dropdown, Input, message, Modal, Row, Tabs} from 'antd';
-import React, {Suspense, useRef, useState} from 'react';
+import {Button, Drawer, Input, message, Modal} from 'antd';
+import React, {useRef, useState} from 'react';
 import type {FormValueType} from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 import numeral from "numeral";
-import TopSearch from "@/pages/Analysis/components/TopSearch";
-import {EllipsisOutlined, PlusOutlined} from "@ant-design/icons";
-import styles from "@/pages/Analysis/style.less";
-import menu from "@/locales/zh-CN/menu";
-import SalesCard from "@/pages/Analysis/components/SalesCard";
-import {Area, Column} from "@ant-design/charts";
-import TabPane from 'antd/es/tabs/TabPane';
+import {PlusOutlined} from "@ant-design/icons";
+import {Area} from "@ant-design/charts";
 
 /**
  * @en-US Add node
@@ -105,6 +100,7 @@ const TableList: React.FC = () => {
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalOpen2, setModalOpen2] = useState<boolean>(false);
 
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<API.RuleListItem>();
@@ -271,7 +267,7 @@ const TableList: React.FC = () => {
     },
 
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating" />,
+      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating"/>,
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
@@ -283,9 +279,14 @@ const TableList: React.FC = () => {
             setModalOpen(true);
           }}
         >
-          <FormattedMessage id="pages.searchTable.priceList" defaultMessage="价格曲线" />
+          <FormattedMessage id="pages.searchTable.priceList" defaultMessage="价格曲线"/>
         </a>,
-        <a key="subscribeAlert" >
+        <a key="subscribeAlert"
+           onClick={() => {
+             // handleUpdateModalOpen(true);
+             setCurrentRow(record);
+             setModalOpen2(true);
+           }}>
           <FormattedMessage
             id="pages.searchTable.rateList" defaultMessage="日增长率曲线"
           />
@@ -316,15 +317,15 @@ const TableList: React.FC = () => {
         }}
         toolBarRender={() => [
           // 新建按钮
-          <Button
-            type="primary"
-            key="primary"
-            onClick={() => {
-              handleModalOpen(true);
-            }}
-          >
-            <PlusOutlined/> <FormattedMessage id="pages.searchTable.new" defaultMessage="New"/>
-          </Button>,
+          // <Button
+          //   type="primary"
+          //   key="primary"
+          //   onClick={() => {
+          //     handleModalOpen(true);
+          //   }}
+          // >
+          //   <PlusOutlined/> <FormattedMessage id="pages.searchTable.new" defaultMessage="New"/>
+          // </Button>,
         ]}
         request={listStockInfo}
         columns={columns}
@@ -374,9 +375,10 @@ const TableList: React.FC = () => {
         </FooterToolbar>
       )}
 
+
       <Modal
         width={1200}
-        bodyStyle={{ padding: '32px 40px 48px' }}
+        bodyStyle={{padding: '32px 40px 48px'}}
         destroyOnClose
         title={intl.formatMessage({
           id: 'pages.searchTable.pricesList',
@@ -387,7 +389,7 @@ const TableList: React.FC = () => {
         footer={null}
         onCancel={() => {
           setModalOpen(false);
-      }}
+        }}
       >
 
         <Area
@@ -396,35 +398,53 @@ const TableList: React.FC = () => {
           data={currentRow?.pricesList || []}
           xField="x"
           yField="y"
-          xAxis={{
-            // visible: true,
-            title: {
-              // visible: false,
-            },
-          }}
-          yAxis={{
-            // visible: true,
-            title: {
-              // visible: false,
-            },
-          }}
-          // title={{
-          //   visible: true,
-          //   text: '收益率统计',
-          //   style: {
-          //     fontSize: 14,
-          //   },
-          // }}
           meta={{
             x: {
-              alias: '日期',
+              alias: '交易日期',
             },
             y: {
-              alias: '日收益率(%)',
+              alias: '开盘价格(元)',
+              min: 10000
             },
           }}
         />
       </Modal>
+
+
+      <Modal
+        width={1200}
+        bodyStyle={{padding: '32px 40px 48px'}}
+        destroyOnClose
+        title={intl.formatMessage({
+          id: 'pages.searchTable.pricesList',
+          defaultMessage: '日增长率',
+        })}
+
+        open={modalOpen2}
+        footer={null}
+        onCancel={() => {
+          setModalOpen2(false);
+        }}
+      >
+
+        <Area
+          smooth
+          height={420}
+          data={currentRow?.increaseRateList || []}
+          xField="x"
+          yField="y"
+          meta={{
+            x: {
+              alias: '交易日期',
+            },
+            y: {
+              alias: '日增长率(%)',
+              min: 10000
+            },
+          }}
+        />
+      </Modal>
+
       <ModalForm
         title={intl.formatMessage({
           id: 'pages.searchTable.createForm.newRule',

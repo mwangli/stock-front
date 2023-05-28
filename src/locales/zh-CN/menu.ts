@@ -23,7 +23,7 @@ export default {
   'menu.form.advanced-form': '高级表单',
   'menu.list': '列表页',
   'menu.list.table-list': '交易记录',
-  'menu.list.stock-info': '实时价格',
+  'menu.list.stock-info': '历史价格',
   'menu.list.time-job': '定时任务',
   'menu.list.analysis': '数据分析',
   'menu.list.run-logs': '日运行志',

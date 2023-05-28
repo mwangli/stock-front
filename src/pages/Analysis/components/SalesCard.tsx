@@ -45,29 +45,29 @@ const SalesCard = ({
   <Card loading={loading} bordered={false} bodyStyle={{padding: 0}}>
     <div className={styles.salesCard}>
       <Tabs
-        tabBarExtraContent={
-          <div className={styles.salesExtraWrap}>
-            <div className={styles.salesExtra}>
-              <a className={isActive('today')} onClick={() => selectDate('today')}>
-                今日
-              </a>
-              <a className={isActive('week')} onClick={() => selectDate('week')}>
-                本周
-              </a>
-              <a className={isActive('month')} onClick={() => selectDate('month')}>
-                本月
-              </a>
-              <a className={isActive('year')} onClick={() => selectDate('year')}>
-                本年
-              </a>
-            </div>
-            {/*<RangePicker*/}
-            {/*  value={rangePickerValue}*/}
-            {/*  onChange={handleRangePickerChange}*/}
-            {/*  style={{width: 256}}*/}
-            {/*/>*/}
-          </div>
-        }
+        // tabBarExtraContent={
+        //   <div className={styles.salesExtraWrap}>
+        //     <div className={styles.salesExtra}>
+        //       <a className={isActive('today')} onClick={() => selectDate('today')}>
+        //         今日
+        //       </a>
+        //       <a className={isActive('week')} onClick={() => selectDate('week')}>
+        //         本周
+        //       </a>
+        //       <a className={isActive('month')} onClick={() => selectDate('month')}>
+        //         本月
+        //       </a>
+        //       <a className={isActive('year')} onClick={() => selectDate('year')}>
+        //         本年
+        //       </a>
+        //     </div>
+        //     {/*<RangePicker*/}
+        //     {/*  value={rangePickerValue}*/}
+        //     {/*  onChange={handleRangePickerChange}*/}
+        //     {/*  style={{width: 256}}*/}
+        //     {/*/>*/}
+        //   </div>
+        // }
         size="large"
         tabBarStyle={{marginBottom: 24}}
       >
