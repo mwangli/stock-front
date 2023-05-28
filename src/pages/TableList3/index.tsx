@@ -6,6 +6,7 @@ import {
   modifyJob,
   pauseJob,
   resumeJob,
+  runJob,
   updateRule
 } from '@/services/ant-design-pro/api';
 import type {ActionType, ProColumns, ProDescriptionsItemProps} from '@ant-design/pro-components';
@@ -106,6 +107,7 @@ const TableList: React.FC = () => {
    * @zh-CN 新建窗口的弹窗
    *  */
   const [createModalOpen, handleModalOpen] = useState<boolean>(false);
+  const [createModalOpen2, handleModalOpen2] = useState<boolean>(false);
   /**
    * @en-US The pop-up window of the distribution update window
    * @zh-CN 分布更新窗口的弹窗
@@ -239,7 +241,9 @@ const TableList: React.FC = () => {
       render: (_, record) => [
         <a key="subscribeAlert"
            onClick={async () => {
-             await handleRun(record)
+             // await handleRun(record)
+             setCurrentRow(record)
+             handleModalOpen2(true)
            }}
         ><FormattedMessage
           id="pages.searchTable.runJob"
@@ -386,7 +390,7 @@ const TableList: React.FC = () => {
           id: 'pages.modalForm.updateJob',
           defaultMessage: '修改任务',
         })}
-        width={520}
+        width={480}
         style={{padding: '16px 20px 24px'}}
         open={createModalOpen}
         onOpenChange={handleModalOpen}
@@ -465,6 +469,51 @@ const TableList: React.FC = () => {
                        }]}
         />
       </ModalForm>
+
+      <ModalForm
+        initialValues={currentRow}
+        title={intl.formatMessage({
+          id: 'pages.searchTable.runJob',
+          defaultMessage: '执行任务',
+        })}
+        width={420}
+        style={{padding: '16px 20px 24px'}}
+        open={createModalOpen2}
+        onOpenChange={handleModalOpen2}
+        onFinish={async (value) => {
+          const res = await runJob({
+            data: {...currentRow, ...value}
+          });
+          if (res?.success) {
+            handleModalOpen2(false);
+            setCurrentRow(undefined)
+            message.success("任务执行成功")
+          } else {
+            message.error(`任务执行失败`)
+          }
+          // if (actionRef.current) {
+          //   actionRef.current.reload();
+          // }
+        }}
+      >
+        <ProFormTextArea width="md" name="token"
+                         label={intl.formatMessage({
+                           id: 'pages.searchTable.token',
+                           defaultMessage: '任务全类名',
+                         })}
+                         rules={[
+                           {
+                             required: true,
+                             message: (
+                               <FormattedMessage
+                                 id="pages.modalForm.message.className"
+                                 defaultMessage="className is required"
+                               />
+                             ),
+                           }]}
+        />
+      </ModalForm>
+
       <UpdateForm
         onSubmit={async (value) => {
           const success = await handleUpdate(value);

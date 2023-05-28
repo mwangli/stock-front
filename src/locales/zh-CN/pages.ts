@@ -117,5 +117,5 @@ export default {
   'pages.searchTable.placeholder.jobClassName': '请输入任务全限定类名',
   'pages.searchTable.placeholder.jobDesc': '请输入任务描述信息',
   'pages.searchTable.pricesList': '价格趋势',
-
+  'pages.searchTable.token': 'Token',
 };
