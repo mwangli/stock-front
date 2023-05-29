@@ -101,13 +101,14 @@ const Analysis: FC<AnalysisProps> = () => {
   return (
     <PageContainer>
       <GridContent>
-        <>
+
           {/*第一排四个小图*/}
           <Suspense fallback={<PageLoading/>}>
             <IntroduceRow loading={loading} visitData={data || {}}/>
           </Suspense>
+
           {/*中间的柱状图*/}
-          <Suspense fallback={null}>
+          <Suspense fallback={<PageLoading/>}>
             <SalesCard
               rangePickerValue={rangePickerValue}
               salesData={data?.incomeList || []}
@@ -121,26 +122,24 @@ const Analysis: FC<AnalysisProps> = () => {
             />
           </Suspense>
 
+        {/*下面的统计饼图*/}
           <Row
             gutter={24}
             style={{
               marginTop: 24,
             }}
           >
-            {/*第三块折线图*/}
             <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-              <Suspense fallback={null}>
+              <Suspense fallback={<PageLoading/>}>
                 <TopSearch
                   loading={loading}
-                  visitData2={data?.dailyRateList || []}
-                  searchData={data?.rateOrder || []}
-                  dailyIncomeRate={data?.dailyIncomeRate || {}}
+                  searchData={data?.expectList || []}
                   dropdownGroup={dropdownGroup}
                 />
               </Suspense>
             </Col>
             <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-              <Suspense fallback={null}>
+              <Suspense fallback={<PageLoading/>}>
                 <ProportionSales
                   dropdownGroup={dropdownGroup}
                   salesType={salesType}
@@ -161,7 +160,7 @@ const Analysis: FC<AnalysisProps> = () => {
           {/*    handleTabChange={handleTabChange}*/}
           {/*  />*/}
           {/*</Suspense>*/}
-        </>
+
       </GridContent>
     </PageContainer>
   );
