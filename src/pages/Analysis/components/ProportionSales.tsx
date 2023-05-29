@@ -53,7 +53,7 @@ const config = {
   },
   tooltip: {
     formatter: (datum: Datum) => {
-      return {name:   datum.x, value: '占比数量 ' + datum.y};
+      return {name: ' 持仓' + datum.x, value: '占比数量 ' + datum.y};
     },
   },
 };
@@ -74,7 +74,7 @@ const ProportionSales = ({
     loading={loading}
     className={styles.salesCard}
     bordered={false}
-    title="持有天数占比"
+    title="持仓天数占比"
     style={{
       height: '100%',
     }}

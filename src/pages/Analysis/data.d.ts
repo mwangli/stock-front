@@ -42,9 +42,10 @@ export interface AnalysisData {
   salesTypeData: DataItem[];
   salesTypeDataOnline: DataItem[];
   salesTypeDataOffline: DataItem[];
-  radarData: RadarData[];
 
+  radarData: RadarData[];
   income,
+  expectList,
   preIncome,
   totalIncome,
   avgIncome,

@@ -1,9 +1,9 @@
-import { InfoCircleOutlined } from '@ant-design/icons';
-import { Card, Col, Row, Table, Tooltip } from 'antd';
-import { TinyArea } from '@ant-design/charts';
+import {InfoCircleOutlined} from '@ant-design/icons';
+import {Card, Col, Row, Table, Tooltip} from 'antd';
+import {TinyArea} from '@ant-design/charts';
 import React from 'react';
 import numeral from 'numeral';
-import type { DataItem } from '../data';
+import type {DataItem} from '../data';
 
 import NumberInfo from './NumberInfo';
 import Trend from './Trend';
@@ -14,23 +14,25 @@ const columns = [
     title: '排名',
     dataIndex: 'index',
     key: 'index',
-    render: (text: React.ReactNode, record: { status: number }, index: number) => (
-      // <Trend flag={record.status === 1 ? 'down' : 'up'}>
-      //   <span style={{ marginRight: 4 }}>{text}%</span>
-      // </Trend>
-      `${index+1}`
+    render: (text: React.ReactNode, record: {
+      dailyIncomeRate: number;
+      status: number
+    }, index: number) => (
+      <Trend flag={record.dailyIncomeRate > 0 ? 'up' : 'down'}>
+        <span style={{marginRight: 4}}>{index + 1}</span>
+      </Trend>
     ),
   },
   {
     title: '股票信息',
-    dataIndex: 'x',
-    key: 'x',
+    dataIndex: 'name',
+    key: 'name',
     render: (text: React.ReactNode) => <a>{text}</a>,
   },
   {
-    title: '收益金额',
-    dataIndex: 'y',
-    key: 'y',
+    title: '买入价格',
+    dataIndex: 'buyPrice',
+    key: 'buyPrice',
     // sorter: (a: { count: number }, b: { count: number }) => a.count - b.count,
     // className: styles.alignRight,
     render: (text: React.ReactNode, record: { status: number }) => (
@@ -41,28 +43,41 @@ const columns = [
     ),
   },
   {
-    title: '收益率',
-    dataIndex: 'z',
-    key: 'z',
+    title: '当前价格',
+    dataIndex: 'salePrice',
+    key: 'salePrice',
     // sorter: (a: { count: number }, b: { count: number }) => a.count - b.count,
-    // className: styles.alignRight,
+    className: styles.alignRight,
     render: (text: React.ReactNode, record: { status: number }) => (
       // <Trend flag={record.status === 1 ? 'down' : 'up'}>
       //   <span style={{ marginRight: 4 }}>{text}%</span>
       // </Trend>
-      `${numeral(text).format('0.0000')}%`
+      `${numeral(text).format('0.00')}元`
     ),
   },
   {
-    title: '持有天数',
-    dataIndex: 't',
-    key: 't',
+    title: '预期收益',
+    dataIndex: 'income',
+    key: 'income',
+    // sorter: (a: { count: number }, b: { count: number }) => a.count - b.count,
+    className: styles.alignRight,
+    render: (text: React.ReactNode, record: { status: number }) => (
+      // <Trend flag={record.status === 1 ? 'down' : 'up'}>
+      //   <span style={{ marginRight: 4 }}>{text}%</span>
+      // </Trend>
+      `${numeral(text).format('0.00')}元`
+    ),
+  },
+  {
+    title: '持仓天数',
+    dataIndex: 'holdDays',
+    key: 'holdDays',
     render: (text: React.ReactNode) => `${text}天`,
   },
   {
     title: '日收益率',
-    dataIndex: 's',
-    key: 's',
+    dataIndex: 'dailyIncomeRate',
+    key: 'dailyRate',
     // sorter: (a: { range: number }, b: { range: number }) => a.range - b.range,
     render: (text: React.ReactNode, record: { status: number }) => (
       // <Trend flag={record.status === 1 ? 'down' : 'up'}>
@@ -74,22 +89,18 @@ const columns = [
 ];
 
 const TopSearch = ({
-  loading,
-  visitData2,
-  searchData,
-  dailyIncomeRate,
-  dropdownGroup,
-}: {
+                     loading,
+                     searchData,
+                     dropdownGroup,
+                   }: {
   loading: boolean;
-  visitData2: any;
-  dailyIncomeRate: any;
   dropdownGroup: React.ReactNode;
   searchData: DataItem[];
 }) => (
   <Card
     loading={loading}
     bordered={false}
-    title="收益率排行"
+    title="期望日收益率排行"
     extra={dropdownGroup}
     style={{
       height: '100%',
