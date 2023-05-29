@@ -56,17 +56,9 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       >
         <ProFormTextArea width="md" name="id" hidden initialValue={props.values?.id}/>
 
-        <ProFormTextArea width="md" name="token"
-                         label={intl.formatMessage({
-                           id: 'pages.searchTable.token',
-                           defaultMessage: 'token',
-                         })}
-                         hidden={true}
-        />
         <ProFormText width="md" name="id" hidden={true}/>
-        <ProFormText width="md" name="sort"
-                     label={"任务排序"}
-        />
+
+        <ProFormText width="md" name="sort" label={"任务排序"}/>
         <ProFormText
           rules={[
             {
@@ -126,7 +118,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
                            id: 'pages.searchTable.token',
                            defaultMessage: 'token',
                          })}
-                         // hidden={true}
+          // hidden={true}
         />
 
         {/*<ProFormText*/}

@@ -1,15 +1,8 @@
 import {createJob, deleteJob, listJob, modifyJob, pauseJob, resumeJob, runJob} from '@/services/ant-design-pro/api';
-import type {ActionType, ProColumns, ProDescriptionsItemProps} from '@ant-design/pro-components';
-import {
-  ModalForm,
-  PageContainer,
-  ProDescriptions,
-  ProFormText,
-  ProFormTextArea,
-  ProTable,
-} from '@ant-design/pro-components';
+import type {ActionType, ProColumns} from '@ant-design/pro-components';
+import {ModalForm, PageContainer, ProFormText, ProFormTextArea, ProTable,} from '@ant-design/pro-components';
 import {FormattedMessage, useIntl} from '@umijs/max';
-import {Button, Drawer, Input, message} from 'antd';
+import {Button, Input, message} from 'antd';
 import React, {useRef, useState} from 'react';
 import type {FormValueType} from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
@@ -104,15 +97,15 @@ const handleResume = async (fields: FormValueType) => {
 };
 
 const handleRun = async (fields: FormValueType) => {
-  const hide = message.loading('正在执行任务...');
+  const hide = message.loading('正在触发任务...');
   try {
     await runJob({data: fields});
     hide();
-    message.success('执行任务成功！');
+    message.success('触发任务成功！');
     return true;
   } catch (error) {
     hide();
-    message.error('执行任务失败！');
+    message.error('触发任务失败！');
     return false;
   }
 };
@@ -256,7 +249,7 @@ const TableList: React.FC = () => {
       render: (_, record) => [
         <a key="k1"
            onClick={async () => {
-             setCurrentRow(record);
+             // setCurrentRow(record);
              await handleRun(record)
            }}
         ><FormattedMessage
@@ -494,29 +487,29 @@ const TableList: React.FC = () => {
         values={currentRow || {}}
       />
 
-      <Drawer
-        width={600}
-        open={showDetail}
-        onClose={() => {
-          setCurrentRow(undefined);
-          setShowDetail(false);
-        }}
-        closable={false}
-      >
-        {currentRow?.name && (
-          <ProDescriptions<API.RuleListItem>
-            column={2}
-            title={currentRow?.name}
-            request={async () => ({
-              data: currentRow || {},
-            })}
-            params={{
-              id: currentRow?.name,
-            }}
-            columns={columns as ProDescriptionsItemProps<API.RuleListItem>[]}
-          />
-        )}
-      </Drawer>
+      {/*<Drawer*/}
+      {/*  width={600}*/}
+      {/*  open={showDetail}*/}
+      {/*  onClose={() => {*/}
+      {/*    setCurrentRow(undefined);*/}
+      {/*    setShowDetail(false);*/}
+      {/*  }}*/}
+      {/*  closable={false}*/}
+      {/*>*/}
+      {/*  {currentRow?.name && (*/}
+      {/*    <ProDescriptions<API.RuleListItem>*/}
+      {/*      column={2}*/}
+      {/*      title={currentRow?.name}*/}
+      {/*      request={async () => ({*/}
+      {/*        data: currentRow || {},*/}
+      {/*      })}*/}
+      {/*      params={{*/}
+      {/*        id: currentRow?.name,*/}
+      {/*      }}*/}
+      {/*      columns={columns as ProDescriptionsItemProps<API.RuleListItem>[]}*/}
+      {/*    />*/}
+      {/*  )}*/}
+      {/*</Drawer>*/}
     </PageContainer>
   );
 };
