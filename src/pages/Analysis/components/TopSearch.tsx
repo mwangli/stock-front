@@ -100,7 +100,7 @@ const TopSearch = ({
   <Card
     loading={loading}
     bordered={false}
-    title="持仓日收益率排行"
+    title="期望日收益率排行"
     extra={dropdownGroup}
     style={{
       height: '100%',
