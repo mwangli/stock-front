@@ -64,7 +64,7 @@ export default [
     component: './StockInfo',
   },
   {
-    name: '评分策略',
+    name: 'list.strategy',
     icon: 'AlertOutlined',
     path: '/strategy',
     component: './StrategyList',

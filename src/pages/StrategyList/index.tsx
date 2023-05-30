@@ -9,6 +9,7 @@ import type {ActionType, ProColumns} from '@ant-design/pro-components';
 import {
   ModalForm,
   PageContainer,
+  ProFormDigit,
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
@@ -88,7 +89,7 @@ const handleChoose = async (fields: FormValueType) => {
  *  Delete node
  * @zh-CN 删除节点
  *
- * @param selectedRows
+ * @param fields
  */
 const handleRemove = async (fields: FormValueType) => {
   const hide = message.loading('正在删除策略...');
@@ -157,6 +158,11 @@ const TableList: React.FC = () => {
       title: '策略参数',
       dataIndex: 'params',
       valueType: 'textarea',
+      // tip: '； ;\r\n ',
+      // tip: {<span>第一行<br/>第二行<br/>第三行</span>},
+      tooltip: <span>preRateFactor为前期增长率数据占比因子,数值越小，前期数据对得分影响越低，范围[0,1]<br/>
+        priceTolerance是价格波动容忍度，数值越小，价格波动越小，范围[1,10]<br/>
+        historyLimit为历史价格条数，范围[10,100]</span>
     },
     // {
     //   title: '排序',
@@ -169,6 +175,7 @@ const TableList: React.FC = () => {
       title: '参数说明',
       dataIndex: 'description',
       valueType: 'textarea',
+      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.createTime" defaultMessage="Description"/>,
@@ -269,10 +276,7 @@ const TableList: React.FC = () => {
   return (
     <PageContainer>
       <ProTable<API.RuleListItem, API.PageParams>
-        headerTitle={intl.formatMessage({
-          id: 'pages.searchTable.title',
-          defaultMessage: 'Enquiry form',
-        })}
+        headerTitle={'选股策略'}
         actionRef={actionRef}
         rowKey="key"
         search={{
@@ -372,6 +376,7 @@ const TableList: React.FC = () => {
         />
         <ProFormTextArea width="md" name="params"
                          label={'策略参数'}
+                         initialValue={`{"preRateFactor":0.5,"priceTolerance":5,"historyLimit":50}`}
         />
         <ProFormTextArea width="md" name="description"
                          label={'参数说明'}
@@ -379,13 +384,8 @@ const TableList: React.FC = () => {
         <ProFormSwitch name={'status'} label={'是否选中'}
                        initialValue={false}
         />
-        <ProFormTextArea width="md" name="token"
-                         label={intl.formatMessage({
-                           id: 'pages.searchTable.token',
-                           defaultMessage: 'token',
-                         })}
-                         hidden={true}
-        />
+        <ProFormDigit width="md" name="sort" label={'策略排序'} initialValue={10}/>
+
       </ModalForm>
       <UpdateForm
         onSubmit={async (value) => {

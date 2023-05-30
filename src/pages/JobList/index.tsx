@@ -1,6 +1,13 @@
 import {createJob, deleteJob, listJob, modifyJob, pauseJob, resumeJob, runJob} from '@/services/ant-design-pro/api';
 import type {ActionType, ProColumns} from '@ant-design/pro-components';
-import {ModalForm, PageContainer, ProFormText, ProFormTextArea, ProTable,} from '@ant-design/pro-components';
+import {
+  ModalForm,
+  PageContainer,
+  ProFormDigit,
+  ProFormText,
+  ProFormTextArea,
+  ProTable,
+} from '@ant-design/pro-components';
 import {FormattedMessage, useIntl} from '@umijs/max';
 import {Button, Input, message} from 'antd';
 import React, {useRef, useState} from 'react';
@@ -460,12 +467,9 @@ const TableList: React.FC = () => {
                        }]}
                      initialValue={"0 0 9-15 * * ?"}
         />
-        <ProFormTextArea width="md" name="token"
-                         label={intl.formatMessage({
-                           id: 'pages.searchTable.token',
-                           defaultMessage: 'token',
-                         })}
-                         hidden={true}
+        <ProFormDigit width="md" name="sort"
+                      label={'任务排序'}
+                      initialValue={0}
         />
       </ModalForm>
       <UpdateForm

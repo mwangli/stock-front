@@ -219,15 +219,15 @@ export async function listStrategy(
     name?: string;
     code?: string;
   },
-  // sort: any,
+  sort: any,
   options?: { [key: string]: any },
 ) {
   return request<API.RuleList>('/api/strategy', {
     method: 'GET',
     params: {
       ...params,
-      // sortKey: Object.keys(sort)[0],
-      // sortOrder: Object.values(sort)[0],
+      sortKey: Object.keys(sort)[0],
+      sortOrder: Object.values(sort)[0],
     },
     ...(options || {}),
   });
