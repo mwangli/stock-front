@@ -421,15 +421,18 @@ const TableList: React.FC = () => {
           smooth
           height={420}
           data={currentRow?.pricesList || []}
-          xField="x"
-          yField="y"
+          xField="date"
+          yField="item"
           meta={{
-            x: {
+            date: {
               alias: '交易日期',
             },
-            y: {
+            item: {
               alias: '开盘价格(元)',
-              min: 10000
+              max: currentRow?.maxPrice,
+              min: currentRow?.minPrice,
+              // maxLimit: currentRow?.maxPrice,
+              // minLimit: currentRow?.minPrice,
             },
           }}
         />
@@ -456,15 +459,18 @@ const TableList: React.FC = () => {
           smooth
           height={420}
           data={currentRow?.increaseRateList || []}
-          xField="x"
-          yField="y"
+          xField="date"
+          yField="item"
           meta={{
-            x: {
+            date: {
               alias: '交易日期',
             },
-            y: {
+            item: {
               alias: '日增长率(%)',
-              min: 10000
+              // max: currentRow?.maxPrice,
+              // min: currentRow?.minPrice,
+              maxLimit: currentRow?.maxRate,
+              minLimit: currentRow?.minRate,
             },
           }}
         />

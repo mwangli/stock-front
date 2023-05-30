@@ -37,6 +37,10 @@ declare namespace API {
   };
 
   type RuleListItem = {
+    minRate: any;
+    maxRate: any;
+    minPrice: any;
+    maxPrice: any;
     increaseRateList: Record<string, any>[];
     pricesList: Record<string, any>[];
     prices: any[];
