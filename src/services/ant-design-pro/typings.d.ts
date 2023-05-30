@@ -48,7 +48,7 @@ declare namespace API {
     rateOrder: [];
     dailyRateList: any[];
     success: any;
-    status: String;
+    status: any;
     data: any;
     name: string,
     accountAmount: number,

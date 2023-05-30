@@ -1,9 +1,9 @@
 import {
+  chooseStrategy,
   createStrategy,
   deleteStrategy,
   listStrategy,
-  modifyStrategy,
-  chooseStrategy
+  modifyStrategy
 } from '@/services/ant-design-pro/api';
 import type {ActionType, ProColumns} from '@ant-design/pro-components';
 import {
@@ -15,7 +15,7 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import {FormattedMessage, useIntl} from '@umijs/max';
-import {Button, Input, message, Switch} from 'antd';
+import {Button, message, Switch} from 'antd';
 import React, {useRef, useState} from 'react';
 import type {FormValueType} from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
@@ -32,7 +32,7 @@ const handleAdd = async (fields: API.RuleListItem) => {
     await createStrategy({
       data: {
         ...fields,
-        status: fields.status ? "1" : "0"
+        status: fields.status ? 1 : 0
       },
     });
     hide();
@@ -54,7 +54,12 @@ const handleAdd = async (fields: API.RuleListItem) => {
 const handleUpdate = async (fields: FormValueType) => {
   const hide = message.loading('正在修改策略...');
   try {
-    await modifyStrategy({data: fields});
+    await modifyStrategy({
+      data: {
+        ...fields,
+        status: fields.status ? 1 : 0
+      }
+    });
     hide();
     message.success('策略修改成功！');
     return true;
@@ -125,7 +130,7 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<API.RuleListItem>[] = [
     {
-      title: '策略ID',
+      title: '策略排序',
       dataIndex: 'id',
       hideInSearch: true,
       // tip: 'The jobId is the unique key',
@@ -153,11 +158,17 @@ const TableList: React.FC = () => {
       dataIndex: 'params',
       valueType: 'textarea',
     },
+    // {
+    //   title: '排序',
+    //   dataIndex: 'sort',
+    //   valueType: 'digit',
+    //   hideInTable: true,
+    //   hideInSearch: true
+    // },
     {
-      title: '策略说明',
+      title: '参数说明',
       dataIndex: 'description',
       valueType: 'textarea',
-      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.createTime" defaultMessage="Description"/>,
@@ -174,59 +185,33 @@ const TableList: React.FC = () => {
       dataIndex: 'updateTime',
       valueType: 'dateTime',
       hideInSearch: true,
-      renderFormItem: (item, {defaultRender, ...rest}, form) => {
-        const status = form.getFieldValue('status');
-        if (`${status}` === '0') {
-          return false;
-        }
-        if (`${status}` === '3') {
-          return (
-            <Input
-              {...rest}
-              placeholder={intl.formatMessage({
-                id: 'pages.searchTable.exception',
-                defaultMessage: 'Please enter the reason for the exception!',
-              })}
-            />
-          );
-        }
-        return defaultRender(item);
+    },
+    {
+      title: '选中状态',
+      dataIndex: 'status',
+      hideInForm: true,
+      hideInTable: true,
+      sorter: true,
+      valueEnum: {
+        1: {
+          text: '已选中',
+          status: 'Processing',
+        },
+        0: {
+          text: '未选中',
+          status: 'Error',
+        },
       },
     },
-    // {
-    //   title: '选中状态',
-    //   dataIndex: 'status',
-    //   hideInForm: true,
-    //   order: 1,
-    //   sorter: true,
-    //   valueEnum: {
-    //     // 2: {
-    //     //   text: (
-    //     //     <FormattedMessage
-    //     //       id="pages.searchTable.nameStatus.default"
-    //     //       defaultMessage="Shut down"
-    //     //     />
-    //     //   ),
-    //     //   status: 'Default',
-    //     // },
-    //     1: {
-    //       text: '已选中',
-    //       status: 'Processing',
-    //     },
-    //     0: {
-    //       text: '未选中',
-    //       status: 'Error',
-    //     },
-    //   },
-    // },
     {
       title: '选中状态',
       dataIndex: 'status',
       valueType: 'switch',
       hideInSearch: true,
+      sorter: true,
       render: (dom, record) => {
         return <Switch
-          checked={record.status === "1"}
+          checked={record?.status}
           onChange={async () => {
             let success = await handleChoose(record);
             if (success) {
@@ -357,6 +342,7 @@ const TableList: React.FC = () => {
         width={"480px"}
         open={createModalOpen}
         onOpenChange={handleModalOpen}
+        modalProps={{destroyOnClose: true}}
         onFinish={async (value) => {
           const success = await handleAdd(value as API.RuleListItem);
           if (success) {
@@ -384,12 +370,14 @@ const TableList: React.FC = () => {
           name="name"
           label={'策略名称'}
         />
-        <ProFormTextArea width="md" name="description" label={'策略描述'}/>
         <ProFormTextArea width="md" name="params"
                          label={'策略参数'}
         />
+        <ProFormTextArea width="md" name="description"
+                         label={'参数说明'}
+        />
         <ProFormSwitch name={'status'} label={'是否选中'}
-              initialValue={false}
+                       initialValue={false}
         />
         <ProFormTextArea width="md" name="token"
                          label={intl.formatMessage({

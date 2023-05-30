@@ -1,4 +1,4 @@
-import {ProFormText, ProFormTextArea, StepsForm,} from '@ant-design/pro-components';
+import {ProFormSwitch, ProFormText, ProFormTextArea, StepsForm,} from '@ant-design/pro-components';
 import {FormattedMessage, useIntl} from '@umijs/max';
 import {Modal} from 'antd';
 import React from 'react';
@@ -31,10 +31,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             width={640}
             bodyStyle={{padding: '32px 40px 48px'}}
             destroyOnClose
-            title={intl.formatMessage({
-              id: 'pages.searchTable.updateForm.ruleConfig',
-              defaultMessage: '规则配置',
-            })}
+            title={'修改策略'}
             open={props.updateModalOpen}
             footer={submitter}
             onCancel={() => {
@@ -48,18 +45,12 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       onFinish={props.onSubmit}
     >
       <StepsForm.StepForm
-        initialValues={props.values}
-        title={intl.formatMessage({
-          id: 'pages.searchTable.updateForm.basicConfig',
-          defaultMessage: '基本信息',
-        })}
+        initialValues={{...props.values, statusCheck: props.values.status == '1'}}
+        title='修改策略配置'
       >
         <ProFormTextArea width="md" name="id" hidden initialValue={props.values?.id}/>
 
-        <ProFormText width="md" name="id" hidden={true}/>
-
-        <ProFormText width="md" name="sort" label={"任务排序"}/>
-        <ProFormText
+        <ProFormTextArea
           rules={[
             {
               required: true,
@@ -73,20 +64,11 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           ]}
           width="md"
           name="name"
-          label={intl.formatMessage({
-            id: 'pages.searchTable.jobName',
-            defaultMessage: '任务名称',
-          })}
+          label={'策略名称'}
         />
-        <ProFormTextArea width="md" name="description" label={intl.formatMessage({
-          id: 'pages.searchTable.jobDescription',
-          defaultMessage: '任务描述',
-        })}/>
-        <ProFormTextArea width="md" name="className"
-                         label={intl.formatMessage({
-                           id: 'pages.searchTable.jobClassName',
-                           defaultMessage: '任务全类名',
-                         })}
+
+        <ProFormTextArea width="md" name="params"
+                         label={'策略参数'}
                          rules={[
                            {
                              required: true,
@@ -97,28 +79,12 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
                                />
                              ),
                            }]}/>
-        <ProFormText width="md" name="cron"
-                     label={intl.formatMessage({
-                       id: 'pages.searchTable.jobCronExpression',
-                       defaultMessage: '执行表达式',
-                     })}
-                     rules={[
-                       {
-                         required: true,
-                         message: (
-                           <FormattedMessage
-                             id="pages.modalForm.message.cron"
-                             defaultMessage="jobCronExpression is required"
-                           />
-                         ),
-                       }]}
-        />
-        <ProFormTextArea width="md" name="token"
-                         label={intl.formatMessage({
-                           id: 'pages.searchTable.token',
-                           defaultMessage: 'token',
-                         })}
-          // hidden={true}
+
+        <ProFormTextArea width="md" name="description" label={'参数说明'}/>
+
+        <ProFormText width="md" name="sort" label={'策略排序'}/>
+
+        <ProFormSwitch label={'是否选中'} name={'status'}
         />
 
         {/*<ProFormText*/}

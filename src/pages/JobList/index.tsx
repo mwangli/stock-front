@@ -116,6 +116,7 @@ const TableList: React.FC = () => {
    * @zh-CN 新建窗口的弹窗
    *  */
   const [createModalOpen, handleModalOpen] = useState<boolean>(false);
+  const [resetModal, setResetModal] = useState<boolean>(false);
   /**
    * @en-US The pop-up window of the distribution update window
    * @zh-CN 分布更新窗口的弹窗
@@ -392,6 +393,7 @@ const TableList: React.FC = () => {
         width="520px"
         open={createModalOpen}
         onOpenChange={handleModalOpen}
+        modalProps={{destroyOnClose: true}}
         onFinish={async (value) => {
           const success = await handleAdd(value as API.RuleListItem);
           if (success) {
