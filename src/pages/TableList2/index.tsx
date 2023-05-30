@@ -145,12 +145,37 @@ const TableList: React.FC = () => {
       title: <FormattedMessage id="pages.searchTable.market" defaultMessage="market"/>,
       dataIndex: 'market',
       valueType: 'textarea',
+      hideInSearch: true,
+    },
+    // {
+    //   title: '价格区间',
+    //   dataIndex: 'priceRange',
+    //   valueType: 'digitRange',
+    //   hideInTable: true,
+    // },
+    {
+      title: '交易次数',
+      dataIndex: 'buySaleCount',
+      valueType: 'digit',
+      hideInTable: true,
+    },
+    {
+      title: '最低价格',
+      dataIndex: 'priceLow',
+      valueType: 'digit',
+      hideInTable: true,
+    },
+    {
+      title: '最高价格',
+      dataIndex: 'priceHigh',
+      valueType: 'digit',
+      hideInTable: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.nowPrice" defaultMessage="Description"/>,
       dataIndex: 'price',
       valueType: 'textarea',
-      // hideInSearch: true,
+      hideInSearch: true,
       sorter: true,
       renderText: (val: string) =>
         val ? `${val}${intl.formatMessage({
@@ -183,7 +208,7 @@ const TableList: React.FC = () => {
     {
       title: <FormattedMessage id="pages.searchTable.buySaleCount" defaultMessage="交易次数"/>,
       dataIndex: 'buySaleCount',
-      // hideInSearch: true,
+      hideInSearch: true,
       valueType: 'textarea',
       sorter: true,
       renderText: (val: string) =>
