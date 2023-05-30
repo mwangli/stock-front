@@ -238,7 +238,7 @@ const TableList: React.FC = () => {
           text: (
             <FormattedMessage id="pages.searchTable.jobStatus.paused" defaultMessage="notSold"/>
           ),
-          status: 'Default',
+          status: 'Error',
         },
       },
     },

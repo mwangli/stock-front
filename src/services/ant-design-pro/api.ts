@@ -181,3 +181,54 @@ export async function resumeJob(options?: { [key: string]: any }) {
   });
 }
 
+export async function createStrategy(options?: { [key: string]: any }) {
+  return request<API.RuleListItem>('/api/strategy', {
+    method: 'POST',
+    ...(options || {}),
+  });
+}
+
+export async function modifyStrategy(options?: { [key: string]: any }) {
+  return request<API.ApiResponse>('/api/strategy', {
+    method: 'PUT',
+    ...(options || {}),
+  });
+}
+
+export async function chooseStrategy(options?: { [key: string]: any }) {
+  return request<API.ApiResponse>('/api/strategy/choose', {
+    method: 'POST',
+    ...(options || {}),
+  });
+}
+
+export async function deleteStrategy(options?: { [key: string]: any }) {
+  return request<API.RuleListItem>('/api/strategy', {
+    method: 'DELETE',
+    ...(options || {}),
+  });
+}
+/** 获取定时任务 GET /api/job */
+export async function listStrategy(
+  params: {
+    // query
+    /** 当前的页码 */
+    current?: number;
+    /** 页面的容量 */
+    pageSize?: number;
+    name?: string;
+    code?: string;
+  },
+  // sort: any,
+  options?: { [key: string]: any },
+) {
+  return request<API.RuleList>('/api/strategy', {
+    method: 'GET',
+    params: {
+      ...params,
+      // sortKey: Object.keys(sort)[0],
+      // sortOrder: Object.values(sort)[0],
+    },
+    ...(options || {}),
+  });
+}

@@ -55,19 +55,25 @@ export default [
     name: 'list.table-list',
     icon: 'table',
     path: '/list',
-    component: './TableList',
+    component: './RecordList',
   },
   {
     name: 'list.stock-info',
     icon: 'FundOutlined',
     path: '/info',
-    component: './TableList2',
+    component: './StockInfo',
+  },
+  {
+    name: '评分策略',
+    icon: 'AlertOutlined',
+    path: '/strategy',
+    component: './StrategyList',
   },
   {
     name: 'list.time-job',
     icon: 'FieldTimeOutlined',
     path: '/job',
-    component: './TableList3',
+    component: './JobList',
   },
   // {
   //   name: 'list.run-logs',
