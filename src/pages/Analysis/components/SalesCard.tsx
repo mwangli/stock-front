@@ -111,7 +111,7 @@ const SalesCard = ({
                 <ul className={styles.rankingList}>
                   {incomeOrder.map((item, i) => (
                     <li key={item.x}>
-                      <span className={`${styles.rankingItemNumber} ${i < 3 ? styles.active : ''}`}>
+                      <span className={`${styles.rankingItemNumber} ${ styles.active }`}>
                         {i + 1}
                       </span>
                       <span className={styles.rankingItemTitle} title={item.x}>

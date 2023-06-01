@@ -15,8 +15,8 @@ import React, {useRef, useState} from 'react';
 import type {FormValueType} from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 import numeral from "numeral";
-import {PlusOutlined} from "@ant-design/icons";
 import {Area} from "@ant-design/charts";
+import {history} from "@@/core/history";
 
 /**
  * @en-US Add node
@@ -112,6 +112,9 @@ const TableList: React.FC = () => {
    * */
   const intl = useIntl();
 
+  // 初始化路径参数中的code
+  const code: string = history.location.search.split("code=")[1]
+
   const columns: ProColumns<API.RuleListItem>[] = [
     {
       title: (
@@ -121,6 +124,7 @@ const TableList: React.FC = () => {
         />
       ),
       dataIndex: 'code',
+      initialValue: code,
       tip: 'The stock code is the unique key',
       render: (dom, entity) => {
         return (

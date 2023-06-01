@@ -27,7 +27,7 @@ const columns = [
     title: '股票信息',
     dataIndex: 'name',
     key: 'name',
-    render: (text: string) => <a href={`/list?code=${text?.split("-")[0]}`}>{text}</a>,
+    render: (text: string) => <a href={`/info?code=${text?.split("-")[0]}`}>{text}</a>,
   },
   {
     title: '买入价格',
