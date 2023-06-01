@@ -14,6 +14,7 @@ import {Button, Drawer, Input, message} from 'antd';
 import React, {useRef, useState} from 'react';
 import type {FormValueType} from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
+import {history} from "umi";
 
 /**
  * @en-US Add node
@@ -96,6 +97,7 @@ const TableList: React.FC = () => {
 
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
+
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<API.RuleListItem>();
   const [selectedRowsState, setSelectedRows] = useState<API.RuleListItem[]>([]);
@@ -104,7 +106,13 @@ const TableList: React.FC = () => {
    * @en-US International configuration
    * @zh-CN 国际化配置
    * */
+
   const intl = useIntl();
+
+  // intl.pa
+  // 初始化路径参数中的code
+  const code: string =  history.location.search.split("code=")[1]
+  console.log(code)
 
   const columns: ProColumns<API.RuleListItem>[] = [
     {
@@ -115,6 +123,8 @@ const TableList: React.FC = () => {
         />
       ),
       dataIndex: 'code',
+      valueType: 'text',
+      initialValue: code,
       tip: 'The stock code is the unique key',
       render: (dom, entity) => {
         return (
@@ -353,6 +363,8 @@ const TableList: React.FC = () => {
     //   ],
     // },
   ];
+
+
 
   return (
     <PageContainer>

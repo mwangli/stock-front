@@ -115,7 +115,7 @@ const SalesCard = ({
                         {i + 1}
                       </span>
                       <span className={styles.rankingItemTitle} title={item.x}>
-                        {item.x}
+                       <a href={`/list?code=${item.x.split("-")[0]}`}>{item.x} </a>
                       </span>
                       <span className={styles.rankingItemValue}>
                         {`${numeral(item.y).format('0.00')} 元`}
