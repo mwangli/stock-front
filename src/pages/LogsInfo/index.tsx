@@ -22,11 +22,11 @@ const LogsInfo: React.FC = () => {
       // let connectedLo: boolean = localStorage.getItem("connected");
       if (!ws) {
 
-        // const defaultServer = "localhost:8080";
-        const port = process.env.port
-        // console.log(JSON.stringify(process.env))
-        // const server = webSocketServer ? webSocketServer : defaultServer;
-        const webSocket = new WebSocket(`ws://localhost/ws/webSocket`);
+        const localServer = "localhost:8001";
+        const remoteServer = "localhost";
+        console.log(JSON.stringify(process.env))
+        const server =  process.env.NODE_ENV == 'development' ? localServer : remoteServer;
+        const webSocket = new WebSocket(`ws://${server}/ws/webSocket`);
 
         webSocket.onopen = () => {
           console.log('连接建立成功')
