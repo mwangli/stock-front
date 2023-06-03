@@ -26,7 +26,7 @@ export default {
   'menu.list.stock-info': '实时价格',
   'menu.list.time-job': '定时任务',
   'menu.list.analysis': '数据分析',
-  'menu.list.run-logs': '日运行志',
+  'menu.list.run-logs': '运行日志',
   'menu.list.basic-list': '标准列表',
   'menu.list.card-list': '卡片列表',
   'menu.list.search-list': '搜索列表',

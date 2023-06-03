@@ -1,5 +1,5 @@
 import {ActionType, PageContainer,} from '@ant-design/pro-components';
-import {useIntl} from '@umijs/max';
+import {useModel} from '@umijs/max';
 import React, {useRef, useState} from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 
@@ -14,19 +14,21 @@ const LogsInfo: React.FC = () => {
      * @en-US International configuration
      * @zh-CN 国际化配置
      * */
-    const intl = useIntl();
+      // 日志信息
+    const [logs, setLogs] = useState<string>('');
 
-    // 日志信息
-    const [logs, setLogs] = useState<string>('false');
+    const [connected, setConnected] = useState<boolean>();
 
-    const [connected, setConnected] = useState<boolean>(false);
+    const {initialState, setInitialState} = useModel('@@initialState');
 
     const actionRef = useRef<ActionType>();
 
     let webSocket: any;
 
-    if (!connected){
+    // if (!initialState?.connected) {
 
+    // let connectedLo: boolean = localStorage.getItem("connected");
+    if (!connected) {
 
       webSocket = new WebSocket('ws://localhost:8080/webSocket');
 
@@ -39,29 +41,34 @@ const LogsInfo: React.FC = () => {
       }
 
       webSocket.onmessage = (message: any) => {
-        console.log(message.data)
+        // console.log(message.data)
         setLogs(message.data)
 
-        setConnected(true);
       }
 
+      setConnected(true);
 
-        // webSocket?.close(1000, 'closed');
+      // setInitialState((s) => ({
+      //   ...s,
+      //   webSocket: webSocket,
+      //   connected: true,
+      // }));
+
+      // webSocket?.close(1000, 'closed');
     }
 
     return (
       <PageContainer
-
         onTabChange={(key) => {
           console.log("切换菜单")
           webSocket?.close(1000, 'closed');
         }}
       >
         <CodeMirror editable={false}
-                    autoFocus={true}
+                    readOnly={true}
                     theme={"dark"}
                     value={logs}
-                    height="80"
+                    height="1000px"
 
           // extensions={[javascript({jsx: true})]}
           // onChange={onChange}

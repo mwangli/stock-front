@@ -24,6 +24,8 @@ export async function getInitialState(aa: any): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: API.CurrentUser;
   loading?: boolean;
+  websocket?: any;
+  connected?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
 }> {
 
