@@ -17,20 +17,22 @@ const LogsInfo: React.FC = () => {
       // 日志信息
     const [logs, setLogs] = useState<string>('');
 
+    const [ws, setWS] = useState<any>(null);
+
     const [connected, setConnected] = useState<boolean>();
 
     const {initialState, setInitialState} = useModel('@@initialState');
 
     const actionRef = useRef<ActionType>();
 
-    let webSocket: any;
+    // let webSocket: any;
 
     // if (!initialState?.connected) {
 
     // let connectedLo: boolean = localStorage.getItem("connected");
-    if (!connected) {
+    if (!ws) {
 
-      webSocket = new WebSocket('ws://localhost:8080/webSocket');
+      const webSocket = new WebSocket('ws://localhost:8080/webSocket');
 
       webSocket.onopen = () => {
         console.log('连接建立成功')
@@ -46,7 +48,7 @@ const LogsInfo: React.FC = () => {
 
       }
 
-      setConnected(true);
+      setWS(webSocket);
 
       // setInitialState((s) => ({
       //   ...s,
@@ -59,10 +61,6 @@ const LogsInfo: React.FC = () => {
 
     return (
       <PageContainer
-        onTabChange={(key) => {
-          console.log("切换菜单")
-          webSocket?.close(1000, 'closed');
-        }}
       >
         <CodeMirror editable={false}
                     readOnly={true}
