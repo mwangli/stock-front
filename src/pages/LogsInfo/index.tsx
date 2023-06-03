@@ -23,7 +23,7 @@ const LogsInfo: React.FC = () => {
       if (!ws) {
 
         const localServer = "localhost:8001";
-        const remoteServer = "localhost";
+        const remoteServer = "124.220.36.95";
         console.log(JSON.stringify(process.env))
         const server =  process.env.NODE_ENV == 'development' ? localServer : remoteServer;
         const webSocket = new WebSocket(`ws://${server}/ws/webSocket`);
