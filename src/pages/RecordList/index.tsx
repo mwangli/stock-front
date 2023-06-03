@@ -278,6 +278,12 @@ const TableList: React.FC = () => {
         })}` : '-',
     },
     {
+      title: '选股策略',
+      dataIndex: 'strategyName',
+      sorter: true,
+      hideInForm: true,
+    },
+    {
       title: <FormattedMessage id="pages.searchTable.titleStatus" defaultMessage="Status"/>,
       dataIndex: 'sold',
       hideInForm: true,

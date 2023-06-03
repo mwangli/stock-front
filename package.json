@@ -48,6 +48,8 @@
 
     "numeral": "^2.0.6",
     "@ant-design/charts": "^1.4.2",
+    "@uiw/react-codemirror": "^4.20.2",
+    "@codemirror/lang-javascript": "^6.1.9",
 
     "@ant-design/icons": "^4.8.0",
     "@ant-design/pro-components": "^2.3.57",

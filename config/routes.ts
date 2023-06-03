@@ -75,12 +75,12 @@ export default [
     path: '/job',
     component: './JobList',
   },
-  // {
-  //   name: 'list.run-logs',
-  //   icon: 'OrderedListOutlined',
-  //   path: '/logs',
-  //   component: './TableList3',
-  // },
+  {
+    name: 'list.run-logs',
+    icon: 'OrderedListOutlined',
+    path: '/logs',
+    component: './LogsInfo',
+  },
   {
     path: '/',
     redirect: '/welcome',

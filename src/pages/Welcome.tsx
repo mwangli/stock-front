@@ -1,7 +1,8 @@
-import { PageContainer } from '@ant-design/pro-components';
-import { useModel } from '@umijs/max';
-import { Card, theme } from 'antd';
-import React from 'react';
+import {PageContainer} from '@ant-design/pro-components';
+import {useModel} from '@umijs/max';
+import {Card, theme} from 'antd';
+import React, {useState} from 'react';
+
 
 /**
  * 每个单独的卡片，为了复用样式抽成了组件
@@ -13,10 +14,10 @@ const InfoCard: React.FC<{
   index: number;
   desc: string;
   href: string;
-}> = ({ title, href, index, desc }) => {
-  const { useToken } = theme;
+}> = ({title, href, index, desc}) => {
+  const {useToken} = theme;
 
-  const { token } = useToken();
+  const {token} = useToken();
 
   return (
     <div
@@ -84,8 +85,9 @@ const InfoCard: React.FC<{
 };
 
 const Welcome: React.FC = () => {
-  const { token } = theme.useToken();
-  const { initialState } = useModel('@@initialState');
+  const {token} = theme.useToken();
+  const {initialState} = useModel('@@initialState');
+
   return (
     <PageContainer>
       <Card
@@ -154,6 +156,19 @@ const Welcome: React.FC = () => {
               href="https://procomponents.ant.design"
               desc="ProComponents 是一个基于 Ant Design 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"
             />
+            <InfoCard
+              index={4}
+              title="开发者日志"
+              href="https://github/mwangli"
+              desc="记录开发日志信息"
+            />
+            <Card>
+              <p>
+                <span>2023-06-03</span> <br/>
+                1. 修复日期差计算bug <br/>
+                2. 新增运行日志查询页面 <br/>
+              </p>
+            </Card>
           </div>
         </div>
       </Card>
