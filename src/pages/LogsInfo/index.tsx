@@ -1,8 +1,6 @@
-import {ActionType, PageContainer,} from '@ant-design/pro-components';
-import {useModel} from '@umijs/max';
-import React, {useRef, useState} from 'react';
+import {PageContainer,} from '@ant-design/pro-components';
+import React, {useState} from 'react';
 import CodeMirror from '@uiw/react-codemirror';
-import {Button} from "antd";
 
 /**
  * @en-US Add node
@@ -24,7 +22,11 @@ const LogsInfo: React.FC = () => {
       // let connectedLo: boolean = localStorage.getItem("connected");
       if (!ws) {
 
-        const webSocket = new WebSocket('ws://localhost:8080/webSocket');
+        const defaultServer = "localhost:8080";
+        const webSocketServer = process.env.WS_SERVER
+        console.log(JSON.stringify(process.env))
+        const server = webSocketServer ? webSocketServer : defaultServer;
+        const webSocket = new WebSocket(`ws://${server}/webSocket`);
 
         webSocket.onopen = () => {
           console.log('连接建立成功')
