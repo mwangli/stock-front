@@ -2,16 +2,13 @@ import Footer from '@/components/Footer';
 import {Question, SelectLang} from '@/components/RightContent';
 import {LinkOutlined} from '@ant-design/icons';
 import type {Settings as LayoutSettings} from '@ant-design/pro-components';
-import {SettingDrawer} from '@ant-design/pro-components';
 import type {RunTimeLayoutConfig} from '@umijs/max';
 import {history, Link} from '@umijs/max';
-import {useModel} from 'umi';
 import defaultSettings from '../config/defaultSettings';
 import {errorConfig} from './requestErrorConfig';
 import {currentUser as queryCurrentUser} from './services/ant-design-pro/api';
 import React from 'react';
 import {AvatarDropdown, AvatarName} from './components/RightContent/AvatarDropdown';
-import {isLogin} from '@/pages/User/Login';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -24,7 +21,8 @@ export async function getInitialState(aa: any): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: API.CurrentUser;
   loading?: boolean;
-  websocket?: any;
+  ws?: any;
+  logs?: string;
   connected?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
 }> {
@@ -76,9 +74,44 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
       // 水印设置
       // content: initialState?.currentUser?.name,
     },
+    // on
     footerRender: () => <Footer/>,
-    onPageChange: () => {
+
+    onPageChange: (page) => {
+
+      if (page?.pathname === '/logs' && !initialState?.ws) {
+        const localServer = "localhost:8080";
+        const remoteServer = "124.220.36.95:8080";
+        // console.log(JSON.stringify(process.env))
+        const server = process.env.NODE_ENV == 'production' ? remoteServer : localServer;
+        const webSocket = new WebSocket(`ws://${server}/webSocket`);
+
+        webSocket.onopen = () => {
+          console.log('连接建立成功')
+        }
+
+        webSocket.onclose = () => {
+          console.log('连接关闭成功')
+        }
+
+        webSocket.onmessage = (message: any) => {
+          // console.log(message.data)
+          // setLogs(message.data)
+          setInitialState((s) => ({
+            ...s,
+            logs: s?.logs? `${s?.logs}\r${message.data}` : message.data,
+          }));
+        }
+
+        // setWS(webSocket);
+        setInitialState((s) => ({
+          ...s,
+          ws: webSocket,
+        }));
+      }
+
       const {location} = history;
+
       // 如果没有登录，重定向到 login
       // if (!initialState?.currentUser && location.pathname !== loginPath) {
       //   history.push(loginPath);
