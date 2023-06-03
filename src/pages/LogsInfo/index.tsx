@@ -22,7 +22,7 @@ const LogsInfo: React.FC = () => {
       // let connectedLo: boolean = localStorage.getItem("connected");
       if (!ws) {
 
-        const localServer = "localhost:8001";
+        const localServer = "localhost:8080";
         const remoteServer = "124.220.36.95:8080";
         console.log(JSON.stringify(process.env))
         const server =  process.env.NODE_ENV == 'development' ? localServer : remoteServer;
