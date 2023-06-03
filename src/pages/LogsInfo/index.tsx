@@ -23,10 +23,10 @@ const LogsInfo: React.FC = () => {
       if (!ws) {
 
         const localServer = "localhost:8001";
-        const remoteServer = "124.220.36.95";
+        const remoteServer = "124.220.36.95:8080";
         console.log(JSON.stringify(process.env))
         const server =  process.env.NODE_ENV == 'development' ? localServer : remoteServer;
-        const webSocket = new WebSocket(`ws://${server}/ws/webSocket`);
+        const webSocket = new WebSocket(`ws://${server}/webSocket`);
 
         webSocket.onopen = () => {
           console.log('连接建立成功')
