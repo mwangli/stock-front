@@ -2,6 +2,7 @@ import {ActionType, PageContainer,} from '@ant-design/pro-components';
 import {useModel} from '@umijs/max';
 import React, {useRef, useState} from 'react';
 import CodeMirror from '@uiw/react-codemirror';
+import {Button} from "antd";
 
 /**
  * @en-US Add node
@@ -19,49 +20,36 @@ const LogsInfo: React.FC = () => {
 
     const [ws, setWS] = useState<any>(null);
 
-    const [connected, setConnected] = useState<boolean>();
+    const getWS = () => {
+      // let connectedLo: boolean = localStorage.getItem("connected");
+      if (!ws) {
 
-    const {initialState, setInitialState} = useModel('@@initialState');
+        const webSocket = new WebSocket('ws://localhost:8080/webSocket');
 
-    const actionRef = useRef<ActionType>();
+        webSocket.onopen = () => {
+          console.log('连接建立成功')
+        }
 
-    // let webSocket: any;
+        webSocket.onclose = () => {
+          console.log('连接关闭成功')
+        }
 
-    // if (!initialState?.connected) {
+        webSocket.onmessage = (message: any) => {
+          // console.log(message.data)
+          setLogs(message.data)
 
-    // let connectedLo: boolean = localStorage.getItem("connected");
-    if (!ws) {
+        }
 
-      const webSocket = new WebSocket('ws://localhost:8080/webSocket');
-
-      webSocket.onopen = () => {
-        console.log('连接建立成功')
-      }
-
-      webSocket.onclose = () => {
-        console.log('连接关闭成功')
-      }
-
-      webSocket.onmessage = (message: any) => {
-        // console.log(message.data)
-        setLogs(message.data)
+        setWS(webSocket);
 
       }
 
-      setWS(webSocket);
-
-      // setInitialState((s) => ({
-      //   ...s,
-      //   webSocket: webSocket,
-      //   connected: true,
-      // }));
-
-      // webSocket?.close(1000, 'closed');
     }
 
+    getWS()
+
     return (
-      <PageContainer
-      >
+      <PageContainer>
         <CodeMirror editable={false}
                     readOnly={true}
                     theme={"dark"}
