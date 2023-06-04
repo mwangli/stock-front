@@ -83,11 +83,11 @@ const LogsInfo: React.FC = () => {
               scrollDOM.scrollTop = scrollDOM.scrollHeight;
               setInit(false);
             }
-            if (top<height){
-              console.log(top)
-              console.log(height)
-              console.log("------")
-            }
+            // if (top<height){
+            //   console.log(top)
+            //   console.log(height)
+            //   console.log("------")
+            // }
           }}
         />
 
