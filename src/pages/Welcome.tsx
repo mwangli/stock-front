@@ -167,6 +167,8 @@ const Welcome: React.FC = () => {
                 <span>2023-06-03</span> <br/>
                 1. 修复日期差计算bug <br/>
                 2. 新增运行日志查询页面 <br/>
+                <span>2023-06-04</span> <br/>
+                3. 解决了日志查询滚动条固定到底部的问题 <br/>
               </p>
             </Card>
           </div>

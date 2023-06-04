@@ -17,8 +17,9 @@ const LogsInfo: React.FC = () => {
      * */
       // 日志信息
       // const [logs, setLogs] = useState<string>('');
+    const [init, setInit] = useState<boolean>(true);
 
-      // const [ws, setWS] = useState<any>(null);
+    // const [ws, setWS] = useState<any>(null);
 
     const {initialState, setInitialState} = useModel('@@initialState');
 
@@ -61,15 +62,41 @@ const LogsInfo: React.FC = () => {
 
     return (
       <PageContainer>
-        <CodeMirror editable={false}
-                    readOnly={true}
-                    theme={"dark"}
-                    value={initialState?.logs}
-                    height="1000px"
+        <CodeMirror
+          editable={false}
+          readOnly={true}
+          theme={"dark"}
+          value={initialState?.logs}
+          height="1000px"
 
           // extensions={[javascript({jsx: true})]}
           // onChange={onChange}
+          onScroll={(s) => {
+            console.log(s)
+          }}
+          onUpdate={(viewUpdate) => {
+            let scrollDOM = viewUpdate.view.scrollDOM;
+            let height = scrollDOM.scrollHeight;
+            let top = scrollDOM.scrollTop + 1020;
+            console.log(top)
+            console.log(scrollDOM.scrollHeight)
+            if (init || top >= scrollDOM.scrollHeight) {
+              scrollDOM.scrollTop = scrollDOM.scrollHeight;
+              setInit(false);
+            }
+          }}
         />
+
+        {/*<CodeMirror2*/}
+        {/*  value='<h1>I ♥ react-codemirror2</h1>'*/}
+        {/*  options={{*/}
+        {/*    mode: 'xml',*/}
+        {/*    theme: 'material',*/}
+        {/*    lineNumbers: true*/}
+        {/*  }}*/}
+        {/*  onChange={(editor, data, value) => {*/}
+        {/*  }}*/}
+        {/*/>*/}
       </PageContainer>
     );
   }

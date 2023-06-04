@@ -99,7 +99,8 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
           // setLogs(message.data)
           setInitialState((s) => ({
             ...s,
-            logs: message.data,
+            // logs: message.data,
+            logs: s?.logs ? `${s.logs}\r${message.data}` : message.data,
           }));
         }
 
@@ -110,13 +111,13 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
         }));
       }
 
-      if (page?.pathname !== '/logs' && initialState?.ws) {
-        initialState?.ws.close();
-        setInitialState((s) => ({
-          ...s,
-          ws: null,
-        }));
-      }
+      // if (page?.pathname !== '/logs' && initialState?.ws) {
+      //   initialState?.ws.close();
+      //   setInitialState((s) => ({
+      //     ...s,
+      //     ws: null,
+      //   }));
+      // }
 
       // 如果没有登录，重定向到 login
       // if (!initialState?.currentUser && location.pathname !== loginPath) {
