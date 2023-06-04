@@ -64,7 +64,7 @@ const LogsInfo: React.FC = () => {
       <PageContainer>
         <CodeMirror
           editable={false}
-          readOnly={true}
+          // readOnly={true}
           theme={"dark"}
           value={initialState?.logs}
           height="1000px"
@@ -77,12 +77,16 @@ const LogsInfo: React.FC = () => {
           onUpdate={(viewUpdate) => {
             let scrollDOM = viewUpdate.view.scrollDOM;
             let height = scrollDOM.scrollHeight;
-            let top = scrollDOM.scrollTop + 1020;
-            console.log(top)
-            console.log(scrollDOM.scrollHeight)
-            if (init || top >= scrollDOM.scrollHeight) {
+            let top = scrollDOM.scrollTop + 1030;
+
+            if (init || top >= height) {
               scrollDOM.scrollTop = scrollDOM.scrollHeight;
               setInit(false);
+            }
+            if (top<height){
+              console.log(top)
+              console.log(height)
+              console.log("------")
             }
           }}
         />
