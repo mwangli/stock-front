@@ -152,17 +152,20 @@ const TableList: React.FC = () => {
       ),
       dataIndex: 'id',
       hideInSearch: true,
-      // tip: 'The jobId is the unique key',
+      // hideInTable: true,
+      tip: 'The jobId is the unique key',
       render: (dom, entity, index) => {
         return (
-          <a
-            onClick={() => {
-              setCurrentRow(entity);
-              // setShowDetail(true);
-            }}
-          >
-            {index + 1}
-          </a>
+          // <a
+          //   onClick={() => {
+          //     setCurrentRow(entity);
+          //     // setShowDetail(true);
+          //   }}
+          // >
+          <span>
+                {index + 1}
+          </span>
+          // </a>
         );
       },
     },
@@ -416,12 +419,7 @@ const TableList: React.FC = () => {
           rules={[
             {
               required: true,
-              message: (
-                <FormattedMessage
-                  id="pages.searchTable.ruleName"
-                  defaultMessage="Rule name is required"
-                />
-              ),
+              message: '任务名称为必填项',
             },
           ]}
           width="md"
@@ -443,12 +441,7 @@ const TableList: React.FC = () => {
                          rules={[
                            {
                              required: true,
-                             message: (
-                               <FormattedMessage
-                                 id="pages.modalForm.message.className"
-                                 defaultMessage="className is required"
-                               />
-                             ),
+                             message: '任务全类名为必填项',
                            }]}/>
         <ProFormText width="md" name="cron"
                      label={intl.formatMessage({

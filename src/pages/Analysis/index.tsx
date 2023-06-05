@@ -44,6 +44,7 @@ const Analysis: FC<AnalysisProps> = () => {
 
   const handleRangePickerChange = (value: RangePickerValue) => {
     setRangePickerValue(value);
+    console.log(RangePickerValue);
   };
 
   const isActive = (type: TimeType) => {

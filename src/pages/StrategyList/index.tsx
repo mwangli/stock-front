@@ -131,20 +131,23 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<API.RuleListItem>[] = [
     {
-      title: '策略排序',
+      title: '策略编号',
       dataIndex: 'id',
       hideInSearch: true,
-      // tip: 'The jobId is the unique key',
+      // hideInTable: true,
+      tip: 'The StrategyId is the unique key',
       render: (dom, entity, index) => {
         return (
-          <a
-            onClick={() => {
-              setCurrentRow(entity);
-              // setShowDetail(true);
-            }}
-          >
+          // <a
+          //   onClick={() => {
+          //     setCurrentRow(entity);
+          //     // setShowDetail(true);
+          //   }}
+          // >
+          <span>
             {index + 1}
-          </a>
+          </span>
+          // </a>
         );
       },
     },
@@ -362,12 +365,7 @@ const TableList: React.FC = () => {
           rules={[
             {
               required: true,
-              message: (
-                <FormattedMessage
-                  id="pages.searchTable.ruleName"
-                  defaultMessage="Rule name is required"
-                />
-              ),
+              message: '策略名称为必填项',
             },
           ]}
           width="md"
@@ -377,6 +375,12 @@ const TableList: React.FC = () => {
         <ProFormTextArea width="md" name="params"
                          label={'策略参数'}
                          initialValue={`{"preRateFactor":0.5,"priceTolerance":5,"historyLimit":50}`}
+                         rules={[
+                           {
+                             required: true,
+                             message: '策略参数为必填项',
+                           },
+                         ]}
         />
         <ProFormTextArea width="md" name="description"
                          label={'参数说明'}

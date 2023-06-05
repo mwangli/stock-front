@@ -219,7 +219,6 @@ const TableList: React.FC = () => {
       valueType: 'textarea',
       hideInTable: true,
       hideInSearch: true,
-      sorter: true,
       renderText: (val: string) =>
         val ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.piece',
@@ -250,6 +249,17 @@ const TableList: React.FC = () => {
         val ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.yuan',
           defaultMessage: ' 元 ',
+        })}` : '-',
+    },
+    {
+      title: '收益率',
+      dataIndex: 'incomeRate',
+      hideInSearch: true,
+      hideInTable: true,
+      renderText: (val: string) =>
+        val ? `${val}${intl.formatMessage({
+          id: 'pages.searchTable.percent',
+          defaultMessage: ' % ',
         })}` : '-',
     },
     {
