@@ -130,6 +130,13 @@ const Welcome: React.FC = () => {
           >
             Ant Design Pro 是一个整合了 umi，Ant Design 和 ProComponents
             的脚手架方案。致力于在设计规范和基础组件的基础上，继续向上构建，提炼出典型模板/业务组件/配套设计资源，进一步提升企业级中后台产品设计研发过程中的『用户』和『设计者』的体验。
+            <span>2023-06-03</span> <br/>
+            1. 修复日期差计算bug <br/>
+            2. 新增运行日志查询页面 <br/>
+            <span>2023-06-04</span> <br/>
+            3. 解决了日志查询滚动条固定到底部的问题 <br/>
+            <span>2023-06-06</span> <br/>
+            4. 优化买入金额问题 <br/>
           </p>
           <div
             style={{
@@ -156,21 +163,6 @@ const Welcome: React.FC = () => {
               href="https://procomponents.ant.design"
               desc="ProComponents 是一个基于 Ant Design 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"
             />
-            <InfoCard
-              index={4}
-              title="开发者日志"
-              href="https://github/mwangli"
-              desc="记录开发日志信息"
-            />
-            <Card>
-              <p>
-                <span>2023-06-03</span> <br/>
-                1. 修复日期差计算bug <br/>
-                2. 新增运行日志查询页面 <br/>
-                <span>2023-06-04</span> <br/>
-                3. 解决了日志查询滚动条固定到底部的问题 <br/>
-              </p>
-            </Card>
           </div>
         </div>
       </Card>
