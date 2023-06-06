@@ -104,15 +104,15 @@ const handleResume = async (fields: FormValueType) => {
 };
 
 const handleRun = async (fields: FormValueType) => {
-  const hide = message.loading('正在触发任务...');
+  const hide = message.loading(`${fields.name},正在触发任务...`);
   try {
     await runJob({data: fields});
     hide();
-    message.success('触发任务成功！');
+    message.success(`${fields.name},触发任务成功！`);
     return true;
   } catch (error) {
     hide();
-    message.error('触发任务失败！');
+    message.error(`${fields.name},触发任务失败！`);
     return false;
   }
 };
