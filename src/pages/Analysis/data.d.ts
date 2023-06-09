@@ -42,7 +42,7 @@ export interface AnalysisData {
   salesTypeData: DataItem[];
   salesTypeDataOnline: DataItem[];
   salesTypeDataOffline: DataItem[];
-
+  data: any;
   radarData: RadarData[];
   income,
   expectList,

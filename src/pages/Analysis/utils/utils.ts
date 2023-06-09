@@ -7,9 +7,13 @@ export function fixedZero(val: number) {
   return val * 1 < 10 ? `0${val}` : val;
 }
 
-export function getTimeDistance(type: 'today' | 'week' | 'month' | 'year'): RangePickerValue {
+export function getTimeDistance(type: 'today' | 'week' | 'month' | 'year'| 'all'): RangePickerValue {
   const now = new Date();
   const oneDay = 1000 * 60 * 60 * 24;
+
+  if (type === 'all') {
+    return null;
+  }
 
   if (type === 'today') {
     now.setHours(0);

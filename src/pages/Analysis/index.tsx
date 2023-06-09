@@ -12,7 +12,7 @@ import SalesCard from './components/SalesCard';
 import TopSearch from './components/TopSearch';
 import ProportionSales from './components/ProportionSales';
 import {useRequest} from 'umi';
-
+// const actionRef = useRef<ActionType>();
 import {fakeChartData} from './service';
 import PageLoading from './components/PageLoading';
 import {getTimeDistance} from './utils/utils';
@@ -32,20 +32,37 @@ type SalesType = 'all' | 'online' | 'stores';
 const Analysis: FC<AnalysisProps> = () => {
   const [salesType, setSalesType] = useState<SalesType>('all');
   const [currentTabKey, setCurrentTabKey] = useState<string>('');
-  const [rangePickerValue, setRangePickerValue] = useState<RangePickerValue>(
-    getTimeDistance('year'),
-  );
+  const [rangePickerValue, setRangePickerValue] = useState<RangePickerValue>(getTimeDistance('month'));
 
-  const {loading, data} = useRequest(fakeChartData);
+  const {loading, data, mutate} = useRequest(fakeChartData, {
+    defaultParams: [{
+      startDate: rangePickerValue?.["0"]?.format('YYYYMMDD'),
+      endDate: rangePickerValue?.["1"]?.format('YYYYMMDD'),
+    }]
+  });
 
-  const selectDate = (type: TimeType) => {
-    setRangePickerValue(getTimeDistance(type));
+  const handleData = async (dateRange: any) => {
+    const startDate: any = dateRange?.["0"]?.format('YYYYMMDD');
+    const endDate: any = dateRange?.["1"]?.format('YYYYMMDD');
+    console.log(startDate);
+    console.log(endDate);
+    const {data} = await fakeChartData({startDate, endDate,});
+    mutate(data)
+  }
+
+  // se
+
+  const selectDate = async (type: TimeType) => {
+    const dateRange = getTimeDistance(type);
+    setRangePickerValue(dateRange);
+    await handleData(dateRange);
   };
 
-  const handleRangePickerChange = (value: RangePickerValue) => {
+  const handleRangePickerChange = async (value: RangePickerValue) => {
     setRangePickerValue(value);
-    console.log(value);
-    console.log(rangePickerValue);
+    if (value) {
+      await handleData(value)
+    }
   };
 
   const isActive = (type: TimeType) => {
@@ -104,64 +121,64 @@ const Analysis: FC<AnalysisProps> = () => {
     <PageContainer>
       <GridContent>
 
-          {/*第一排四个小图*/}
-          <Suspense fallback={<PageLoading/>}>
-            <IntroduceRow loading={loading} visitData={data || {}}/>
-          </Suspense>
+        {/*第一排四个小图*/}
+        <Suspense fallback={<PageLoading/>}>
+          <IntroduceRow loading={loading} visitData={data || {}}/>
+        </Suspense>
 
-          {/*中间的柱状图*/}
-          <Suspense fallback={<PageLoading/>}>
-            <SalesCard
-              rangePickerValue={rangePickerValue}
-              salesData={data?.incomeList || []}
-              salesData2={data?.dailyRateList || []}
-              incomeOrder={data?.incomeOrder || []}
-              rateOrder={data?.dailyRateOrder || []}
-              isActive={isActive}
-              handleRangePickerChange={handleRangePickerChange}
-              loading={loading}
-              selectDate={selectDate}
-            />
-          </Suspense>
+        {/*中间的柱状图*/}
+        <Suspense fallback={<PageLoading/>}>
+          <SalesCard
+            rangePickerValue={rangePickerValue}
+            salesData={data?.incomeList || []}
+            salesData2={data?.dailyRateList || []}
+            incomeOrder={data?.incomeOrder || []}
+            rateOrder={data?.dailyRateOrder || []}
+            isActive={isActive}
+            handleRangePickerChange={handleRangePickerChange}
+            loading={loading}
+            selectDate={selectDate}
+          />
+        </Suspense>
 
         {/*下面的统计饼图*/}
-          <Row
-            gutter={24}
-            style={{
-              marginTop: 24,
-            }}
-          >
-            <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-              <Suspense fallback={<PageLoading/>}>
-                <TopSearch
-                  loading={loading}
-                  searchData={data?.expectList || []}
-                  dropdownGroup={dropdownGroup}
-                />
-              </Suspense>
-            </Col>
-            <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-              <Suspense fallback={<PageLoading/>}>
-                <ProportionSales
-                  dropdownGroup={dropdownGroup}
-                  salesType={salesType}
-                  loading={loading}
-                  salesPieData={data?.holdDaysList || []}
-                  handleChangeSalesType={handleChangeSalesType}
-                />
-              </Suspense>
-            </Col>
-          </Row>
+        <Row
+          gutter={24}
+          style={{
+            marginTop: 24,
+          }}
+        >
+          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+            <Suspense fallback={<PageLoading/>}>
+              <TopSearch
+                loading={loading}
+                searchData={data?.expectList || []}
+                dropdownGroup={dropdownGroup}
+              />
+            </Suspense>
+          </Col>
+          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+            <Suspense fallback={<PageLoading/>}>
+              <ProportionSales
+                dropdownGroup={dropdownGroup}
+                salesType={salesType}
+                loading={loading}
+                salesPieData={data?.holdDaysList || []}
+                handleChangeSalesType={handleChangeSalesType}
+              />
+            </Suspense>
+          </Col>
+        </Row>
 
-          {/*<Suspense fallback={null}>*/}
-          {/*  <OfflineData*/}
-          {/*    activeKey={activeKey}*/}
-          {/*    loading={loading}*/}
-          {/*    offlineData={data?.offlineData || []}*/}
-          {/*    offlineChartData={data?.offlineChartData || []}*/}
-          {/*    handleTabChange={handleTabChange}*/}
-          {/*  />*/}
-          {/*</Suspense>*/}
+        {/*<Suspense fallback={null}>*/}
+        {/*  <OfflineData*/}
+        {/*    activeKey={activeKey}*/}
+        {/*    loading={loading}*/}
+        {/*    offlineData={data?.offlineData || []}*/}
+        {/*    offlineChartData={data?.offlineChartData || []}*/}
+        {/*    handleTabChange={handleTabChange}*/}
+        {/*  />*/}
+        {/*</Suspense>*/}
 
       </GridContent>
     </PageContainer>

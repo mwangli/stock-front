@@ -33,14 +33,14 @@ const SalesCard = ({
                      selectDate,
                    }: {
   rangePickerValue: RangePickerValue;
-  isActive: (key: TimeType) => string;
+  isActive: (key: any) => string;
   salesData: DataItem[];
   salesData2: DataItem[];
   incomeOrder: DataItem[];
   rateOrder: DataItem[];
   loading: boolean;
   handleRangePickerChange: (dates: RangePickerValue, dateStrings: [string, string]) => void;
-  selectDate: (key: TimeType) => void;
+  selectDate: (key: any) => void;
 }) => (
   <Card loading={loading} bordered={false} bodyStyle={{padding: 0}}>
     <div className={styles.salesCard}>
@@ -60,10 +60,13 @@ const SalesCard = ({
               <a className={isActive('year')} onClick={() => selectDate('year')}>
                 本年
               </a>
+              <a className={isActive('all')} onClick={() => selectDate('all')}>
+                全部
+              </a>
             </div>
             <RangePicker
-              value={rangePickerValue}
-              onChange={handleRangePickerChange}
+              value={rangePickerValue as any}
+              onChange={handleRangePickerChange as any}
               style={{width: 256}}
             />
           </div>
