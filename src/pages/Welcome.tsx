@@ -140,6 +140,7 @@ const Welcome: React.FC = () => {
             4. 优化买入金额问题 <br/>
             <span>2023-06-09</span> <br/>
             5. 增加取消订单的结果查询 <br/>
+            6. 增加数据分时时段查询功能 <br/>
           </p>
           <div
             style={{
