@@ -116,7 +116,7 @@ const Welcome: React.FC = () => {
               color: token.colorTextHeading,
             }}
           >
-            欢迎使用 Ant Design Pro
+            欢迎使用 Found-Trading System
           </div>
           <p
             style={{
@@ -128,8 +128,9 @@ const Welcome: React.FC = () => {
               width: '65%',
             }}
           >
-            Ant Design Pro 是一个整合了 umi，Ant Design 和 ProComponents
-            的脚手架方案。致力于在设计规范和基础组件的基础上，继续向上构建，提炼出典型模板/业务组件/配套设计资源，进一步提升企业级中后台产品设计研发过程中的『用户』和『设计者』的体验。
+            Found-Trading System是一款自动化股票交易管理软件，<br/>
+            可以按照自定义交易策略，进行自动化的股票买卖交易；<br/>
+            也可以查看股票历史价格，实时价格，买卖记录和相关报表数据<br/>
             <span>2023-06-03</span> <br/>
             1. 修复日期差计算bug <br/>
             2. 新增运行日志查询页面 <br/>
@@ -137,6 +138,8 @@ const Welcome: React.FC = () => {
             3. 解决了日志查询滚动条固定到底部的问题 <br/>
             <span>2023-06-06</span> <br/>
             4. 优化买入金额问题 <br/>
+            <span>2023-06-09</span> <br/>
+            5. 增加取消订单的结果查询 <br/>
           </p>
           <div
             style={{
