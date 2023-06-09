@@ -141,6 +141,8 @@ const Welcome: React.FC = () => {
             <span>2023-06-09</span> <br/>
             5. 增加取消订单的结果查询 <br/>
             6. 增加数据分时时段查询功能 <br/>
+            <span>2023-06-10</span> <br/>
+            7. 线程池任务执行异常问题修复 <br/>
           </p>
           <div
             style={{
