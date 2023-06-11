@@ -415,6 +415,10 @@ const TableList: React.FC = () => {
         }}
       >
         <ProFormText width="md" name="id" hidden={true}/>
+        <ProFormDigit width="md" name="sort"
+                      label={'任务排序'}
+                      initialValue={0}
+        />
         <ProFormText
           rules={[
             {
@@ -460,10 +464,7 @@ const TableList: React.FC = () => {
                        }]}
                      initialValue={"0 0 9-15 * * ?"}
         />
-        <ProFormDigit width="md" name="sort"
-                      label={'任务排序'}
-                      initialValue={0}
-        />
+
       </ModalForm>
       <UpdateForm
         onSubmit={async (value) => {

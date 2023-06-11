@@ -144,6 +144,9 @@ const Welcome: React.FC = () => {
             <span>2023-06-10</span> <br/>
             7. 线程池任务执行异常问题修复 <br/>
             8. 验证码登录功能实现优化 <br/>
+            <span>2023-06-11</span> <br/>
+            9. HttpClient-FormData表单提交优化 <br/>
+            10. 自动登陆功能实现 <br/>
           </p>
           <div
             style={{
