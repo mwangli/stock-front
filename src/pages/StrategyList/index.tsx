@@ -161,12 +161,12 @@ const TableList: React.FC = () => {
       title: '策略参数',
       dataIndex: 'params',
       valueType: 'textarea',
-      ellipsis: true,
+      // ellipsis: true,
       // tip: '； ;\r\n ',
       // tip: {<span>第一行<br/>第二行<br/>第三行</span>},
-      tooltip: <span>preRateFactor为前期增长率数据占比因子,数值越小，前期数据对得分影响越低，范围[0,1];<br/>
-        priceTolerance是价格波动容忍度，数值越小，价格波动越小，范围[1,10];<br/>
-        historyLimit为历史价格条数，范围[10,100]。</span>
+      tooltip: <span>第一个参数为前期增长率数据占比因子,数值越小，前期数据对得分影响越低，范围[0,1];<br/>
+        第二个参数是价格波动容忍度，数值越小，价格波动越小，范围[1,10];<br/>
+        第三个参数为参考数据范围的历史价格条数，范围[10,100]。</span>
     },
     // {
     //   title: '排序',
@@ -180,7 +180,7 @@ const TableList: React.FC = () => {
       dataIndex: 'description',
       valueType: 'textarea',
       hideInSearch: true,
-      ellipsis: true,
+      // ellipsis: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.createTime" defaultMessage="Description"/>,
