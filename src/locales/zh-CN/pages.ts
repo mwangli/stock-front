@@ -108,6 +108,7 @@ export default {
   'pages.searchTable.updateJob': '修改',
   'pages.searchTable.deleteJob': '删除',
   'pages.searchTable.runJob': '触发',
+  'pages.searchTable.interruptJob': '终止',
   'pages.searchTable.updateForm.jobConfig': '任务配置',
   'pages.modalForm.updateJob': '修改任务',
   'pages.modalForm.message.className': '任务全类名必填',

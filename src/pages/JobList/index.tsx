@@ -1,4 +1,4 @@
-import {createJob, deleteJob, listJob, modifyJob, pauseJob, resumeJob, runJob} from '@/services/ant-design-pro/api';
+import {createJob, deleteJob, listJob, modifyJob, pauseJob,interruptJob, resumeJob, runJob} from '@/services/ant-design-pro/api';
 import type {ActionType, ProColumns} from '@ant-design/pro-components';
 import {
   ModalForm,
@@ -85,6 +85,20 @@ const handlePause = async (fields: FormValueType) => {
   } catch (error) {
     hide();
     message.error('停止任务失败！');
+    return false;
+  }
+};
+
+const handleInterrupt = async (fields: FormValueType) => {
+  const hide = message.loading('正在终止任务...');
+  try {
+    await interruptJob({data: fields});
+    hide();
+    message.success('终止任务成功！');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('终止任务失败！');
     return false;
   }
 };
@@ -266,6 +280,16 @@ const TableList: React.FC = () => {
         ><FormattedMessage
           id="pages.searchTable.runJob"
           defaultMessage="Subscribe to alerts"
+        />
+        </a>,
+        <a key="k11"
+           onClick={async () => {
+             // setCurrentRow(record);
+             await handleInterrupt(record)
+           }}
+        ><FormattedMessage
+          id="pages.searchTable.interruptJob"
+          defaultMessage="interruptJob"
         />
         </a>,
         <a

@@ -174,6 +174,13 @@ export async function pauseJob(options?: { [key: string]: any }) {
   });
 }
 
+export async function interruptJob(options?: { [key: string]: any }) {
+  return request<API.RuleListItem>('/api/job/interrupt', {
+    method: 'POST',
+    ...(options || {}),
+  });
+}
+
 export async function resumeJob(options?: { [key: string]: any }) {
   return request<API.RuleListItem>('/api/job/resume', {
     method: 'POST',

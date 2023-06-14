@@ -147,6 +147,9 @@ const Welcome: React.FC = () => {
             <span>2023-06-11</span> <br/>
             9. HttpClient-FormData表单提交优化 <br/>
             10. 自动登陆功能实现 <br/>
+            <span>2023-06-14</span> <br/>
+            11. 买卖时机策略优化 <br/>
+            12. 增加终止任务功能 <br/>
           </p>
           <div
             style={{
