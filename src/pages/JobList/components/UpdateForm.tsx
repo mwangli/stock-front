@@ -1,4 +1,4 @@
-import {ProFormText, ProFormTextArea, StepsForm,} from '@ant-design/pro-components';
+import {ProFormSwitch, ProFormText, ProFormTextArea,ProFormSelect, StepsForm,} from '@ant-design/pro-components';
 import {FormattedMessage, useIntl} from '@umijs/max';
 import {Modal} from 'antd';
 import React from 'react';
@@ -118,9 +118,19 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
                            id: 'pages.searchTable.token',
                            defaultMessage: 'token',
                          })}
-          // hidden={true}
+          hidden={true}
         />
-
+        <ProFormSelect
+          width="md"
+          name="logSwitch"
+          label="是否开启接口日志"
+          initialValue={''}
+          valueEnum={{
+            open: '开启',
+            close: '关闭',
+          }}
+          placeholder="默认"
+        />
         {/*<ProFormText*/}
         {/*  name="name"*/}
         {/*  label={intl.formatMessage({*/}

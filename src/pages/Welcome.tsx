@@ -150,6 +150,8 @@ const Welcome: React.FC = () => {
             <span>2023-06-14</span> <br/>
             11. 买卖时机策略优化 <br/>
             12. 增加终止任务功能 <br/>
+            <span>2023-06-16</span> <br/>
+            13. 取消终止任务功能 <br/>
           </p>
           <div
             style={{
