@@ -152,6 +152,7 @@ const Welcome: React.FC = () => {
             12. 增加终止任务功能 <br/>
             <span>2023-06-16</span> <br/>
             13. 取消终止任务功能 <br/>
+            14. 增加日志开关选项 <br/>
           </p>
           <div
             style={{
