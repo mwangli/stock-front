@@ -282,16 +282,16 @@ const TableList: React.FC = () => {
           defaultMessage="Subscribe to alerts"
         />
         </a>,
-        // <a key="k11"
-        //    onClick={async () => {
-        //      // setCurrentRow(record);
-        //      await handleInterrupt(record)
-        //    }}
-        // ><FormattedMessage
-        //   id="pages.searchTable.interruptJob"
-        //   defaultMessage="interruptJob"
-        // />
-        // </a>,
+        <a key="k11"
+           onClick={async () => {
+             // setCurrentRow(record);
+             await handleInterrupt(record)
+           }}
+        ><FormattedMessage
+          id="pages.searchTable.interruptJob"
+          defaultMessage="interruptJob"
+        />
+        </a>,
         <a
           key="k2"
           onClick={async (_) => {
