@@ -1,4 +1,4 @@
-import {ProFormSwitch, ProFormText, ProFormTextArea,ProFormSelect, StepsForm,} from '@ant-design/pro-components';
+import {ProFormSwitch, ProFormText, ProFormTextArea, ProFormSelect, StepsForm,} from '@ant-design/pro-components';
 import {FormattedMessage, useIntl} from '@umijs/max';
 import {Modal} from 'antd';
 import React from 'react';
@@ -118,7 +118,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
                            id: 'pages.searchTable.token',
                            defaultMessage: 'token',
                          })}
-          hidden={true}
+                         hidden={true}
         />
         <ProFormSelect
           width="md"
@@ -128,6 +128,17 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           valueEnum={{
             open: '开启',
             close: '关闭',
+          }}
+          placeholder="默认"
+        />
+        <ProFormSelect
+          width="md"
+          name="waiting"
+          label="是否启用时机等待"
+          initialValue={''}
+          valueEnum={{
+            waiting: '启用',
+            cancel: '取消',
           }}
           placeholder="默认"
         />
