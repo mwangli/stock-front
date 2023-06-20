@@ -133,12 +133,12 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         />
         <ProFormSelect
           width="md"
-          name="waiting"
+          name="enableWaiting"
           label="是否启用时机等待"
           initialValue={''}
           valueEnum={{
-            waiting: '启用',
-            cancel: '取消',
+            enable: '启用',
+            disable: '取消',
           }}
           placeholder="默认启用"
         />
