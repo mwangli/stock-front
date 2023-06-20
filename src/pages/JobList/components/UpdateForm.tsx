@@ -129,7 +129,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             open: '开启',
             close: '关闭',
           }}
-          placeholder="默认"
+          placeholder="默认关闭"
         />
         <ProFormSelect
           width="md"
@@ -140,7 +140,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             waiting: '启用',
             cancel: '取消',
           }}
-          placeholder="默认"
+          placeholder="默认启用"
         />
         {/*<ProFormText*/}
         {/*  name="name"*/}
