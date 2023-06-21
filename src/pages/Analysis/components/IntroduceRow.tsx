@@ -57,7 +57,7 @@ const IntroduceRow = ({loading, visitData}: { loading: boolean; visitData: any }
         }
         // total={<span style={{color:"red"}}>{`￥${numeral(visitData?.totalIncome).format('0.00')}`}</span>}
         total={`￥${numeral(visitData?.totalIncome).format('0.00')}`}
-        footer={<Field label="平均收益金额:" value={`${numeral(visitData?.avgIncome).format('0,0')}元`}/>}
+        footer={<Field label="平均收益金额:" value={`${numeral(visitData?.avgIncome).format('0.00')}元`}/>}
         contentHeight={46}
       >
         <TinyColumn  height={46} data={visitData?.incomeList?.map((i:any) => {return i.y})}
@@ -76,7 +76,7 @@ const IntroduceRow = ({loading, visitData}: { loading: boolean; visitData: any }
             <InfoCircleOutlined/>
           </Tooltip>
         }
-        total={`${numeral(visitData?.incomeRate).format('0.0000')}%`}
+        total={`${numeral(visitData?.dailyIncomeRate).format('0.0000')}%`}
         footer={<Field label="平均日收益率:" value={`${numeral(visitData?.avgDailyRate).format('0.0000')}%`}/>}
         contentHeight={46}
       >
