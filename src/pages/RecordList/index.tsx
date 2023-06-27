@@ -159,7 +159,7 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       sorter: true,
       renderText: (val: string) =>
-        val !== null ? `${val}${intl.formatMessage({
+        val != null ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.yuan',
           defaultMessage: ' 元 ',
         })}` : '-',
@@ -172,7 +172,7 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       sorter: true,
       renderText: (val: string) =>
-        val !== null ? `${val}${intl.formatMessage({
+        val != null ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.piece',
           defaultMessage: ' 股 ',
         })}` : '-',
@@ -208,7 +208,7 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       sorter: true,
       renderText: (val: string) =>
-        val !== null ? `${val}${intl.formatMessage({
+        val != null ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.yuan',
           defaultMessage: ' 元 ',
         })}` : '-',
@@ -220,7 +220,7 @@ const TableList: React.FC = () => {
       hideInTable: true,
       hideInSearch: true,
       renderText: (val: string) =>
-        val !== null ? `${val}${intl.formatMessage({
+        val != null ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.piece',
           defaultMessage: ' 元 ',
         })}` : '-',
@@ -232,7 +232,7 @@ const TableList: React.FC = () => {
       hideInForm: true,
       hideInSearch: true,
       renderText: (val: string) =>
-        val !== null ? `${val}${intl.formatMessage({
+        val != null ? `${val}${intl.formatMessage({
             id: 'pages.searchTable.yuan',
             defaultMessage: ' 元 ',
           })}`
@@ -246,7 +246,7 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       sorter: true,
       renderText: (val: string) =>
-        val !== null ? `${val}${intl.formatMessage({
+        val != null ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.yuan',
           defaultMessage: ' 元 ',
         })}` : '-',
@@ -257,7 +257,7 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       hideInTable: true,
       renderText: (val: string) =>
-        val !== null ? `${val}${intl.formatMessage({
+        val != null ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.percent',
           defaultMessage: ' % ',
         })}` : '-',
@@ -268,7 +268,7 @@ const TableList: React.FC = () => {
       valueType: 'textarea',
       sorter: true,
       renderText: (val: string) =>
-        val !== null ? `${val}${intl.formatMessage({
+        val != null ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.day',
           defaultMessage: ' 天 ',
         })}` : '-',
@@ -282,7 +282,7 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       hideInForm: true,
       renderText: (val: string) =>
-        val !== null ? `${val}${intl.formatMessage({
+        val != null ? `${val}${intl.formatMessage({
           id: 'pages.searchTable.percent',
           defaultMessage: ' % ',
         })}` : '-',
