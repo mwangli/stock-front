@@ -186,6 +186,8 @@ const Welcome: React.FC = () => {
             <span>2023-06-27</span> <br/>
             17. 清除退市股票数据 <br/>
             18. 调整交易等待时间 <br/>
+            <span>2023-06-29</span> <br/>
+            19. 实数数据获取优化 <br/>
           </p>
         </div>
       </Card>
