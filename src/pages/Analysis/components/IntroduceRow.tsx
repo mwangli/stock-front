@@ -102,16 +102,16 @@ const IntroduceRow = ({loading, visitData}: { loading: boolean; visitData: any }
         footer={
           <div style={{whiteSpace: 'nowrap', overflow: 'hidden'}}>
             <Trend flag={''} style={{marginRight: 16}}>
-              已用:
+              已用金额:
               <span
                 className={''}>{`${numeral(visitData?.accountInfo?.usedAmount).format('0.00')}元`}</span>
             </Trend>
             <Trend flag={''}  style={{marginRight: 16}}>
-              空闲:
+              空闲金额:
               <span className={''}>{`${numeral(visitData?.accountInfo?.availableAmount).format('0.00')}元`}</span>
             </Trend>
             <Trend flag={''}>
-              合计:
+              合计金额:
               <span className={''}>{`${numeral(visitData?.accountInfo?.totalAmount).format('0.00')}元`}</span>
             </Trend>
           </div>
