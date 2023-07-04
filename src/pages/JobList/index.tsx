@@ -1,4 +1,13 @@
-import {createJob, deleteJob, listJob, modifyJob, pauseJob,interruptJob, resumeJob, runJob} from '@/services/ant-design-pro/api';
+import {
+  createJob,
+  deleteJob,
+  listJob,
+  modifyJob,
+  pauseJob,
+  interruptJob,
+  resumeJob,
+  runJob
+} from '@/services/ant-design-pro/api';
 import type {ActionType, ProColumns} from '@ant-design/pro-components';
 import {
   ModalForm,
@@ -256,14 +265,16 @@ const TableList: React.FC = () => {
         //   status: 'Default',
         // },
         1: {
-          text: <FormattedMessage id="pages.searchTable.jobStatus.running" defaultMessage="sold"/>,
-          status: 'Processing',
+          text: '调度中',
+          status: 'Success',
         },
         0: {
-          text: (
-            <FormattedMessage id="pages.searchTable.jobStatus.paused" defaultMessage="notSold"/>
-          ),
+          text: '已暂停',
           status: 'Error',
+        },
+        2: {
+          text: '运行中',
+          status: 'Processing',
         },
       },
     },
@@ -275,22 +286,23 @@ const TableList: React.FC = () => {
         <a key="k1"
            onClick={async () => {
              // setCurrentRow(record);
-             await handleRun(record)
+             if (record.running == "1") {
+               const success = await handleInterrupt(record)
+               if (success) {
+                 if (actionRef.current) {
+                   actionRef.current.reload();
+                 }
+               }
+             } else {
+               const success = await handleRun(record)
+               if (success) {
+                 if (actionRef.current) {
+                   actionRef.current.reload();
+                 }
+               }
+             }
            }}
-        ><FormattedMessage
-          id="pages.searchTable.runJob"
-          defaultMessage="Subscribe to alerts"
-        />
-        </a>,
-        <a key="k11"
-           onClick={async () => {
-             // setCurrentRow(record);
-             await handleInterrupt(record)
-           }}
-        ><FormattedMessage
-          id="pages.searchTable.interruptJob"
-          defaultMessage="interruptJob"
-        />
+        >{record.status == '2' ? '终止' : '触发'}
         </a>,
         <a
           key="k2"

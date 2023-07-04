@@ -37,6 +37,7 @@ declare namespace API {
   };
 
   type RuleListItem = {
+    running: string;
     minRate: any;
     maxRate: any;
     minPrice: any;
