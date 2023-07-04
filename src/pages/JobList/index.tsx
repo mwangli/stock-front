@@ -254,28 +254,27 @@ const TableList: React.FC = () => {
       hideInForm: true,
       order: 1,
       sorter: true,
-      valueEnum: {
-        // 2: {
-        //   text: (
-        //     <FormattedMessage
-        //       id="pages.searchTable.nameStatus.default"
-        //       defaultMessage="Shut down"
-        //     />
-        //   ),
-        //   status: 'Default',
-        // },
-        1: {
-          text: '调度中',
-          status: 'Success',
-        },
-        0: {
-          text: '已暂停',
-          status: 'Error',
-        },
-        2: {
-          text: '运行中',
-          status: 'Processing',
-        },
+      valueEnum: (a) => {
+        return a?.running == '1'? {
+            0: {
+              text: '运行中',
+              status: 'Processing',
+            },
+            1: {
+              text: '运行中',
+              status: 'Processing',
+            }
+          } :
+          {
+            1: {
+              text: '调度中',
+              status: 'Success',
+            },
+            0: {
+              text: '已暂停',
+              status: 'Error',
+            }
+          }
       },
     },
     {
@@ -302,7 +301,7 @@ const TableList: React.FC = () => {
                }
              }
            }}
-        >{record.status == '2' ? '终止' : '触发'}
+        >{record.running == '1' ? '终止' : '触发'}
         </a>,
         <a
           key="k2"
