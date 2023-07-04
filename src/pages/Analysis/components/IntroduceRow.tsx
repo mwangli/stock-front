@@ -106,7 +106,7 @@ const IntroduceRow = ({loading, visitData}: { loading: boolean; visitData: any }
               <span
                 className={''}>{`${numeral(visitData?.accountInfo?.usedAmount).format('0.00')}元`}</span>
             </Trend>
-            <Trend flag={''}>
+            <Trend flag={''}  style={{marginRight: 16}}>
               空闲:
               <span className={''}>{`${numeral(visitData?.accountInfo?.availableAmount).format('0.00')}元`}</span>
             </Trend>
