@@ -190,6 +190,7 @@ const Welcome: React.FC = () => {
             19. 实数数据获取优化 <br/>
             <span>2023-07-04</span> <br/>
             20. 任务运行状态优化 <br/>
+            21. 账户金额显示优化 <br/>
           </p>
         </div>
       </Card>
