@@ -76,6 +76,12 @@ export default [
     component: './JobList',
   },
   {
+    name: 'list.power-demo',
+    icon: 'FieldTimeOutlined',
+    path: '/demo',
+    component: './PowerDemo',
+  },
+  {
     name: 'list.run-logs',
     icon: 'OrderedListOutlined',
     path: '/logs',

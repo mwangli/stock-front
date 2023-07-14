@@ -25,6 +25,7 @@ export default {
   'menu.list.table-list': '交易记录',
   'menu.list.stock-info': '实时价格',
   'menu.list.time-job': '定时任务',
+  'menu.list.power-demo': '系统推荐',
   'menu.list.analysis': '数据分析',
   'menu.list.run-logs': '运行日志',
   'menu.list.basic-list': '标准列表',
