@@ -51,15 +51,15 @@ export async function listFoundTrading(
     name?: string;
     code?: string;
   },
-  sort: any,
+  sort: object,
   options?: { [key: string]: any },
 ) {
   return request<API.RuleList>('/api/foundTrading', {
     method: 'GET',
     params: {
       ...params,
-      sortKey: Object.keys(sort)[0],
-      sortOrder: Object.values(sort)[0],
+      sortKey: sort ? Object.keys(sort)[0] : '',
+      sortOrder: sort ? Object.values(sort)[0] : '',
     },
     ...(options || {}),
   });
@@ -76,15 +76,15 @@ export async function listStockInfo(
     name?: string;
     code?: string;
   },
-  sort: any,
+  sort: object,
   options?: { [key: string]: any },
 ) {
   return request<API.RuleList>('/api/stockInfo', {
     method: 'GET',
     params: {
       ...params,
-      sortKey: Object.keys(sort)[0],
-      sortOrder: Object.values(sort)[0],
+      sortKey: sort ? Object.keys(sort)[0] : '',
+      sortOrder: sort ? Object.values(sort)[0] : '',
     },
     ...(options || {}),
   });
@@ -215,6 +215,7 @@ export async function deleteStrategy(options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+
 /** 获取定时任务 GET /api/job */
 export async function listStrategy(
   params: {
@@ -226,15 +227,15 @@ export async function listStrategy(
     name?: string;
     code?: string;
   },
-  sort: any,
+  sort: object,
   options?: { [key: string]: any },
 ) {
   return request<API.RuleList>('/api/strategy', {
     method: 'GET',
     params: {
       ...params,
-      sortKey: Object.keys(sort)[0],
-      sortOrder: Object.values(sort)[0],
+      sortKey: sort ? Object.keys(sort)[0] : '',
+      sortOrder: sort ? Object.values(sort)[0] : '',
     },
     ...(options || {}),
   });
