@@ -154,6 +154,7 @@ const Welcome: React.FC = () => {
               marginBottom: 32,
               width: '65%',
             }}
+            hidden={initialState?.currentUser?.access != 'admin'}
           >
             Found-Trading System是一款自动化股票交易管理软件，<br/>
             可以按照自定义交易策略，进行自动化的股票买卖交易；<br/>

@@ -18,7 +18,6 @@ const waitTime = (time: number = 100) => {
 
 type DataSourceType = {
   id: React.Key;
-  title?: string;
   name?: string;
   decs: number;
   decs1: number;
@@ -32,38 +31,38 @@ const defaultData: DataSourceType[] = [
   {
     id: 1,
     name: 'TV',
-    decs: 1,
-    decs1: 20,
-    decs2: 20,
-    decs3: 20,
-    state: 'open',
+    decs: 2,
+    decs1: 0.1,
+    decs2: 0.2,
+    decs3: 8,
+    state: '0',
   },
   {
     id: 2,
     name: 'Modern',
     decs: 1,
-    decs1: 20,
-    decs2: 20,
-    decs3: 20,
-    state: 'closed',
+    decs1: 0.06,
+    decs2: 0.12,
+    decs3: 12,
+    state: '1',
   },
   {
     id: 3,
     name: 'Light',
-    decs: 1,
-    decs1: 20,
-    decs2: 20,
+    decs: 4,
+    decs1: 0.15,
+    decs2: 0.15,
     decs3: 20,
-    state: 'closed',
+    state: '0',
   },
   {
     id: 4,
     name: 'Washer',
-    decs: 1,
-    decs1: 20,
-    decs2: 20,
-    decs3: 20,
-    state: 'closed',
+    decs: 2,
+    decs1: 1.5,
+    decs2: 2,
+    decs3: 2,
+    state: '1',
   },
 ];
 
@@ -156,11 +155,11 @@ export default () => {
       valueType: 'select',
       valueEnum: {
         // all: { text: '备电设备', status: 'Default' },
-        open: {
+        '0': {
           text: '非备电设备',
-          status: 'Error',
+          status: 'Default',
         },
-        closed: {
+        '1': {
           text: '备电设备',
           status: 'Success',
         },
@@ -172,17 +171,17 @@ export default () => {
       valueType: "digit",
     },
     {
-      title: '功率1',
+      title: '功率1(Kw)',
       dataIndex: 'decs1',
       valueType: "digit",
     },
     {
-      title: '功率2',
+      title: '功率2(Kw)',
       dataIndex: 'decs2',
       valueType: "digit",
     },
     {
-      title: '时长',
+      title: '时长(Hr)',
       dataIndex: 'decs3',
       valueType: "digit",
     },
@@ -211,9 +210,9 @@ export default () => {
     },
   ];
 
-  function getInfo() {
+  function getInfo(data: DataSourceType[]) {
     console.log("getInfo");
-    const info = (dataSource as DataSourceType[]).reduce(
+    const info = (data as DataSourceType[]).reduce(
       (pre, item) => {
         return {
           v1: pre.v1 + parseInt((item?.decs * item?.decs1 || 0).toString()),
@@ -247,7 +246,8 @@ export default () => {
     setV2(info.v2)
   }
 
-  // getInfo();
+  // @ts-ignore
+  // @ts-ignore
   return (
     <>
       <div
@@ -272,6 +272,7 @@ export default () => {
         recordCreatorProps={
           {
             position: position as 'top',
+            //@ts-ignore
             record: () => ({id: (Math.random() * 1000000).toFixed(0)}),
           }
         }
@@ -297,7 +298,10 @@ export default () => {
           type: 'multiple',
           editableKeys,
           onSave: async (rowKey, data, row) => {
-            getInfo();
+            let filterData = dataSource.filter((item) => item.id !== data.id);
+            const  data1 = [...filterData, data]
+            console.log(data1)
+            getInfo(data1);
           },
           onChange: setEditableRowKeys,
           actionRender: (row, config, defaultDom) => [
