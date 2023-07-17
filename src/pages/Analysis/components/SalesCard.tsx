@@ -21,6 +21,7 @@ for (let i = 0; i < 7; i += 1) {
   });
 }
 
+// @ts-ignore
 const SalesCard = ({
                      rangePickerValue,
                      salesData,
@@ -113,8 +114,8 @@ const SalesCard = ({
                 <h4 className={styles.rankingTitle}>收益金额排行</h4>
                 <ul className={styles.rankingList}>
                   {incomeOrder.map((item, i) => (
-                    <li key={item.x}>
-                      <span className={`${styles.rankingItemNumber} ${styles.active}`}>
+                    <li key={i}>
+                       <span className={`${styles.rankingItemNumber} ${styles.active}`}>
                         {i + 1}
                       </span>
                       <span className={styles.rankingItemTitle} title={item.x}>

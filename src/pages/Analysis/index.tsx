@@ -34,7 +34,7 @@ const Analysis: FC<AnalysisProps> = () => {
   const [currentTabKey, setCurrentTabKey] = useState<string>('');
   const [rangePickerValue, setRangePickerValue] = useState<RangePickerValue>(getTimeDistance('month'));
 
-  const {loading, data, mutate} = useRequest(fakeChartData, {
+  const {loading, data, mutate, refresh} = useRequest(fakeChartData, {
     defaultParams: [{
       startDate: rangePickerValue?.["0"]?.format('YYYYMMDD'),
       endDate: rangePickerValue?.["1"]?.format('YYYYMMDD'),
