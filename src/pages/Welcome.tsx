@@ -154,6 +154,7 @@ const Welcome: React.FC = () => {
               marginBottom: 32,
               width: '65%',
             }}
+            hidden={initialState?.currentUser?.access != 'admin'}
           >
             Found-Trading System是一款自动化股票交易管理软件，<br/>
             可以按照自定义交易策略，进行自动化的股票买卖交易；<br/>
@@ -191,6 +192,9 @@ const Welcome: React.FC = () => {
             <span>2023-07-04</span> <br/>
             20. 任务运行状态优化 <br/>
             21. 账户金额显示优化 <br/>
+            <span>2023-07-17</span> <br/>
+            22. 购买金额数量优化 <br/>
+            23. 排名重复数据优化 <br/>
           </p>
         </div>
       </Card>

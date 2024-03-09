@@ -28,58 +28,71 @@ export default [
     icon: 'smile',
     component: './Welcome',
   },
-  {
-    path: '/admin',
-    name: 'admin',
-    icon: 'crown',
-    access: 'canAdmin',
-    routes: [
-      {
-        path: '/admin',
-        redirect: '/admin/sub-page',
-      },
-      {
-        path: '/admin/sub-page',
-        name: 'sub-page',
-        component: './Admin',
-      },
-    ],
-  },
+  // {
+  //   path: '/admin',
+  //   name: 'admin',
+  //   icon: 'crown',
+  //   access: 'canAdmin',
+  //   routes: [
+  //     {
+  //       path: '/admin',
+  //       redirect: '/admin/sub-page',
+  //     },
+  //     {
+  //       path: '/admin/sub-page',
+  //       name: 'sub-page',
+  //       component: './Admin',
+  //     },
+  //   ],
+  // },
   {
     name: 'list.analysis',
     icon: 'BarChartOutlined',
     path: '/analysis',
     component: './Analysis',
+    access: 'canAdmin',
   },
   {
     name: 'list.table-list',
     icon: 'table',
     path: '/list',
     component: './RecordList',
+    access: 'canAdmin',
   },
   {
     name: 'list.stock-info',
     icon: 'FundOutlined',
     path: '/info',
     component: './StockInfo',
+    access: 'canAdmin',
   },
   {
     name: 'list.strategy',
     icon: 'AlertOutlined',
     path: '/strategy',
     component: './StrategyList',
+    access: 'canAdmin',
   },
   {
     name: 'list.time-job',
     icon: 'FieldTimeOutlined',
     path: '/job',
     component: './JobList',
+    access: 'canAdmin',
+  },
+  {
+    name: 'list.power-demo',
+    icon: 'FieldTimeOutlined',
+    path: '/demo',
+    component: './PowerDemo',
+    access: 'canDemo',
   },
   {
     name: 'list.run-logs',
     icon: 'OrderedListOutlined',
     path: '/logs',
     component: './LogsInfo',
+    access: 'canAdmin',
   },
   {
     name: 'list.upload-image',
