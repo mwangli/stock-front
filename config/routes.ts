@@ -82,6 +82,12 @@ export default [
     component: './LogsInfo',
   },
   {
+    name: 'list.upload-image',
+    icon: 'upload',
+    path: '/upload',
+    component: './UploadImage',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },

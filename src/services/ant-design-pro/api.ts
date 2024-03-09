@@ -239,3 +239,29 @@ export async function listStrategy(
     ...(options || {}),
   });
 }
+/** 图片上传接口 POST /api/login/account */
+export async function upload(file: API.LoginParams, options?: { [key: string]: any }) {
+  return request<API.LoginResult>('/api/ocr/uploadImage', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    data: file,
+    responseType : 'blob',
+    ...(options || {}),
+  });
+}
+
+/** 文件下载接口 Get /api/ocr/download**/
+export async function download(file: API.LoginParams, options?: { [key: string]: any }) {
+  return request<API.LoginResult>('/api/ocr/downloadExcel', {
+    method: 'GET',
+    // headers: {
+    //   'Content-Type': 'multipart/form-data',
+    // },
+    responseType : 'blob',
+    ...(options || {}),
+  });
+
+
+}
