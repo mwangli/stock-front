@@ -29,7 +29,7 @@ const props: UploadProps = {
     }
     if (status === 'done') {
       upload(info.file).then(res => {
-        message.success(`file uploaded successfully. total is ${res.data}`);
+        if (res.success) message.success(`file uploaded successfully. total file is ${res.data}`);
         // download({}).then((blob) => {
         // let reader = new FileReader(); // 创建一个file对象
         // // @ts-ignore

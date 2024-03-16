@@ -248,7 +248,6 @@ export async function upload(file: API.LoginParams, options?: { [key: string]: a
       'Content-Type': 'multipart/form-data',
     },
     data: file,
-    responseType : 'blob',
     ...(options || {}),
   });
 }
