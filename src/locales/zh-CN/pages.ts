@@ -1,5 +1,5 @@
 export default {
-  'pages.layouts.userLayout.title': 'Found-Trading是一款基金交易管理系统',
+  'pages.layouts.userLayout.title': 'Stock-Trading是一款基金交易管理系统',
   'pages.login.accountLogin.tab': '账户密码登录',
   'pages.login.accountLogin.errorMessage': '错误的用户名和密码(admin/ant.design)',
   'pages.login.failure': '登录失败，请重试！',
@@ -68,7 +68,7 @@ export default {
   'pages.searchTable.percent': ' %',
   'pages.searchTable.batchDeletion': '批量删除',
   'pages.searchTable.batchApproval': '批量审批',
-  'pages.searchTable.foundName': '股票名称',
+  'pages.searchTable.StockName': '股票名称',
   'pages.searchTable.accountAmount': '到账金额',
   'pages.searchTable.buyDate': '买入日期',
   'pages.searchTable.buyNumber': '买入数量',

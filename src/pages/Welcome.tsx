@@ -116,7 +116,7 @@ const Welcome: React.FC = () => {
               color: token.colorTextHeading,
             }}
           >
-            欢迎使用 Found-Trading System
+            欢迎使用 Stock-Trading System
           </div>
 
           <div
@@ -156,7 +156,7 @@ const Welcome: React.FC = () => {
             }}
             hidden={initialState?.currentUser?.access != 'admin'}
           >
-            Found-Trading System是一款自动化股票交易管理软件，<br/>
+            Stock-Trading System是一款自动化股票交易管理软件，<br/>
             可以按照自定义交易策略，进行自动化的股票买卖交易；<br/>
             也可以查看股票历史价格，实时价格，买卖记录和相关报表数据<br/>
             <span>2023-06-03</span> <br/>

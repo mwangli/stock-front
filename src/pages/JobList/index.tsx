@@ -165,6 +165,9 @@ const TableList: React.FC = () => {
    * */
   const intl = useIntl();
 
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
   const columns: ProColumns<API.RuleListItem>[] = [
     {
       title: (

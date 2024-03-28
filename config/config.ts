@@ -78,7 +78,7 @@ export default defineConfig({
    * @name layout 插件
    * @doc https://umijs.org/docs/max/layout-menu
    */
-  title: 'Found-Trading',
+  title: 'Stock-Trading',
   layout: {
     locale: true,
     ...defaultSettings,
