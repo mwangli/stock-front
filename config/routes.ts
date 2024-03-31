@@ -85,7 +85,7 @@ export default [
     icon: 'FieldTimeOutlined',
     path: '/demo',
     component: './PowerDemo',
-    access: 'canDemo',
+    access: 'canTest',
   },
   {
     name: 'list.run-logs',
@@ -99,7 +99,7 @@ export default [
     icon: 'upload',
     path: '/upload',
     component: './UploadImage',
-    access: 'canAdmin',
+    access: 'canTest',
   },
   {
     path: '/',

@@ -21,7 +21,10 @@ function getNowDate() {
 const props: UploadProps = {
   name: 'file',
   multiple: true,
-  // action: upload,
+  // action: (_) => {
+  //   upload(_.).then(res => res.success)
+  //   return ""
+  // },
   onChange(info) {
     const {status} = info.file;
     if (status !== 'uploading') {
@@ -30,21 +33,6 @@ const props: UploadProps = {
     if (status === 'done') {
       upload(info.file).then(res => {
         if (res.success) message.success(`file uploaded successfully. total file is ${res.data}`);
-        // download({}).then((blob) => {
-        // let reader = new FileReader(); // 创建一个file对象
-        // // @ts-ignore
-        // reader.readAsDataURL(res);  // 转换为base64，可以直接放入a标签的href
-        // reader.onload = function (e: any) {
-        //   // 转换完成，创建一个a标签用于下载
-        //   let a = document.createElement('a');
-        //   a.download = "test-" + getNowDate() + ".xlsx";
-        //   a.href = e.target.result;
-        //   // 在body中插入a元素
-        //   document.body.insertAdjacentElement('afterend', a);
-        //   a.click();
-        //   a.remove();
-        // }
-        // })
       })
     } else if (status === 'error') {
       message.error(`${info.file.name} file upload failed.`);
