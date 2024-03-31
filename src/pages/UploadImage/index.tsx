@@ -429,7 +429,10 @@ const TableList: React.FC = () => {
         <UploadForm></UploadForm>
         <Button type="primary" icon={<DownloadOutlined/>} size={"large"}
                 onClick={() => {
-                  download({}).then((blob) => handleExport(blob))
+                  download({}).then((blob) => {
+                    if (blob) handleExport(blob)
+                    else message.error("download file failed, please try again!")
+                  })
                 }}
         >
           Download
