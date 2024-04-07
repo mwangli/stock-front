@@ -38,7 +38,7 @@ const handleAdd = async (fields: API.RuleListItem) => {
     return true;
   } catch (error) {
     hide();
-    message.error('任务创建失败');
+    // message.error('任务创建失败');
     return false;
   }
 };
@@ -58,7 +58,7 @@ const handleUpdate = async (fields: FormValueType) => {
     return true;
   } catch (error) {
     hide();
-    message.error('任务修改失败！');
+    // message.error('任务修改失败！');
     return false;
   }
 };
@@ -78,7 +78,7 @@ const handleRemove = async (fields: FormValueType) => {
     return true;
   } catch (error) {
     hide();
-    message.error('删除任务失败！');
+    // message.error('删除任务失败！');
     return false;
   }
 };
@@ -93,7 +93,7 @@ const handlePause = async (fields: FormValueType) => {
     return true;
   } catch (error) {
     hide();
-    message.error('停止任务失败！');
+    // message.error('停止任务失败！');
     return false;
   }
 };
@@ -107,7 +107,7 @@ const handleInterrupt = async (fields: FormValueType) => {
     return true;
   } catch (error) {
     hide();
-    message.error('终止任务失败！');
+    // message.error('终止任务失败！');
     return false;
   }
 };
@@ -121,7 +121,7 @@ const handleResume = async (fields: FormValueType) => {
     return true;
   } catch (error) {
     hide();
-    message.error('恢复任务失败！');
+    // message.error('恢复任务失败！');
     return false;
   }
 };
@@ -135,7 +135,7 @@ const handleRun = async (fields: FormValueType) => {
     return true;
   } catch (error) {
     hide();
-    message.error(`${fields.name},触发任务失败！`);
+    // message.error(`${fields.name},触发任务失败！`);
     return false;
   }
 };
@@ -165,6 +165,7 @@ const TableList: React.FC = () => {
    * */
   const intl = useIntl();
 
+  // @ts-ignore
   // @ts-ignore
   // @ts-ignore
   // @ts-ignore

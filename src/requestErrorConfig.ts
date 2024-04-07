@@ -113,6 +113,13 @@ export const errorConfig: RequestConfig = {
         history.push('/user/login')
         // debugger
       }
+
+      if (data?.errorCode == 2001) {
+        message.error(data.errorMessage);
+        // history.push('/user/login')
+        // debugger
+      }
+
       return response;
     },
   ],
