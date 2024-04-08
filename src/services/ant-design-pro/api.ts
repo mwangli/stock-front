@@ -154,7 +154,7 @@ export async function modifyJob(options?: { [key: string]: any }) {
 }
 
 export async function deleteJob(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/job', {
+  return request<API.RuleListItem>('/api/job/delete', {
     method: 'DELETE',
     ...(options || {}),
   });

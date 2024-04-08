@@ -177,24 +177,24 @@ const TableList: React.FC = () => {
           defaultMessage="Rule name"
         />
       ),
-      dataIndex: 'id',
+      dataIndex: 'sort',
       hideInSearch: true,
       // hideInTable: true,
       tip: 'The jobId is the unique key',
-      render: (dom, entity, index) => {
-        return (
-          // <a
-          //   onClick={() => {
-          //     setCurrentRow(entity);
-          //     // setShowDetail(true);
-          //   }}
-          // >
-          <span>
-                {index + 1}
-          </span>
+      // render: (dom, entity, index) => {
+      //   return (
+      //     // <a
+      //     //   onClick={() => {
+      //     //     setCurrentRow(entity);
+      //     //     // setShowDetail(true);
+      //     //   }}
+      //     // >
+      //     <span>
+      //           {}
+      //     </span>
           // </a>
-        );
-      },
+        // );
+      // },
     },
 
     {
