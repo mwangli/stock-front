@@ -304,23 +304,23 @@ const TableList: React.FC = () => {
         <a key="k1"
            onClick={async () => {
              // setCurrentRow(record);
-             if (record.running == "1") {
-               const success = await handleInterrupt(record)
-               if (success) {
-                 if (actionRef.current) {
-                   actionRef.current.reload();
-                 }
-               }
-             } else {
+             // if (record.running == "1") {
+             //   const success = await handleInterrupt(record)
+             //   if (success) {
+             //     if (actionRef.current) {
+             //       actionRef.current.reload();
+             //     }
+             //   }
+             // } else {
                const success = await handleRun(record)
                if (success) {
                  if (actionRef.current) {
                    actionRef.current.reload();
                  }
                }
-             }
+             // }
            }}
-        >{record.running == '1' ? '终止' : '触发'}
+        >{record.running == '1' ? '触发' : '触发'}
         </a>,
         <a
           key="k2"
