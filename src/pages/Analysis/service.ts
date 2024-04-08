@@ -14,7 +14,7 @@ export async function fakeChartData(
   // sort: any,
   options?: { [key: string]: any },
 ) {
-  return request<any>('/api/foundTrading/analysis', {
+  return request<any>('/api/tradingRecord/analysis', {
     method: 'GET',
     params: {
       ...params,

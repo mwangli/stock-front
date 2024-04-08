@@ -6,7 +6,7 @@ import {request} from '@umijs/max';
 export async function currentUser(options?: { [key: string]: any }) {
   return request<{
     data: API.CurrentUser;
-  }>('/api/currentUser', {
+  }>('/api/login/currentUser', {
     method: 'GET',
     ...(options || {}),
   });
@@ -54,7 +54,7 @@ export async function listFoundTrading(
   sort: object,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/foundTrading', {
+  return request<API.RuleList>('/api/tradingRecord/list', {
     method: 'GET',
     params: {
       ...params,
@@ -79,7 +79,7 @@ export async function listStockInfo(
   sort: object,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/stockInfo', {
+  return request<API.RuleList>('/api/stockInfo/list', {
     method: 'GET',
     params: {
       ...params,
@@ -104,7 +104,7 @@ export async function listJob(
   // sort: any,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/job', {
+  return request<API.RuleList>('/api/job/list', {
     method: 'GET',
     params: {
       ...params,
@@ -140,14 +140,14 @@ export async function removeRule(options?: { [key: string]: any }) {
 }
 
 export async function createJob(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/job', {
+  return request<API.RuleListItem>('/api/job/create', {
     method: 'POST',
     ...(options || {}),
   });
 }
 
 export async function modifyJob(options?: { [key: string]: any }) {
-  return request<API.ApiResponse>('/api/job', {
+  return request<API.ApiResponse>('/api/job/update', {
     method: 'PUT',
     ...(options || {}),
   });
@@ -189,14 +189,14 @@ export async function resumeJob(options?: { [key: string]: any }) {
 }
 
 export async function createStrategy(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/strategy', {
+  return request<API.RuleListItem>('/api/strategy/create', {
     method: 'POST',
     ...(options || {}),
   });
 }
 
 export async function modifyStrategy(options?: { [key: string]: any }) {
-  return request<API.ApiResponse>('/api/strategy', {
+  return request<API.ApiResponse>('/api/strategy/update', {
     method: 'PUT',
     ...(options || {}),
   });
@@ -210,7 +210,7 @@ export async function chooseStrategy(options?: { [key: string]: any }) {
 }
 
 export async function deleteStrategy(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/strategy', {
+  return request<API.RuleListItem>('/api/strategy/delete', {
     method: 'DELETE',
     ...(options || {}),
   });
@@ -230,7 +230,7 @@ export async function listStrategy(
   sort: object,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/strategy', {
+  return request<API.RuleList>('/api/strategy/list', {
     method: 'GET',
     params: {
       ...params,

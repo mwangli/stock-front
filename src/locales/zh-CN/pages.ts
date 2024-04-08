@@ -71,6 +71,7 @@ export default {
   'pages.searchTable.StockName': '股票名称',
   'pages.searchTable.accountAmount': '到账金额',
   'pages.searchTable.buyDate': '买入日期',
+  'pages.searchTable.foundName': '股票名称',
   'pages.searchTable.buyNumber': '买入数量',
   'pages.searchTable.buyPrice': '买入价格',
   'pages.searchTable.nowPrice': '当前价格',

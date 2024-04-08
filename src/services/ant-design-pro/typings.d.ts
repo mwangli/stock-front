@@ -37,6 +37,7 @@ declare namespace API {
   };
 
   type RuleListItem = {
+    className: any;
     running: string;
     minRate: any;
     maxRate: any;

@@ -206,6 +206,21 @@ const TableList: React.FC = () => {
       title: <FormattedMessage id="pages.searchTable.jobClassName" defaultMessage="Description"/>,
       dataIndex: 'className',
       valueType: 'textarea',
+      render: (dom, entity, index) => {
+        let split = entity?.className.split(".");
+        let lastPart = split[split.length - 1];
+        // debugger
+        return (
+          // <a
+          //   onClick={() => {
+          //     setCurrentRow(entity);
+          //     // setShowDetail(true);
+          //   }}
+          // >
+          <span>
+              {`**.*.${lastPart}`}
+          </span>)
+      }
     },
     {
       title: <FormattedMessage id="pages.searchTable.jobDescription" defaultMessage="Description"/>,
@@ -259,7 +274,7 @@ const TableList: React.FC = () => {
       order: 1,
       sorter: true,
       valueEnum: (a) => {
-        return a?.running == '1'? {
+        return a?.running == '1' ? {
             0: {
               text: '运行中',
               status: 'Processing',
