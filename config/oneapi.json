@@ -13,7 +13,7 @@
     }
   ],
   "paths": {
-    "/api/currentUser": {
+    "/api/login/curretUserr": {
       "get": {
         "tags": ["api"],
         "description": "获取当前的用户",

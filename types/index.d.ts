@@ -1,5 +1,5 @@
 export namespace API {
-  /** GET /api/currentUser */
+  /** GET /api/login/curretUserr */
   export type GET_API_CURRENT_USER_QUERY = {
     /** example:  123 */
     token: string;

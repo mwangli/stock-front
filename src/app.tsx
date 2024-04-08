@@ -146,9 +146,11 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
     ],
     links: isDev
       ? [
-        <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
+        <Link key="openapi"  to="" target="_blank">
+        <a href={"https://www.yuque.com/mwangli/kleih7/axga8dz9imansvl4"}>
           <LinkOutlined/>
-          <span>OpenAPI 文档</span>
+           <span>项目文档</span>
+        </a>
         </Link>,
       ]
       : [],
