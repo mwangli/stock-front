@@ -96,6 +96,7 @@ export default {
   'pages.searchTable.priceList': '价格',
   'pages.searchTable.rateList': '增长率',
   'pages.searchTable.nowPriceTitle': '实时价格',
+  'pages.searchTable.orderInfoList': '订单查询',
   'pages.searchTable.jobId': '任务编号',
   'pages.searchTable.jobName': '任务名称',
   'pages.searchTable.jobClassName': '任务全类名',

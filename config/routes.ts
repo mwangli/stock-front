@@ -67,6 +67,13 @@ export default [
     access: 'canAdmin',
   },
   {
+    name: 'list.order-info',
+    icon: 'FileDoneOutlined',
+    path: '/order',
+    component: './OrderInfo',
+    access: 'canAdmin',
+  },
+  {
     name: 'list.strategy',
     icon: 'AlertOutlined',
     path: '/strategy',
