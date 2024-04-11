@@ -31,13 +31,14 @@ type SalesType = 'all' | 'online' | 'stores';
 
 const Analysis: FC<AnalysisProps> = () => {
   const [salesType, setSalesType] = useState<SalesType>('all');
-  const [currentTabKey, setCurrentTabKey] = useState<string>('');
+  const [currentTabKey, setCurrentTabKey] = useState<string>('all');
   const [rangePickerValue, setRangePickerValue] = useState<RangePickerValue>(getTimeDistance('month'));
 
   const {loading, data, mutate, refresh} = useRequest(fakeChartData, {
     defaultParams: [{
-      startDate: rangePickerValue?.["0"]?.format('YYYYMMDD'),
-      endDate: rangePickerValue?.["1"]?.format('YYYYMMDD'),
+      //去除默认值显示全部数据
+      // startDate: rangePickerValue?.["0"]?.format('YYYYMMDD'),
+      // endDate: rangePickerValue?.["1"]?.format('YYYYMMDD'),
     }]
   });
 

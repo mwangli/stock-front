@@ -114,6 +114,56 @@ export async function listOrderInfo(
   });
 }
 
+/** 获取历史价格 GET /api/listHistoryPrices */
+export async function listHistoryPrices(
+  params: {
+    // query
+    // /** 当前的页码 */
+    // current?: number;
+    // /** 页面的容量 */
+    // pageSize?: number;
+    // name?: string;
+    code?: string;
+  },
+  // sort: object,
+  options?: { [key: string]: any },
+) {
+  return request<API.RuleList>('/api/stockInfo/listHistoryPrices', {
+    method: 'GET',
+    params: {
+      ...params,
+      // sortKey: sort ? Object.keys(sort)[0] : '',
+      // sortOrder: sort ? Object.values(sort)[0] : '',
+    },
+    ...(options || {}),
+  });
+}
+
+/** 获取历史价格 GET /api/listHistoryPrices */
+export async function listTestPrices(
+  params: {
+    // query
+    // /** 当前的页码 */
+    // current?: number;
+    // /** 页面的容量 */
+    // pageSize?: number;
+    // name?: string;
+    code?: string;
+  },
+  // sort: object,
+  options?: { [key: string]: any },
+) {
+  return request<API.RuleList>('/api/stockInfo/listTestPrices', {
+    method: 'GET',
+    params: {
+      ...params,
+      // sortKey: sort ? Object.keys(sort)[0] : '',
+      // sortOrder: sort ? Object.values(sort)[0] : '',
+    },
+    ...(options || {}),
+  });
+}
+
 /** 获取定时任务 GET /api/job */
 export async function listJob(
   params: {

@@ -1,4 +1,4 @@
-import {addRule, listStockInfo, removeRule, updateRule} from '@/services/ant-design-pro/api';
+import {addRule, listHistoryPrices,listTestPrices, listStockInfo, removeRule, updateRule} from '@/services/ant-design-pro/api';
 import type {ActionType, ProColumns, ProDescriptionsItemProps} from '@ant-design/pro-components';
 import {
   FooterToolbar,
@@ -303,23 +303,36 @@ const TableList: React.FC = () => {
         <a
           key="config"
           onClick={() => {
-            // handleUpdateModalOpen(true);
-            setCurrentRow(record);
-            setModalOpen(true);
+            // handleUpdateModalOpen(true);1
+            // debugger
+            let promise = listHistoryPrices({code: record.code});
+            promise.then(res => {
+              record.pricesList = res.data
+              // debugger
+              setCurrentRow(record);
+              setModalOpen(true);
+            })
           }}
         >
-          <FormattedMessage id="pages.searchTable.priceList" defaultMessage="价格曲线"/>
+          <FormattedMessage id="pages.searchTable.priceList" defaultMessage="历史价格曲线"/>
         </a>,
-        <a key="subscribeAlert"
-           onClick={() => {
-             // handleUpdateModalOpen(true);
-             setCurrentRow(record);
-             setModalOpen2(true);
-           }}>
-          <FormattedMessage
-            id="pages.searchTable.rateList" defaultMessage="日增长率曲线"
-          />
-        </a>,
+        // <a key="subscribeAlert"
+        //    onClick={() => {
+        //      // handleUpdateModalOpen(true);
+        //
+        //
+        //      let promise = listTestPrices({code: record.code});
+        //      promise.then(res => {
+        //        record.increaseRateList = res.data
+        //        // debugger
+        //        setCurrentRow(record);
+        //        setModalOpen2(true);
+        //      })
+        //    }}>
+        //   <FormattedMessage
+        //     id="pages.searchTable.rateList" defaultMessage="预测价格曲线"
+        //   />
+        // </a>,
       ],
     },
   ];
@@ -426,7 +439,7 @@ const TableList: React.FC = () => {
           height={420}
           data={currentRow?.pricesList || []}
           xField="date"
-          yField="item"
+          yField="price1"
           meta={{
             date: {
               alias: '交易日期',
@@ -449,7 +462,7 @@ const TableList: React.FC = () => {
         destroyOnClose
         title={intl.formatMessage({
           id: 'pages.searchTable.pricesList',
-          defaultMessage: '日增长率',
+          defaultMessage: '历史价格',
         })}
 
         open={modalOpen2}

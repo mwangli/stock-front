@@ -154,7 +154,8 @@ const Welcome: React.FC = () => {
               marginBottom: 32,
               width: '65%',
             }}
-            hidden={initialState?.currentUser?.access != 'admin'}
+            // hidden={initialState?.currentUser?.access != 'admin'}
+            hidden={false}
           >
             Stock-Trading System是一款自动化股票交易管理软件，<br/>
             可以按照自定义交易策略，进行自动化的股票买卖交易；<br/>
@@ -195,6 +196,11 @@ const Welcome: React.FC = () => {
             <span>2023-07-17</span> <br/>
             22. 购买金额数量优化 <br/>
             23. 排名重复数据优化 <br/>
+            <span>2024-04-8</span> <br/>
+            22. 后台项目整体框架优化<br/>
+            23. 使用LSTM模型预测价格 <br/>
+            <span>2024-04-11</span> <br/>
+            24. 增加订单查询页面 <br/>
           </p>
         </div>
       </Card>
