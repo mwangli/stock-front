@@ -316,23 +316,23 @@ const TableList: React.FC = () => {
         >
           <FormattedMessage id="pages.searchTable.priceList" defaultMessage="历史价格曲线"/>
         </a>,
-        // <a key="subscribeAlert"
-        //    onClick={() => {
-        //      // handleUpdateModalOpen(true);
-        //
-        //
-        //      let promise = listTestPrices({code: record.code});
-        //      promise.then(res => {
-        //        record.increaseRateList = res.data
-        //        // debugger
-        //        setCurrentRow(record);
-        //        setModalOpen2(true);
-        //      })
-        //    }}>
-        //   <FormattedMessage
-        //     id="pages.searchTable.rateList" defaultMessage="预测价格曲线"
-        //   />
-        // </a>,
+        <a key="subscribeAlert"
+           onClick={() => {
+             // handleUpdateModalOpen(true);
+
+
+             let promise = listTestPrices({code: record.code});
+             promise.then(res => {
+               record.increaseRateList = res.data
+               // debugger
+               setCurrentRow(record);
+               setModalOpen2(true);
+             })
+           }}>
+          <FormattedMessage
+            id="pages.searchTable.rateList" defaultMessage="预测价格曲线"
+          />
+        </a>,
       ],
     },
   ];
@@ -476,8 +476,9 @@ const TableList: React.FC = () => {
           smooth
           height={420}
           data={currentRow?.increaseRateList || []}
-          xField="date"
-          yField="item"
+          xField="x"
+          yField="y"
+
           meta={{
             date: {
               alias: '交易日期',

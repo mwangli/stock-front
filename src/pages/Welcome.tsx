@@ -90,6 +90,8 @@ const Welcome: React.FC = () => {
   const {token} = theme.useToken();
   const {initialState} = useModel('@@initialState');
 
+  // @ts-ignore
+  // @ts-ignore
   return (
     <PageContainer>
       <Card
@@ -129,6 +131,7 @@ const Welcome: React.FC = () => {
             }}
           >
             <InfoCard
+              desc={""}
               index={1}
               href="https://www.yuque.com/mwangli/ha7323/axga8dz9imansvl4"
               title="欢迎使用 Stock-Trading System"
@@ -233,6 +236,7 @@ const Welcome: React.FC = () => {
                         </div>
                       </p>
                     }
+
             >
 
 

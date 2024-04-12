@@ -125,7 +125,7 @@ const TableList: React.FC = () => {
       ),
       dataIndex: 'code',
       initialValue: code,
-      tip: 'The stock code is the unique key',
+      // tip: 'The stock code is the unique key',
       // render: (dom, entity) => {
       //   return (
       //     <a

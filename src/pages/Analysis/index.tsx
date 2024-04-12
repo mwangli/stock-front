@@ -4,6 +4,7 @@ import {EllipsisOutlined} from '@ant-design/icons';
 import {Col, Dropdown, Menu, Row} from 'antd';
 import {GridContent} from '@ant-design/pro-layout';
 import type {RadioChangeEvent} from 'antd/es/radio';
+// @ts-ignore
 import type {RangePickerProps} from 'antd/es/date-picker/generatePicker';
 import type moment from 'moment';
 import IntroduceRow from './components/IntroduceRow';
@@ -35,11 +36,11 @@ const Analysis: FC<AnalysisProps> = () => {
   const [rangePickerValue, setRangePickerValue] = useState<RangePickerValue>(getTimeDistance('month'));
 
   const {loading, data, mutate, refresh} = useRequest(fakeChartData, {
-    defaultParams: [{
-      //去除默认值显示全部数据
-      // startDate: rangePickerValue?.["0"]?.format('YYYYMMDD'),
-      // endDate: rangePickerValue?.["1"]?.format('YYYYMMDD'),
-    }]
+    // defaultParams: [{
+    //   //去除默认值显示全部数据
+    //   // startDate: rangePickerValue?.["0"]?.format('YYYYMMDD'),
+    //   // endDate: rangePickerValue?.["1"]?.format('YYYYMMDD'),
+    // }]
   });
 
   const handleData = async (dateRange: any) => {

@@ -135,7 +135,7 @@ const TableList: React.FC = () => {
       dataIndex: 'id',
       hideInSearch: true,
       // hideInTable: true,
-      tip: 'The StrategyId is the unique key',
+      // tip: 'The StrategyId is the unique key',
       render: (dom, entity, index) => {
         return (
           // <a
