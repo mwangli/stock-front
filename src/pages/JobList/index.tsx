@@ -274,17 +274,7 @@ const TableList: React.FC = () => {
       order: 1,
       sorter: true,
       valueEnum: (a) => {
-        return a?.running == '1' ? {
-            0: {
-              text: '运行中',
-              status: 'Processing',
-            },
-            1: {
-              text: '运行中',
-              status: 'Processing',
-            }
-          } :
-          {
+        return {
             1: {
               text: '调度中',
               status: 'Success',
