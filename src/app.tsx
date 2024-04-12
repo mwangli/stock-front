@@ -146,8 +146,13 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
     ],
     links: isDev
       ? [
-        <Link key="openapi"  to="" target="_blank">
-        <a href={"https://www.yuque.com/mwangli/kleih7/axga8dz9imansvl4"}>
+        <Link
+          key="openapi"
+              to="/"
+              target="_blank"
+              // ref="https://www.yuque.com/mwangli/kleih7/axga8dz9imansvl4"
+        >
+        <a href={"https://www.yuque.com/mwangli/kleih7/axga8dz9imansvl4"} target={"_blank"}>
           <LinkOutlined/>
            <span>项目文档</span>
         </a>
