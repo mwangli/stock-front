@@ -14,7 +14,8 @@ const InfoCard: React.FC<{
   index: number;
   desc: string;
   href: string;
-}> = ({title, href, index, desc}) => {
+  child:any;
+}> = ({title, href, index, desc,child}) => {
   const {useToken} = theme;
 
   const {token} = useToken();
@@ -76,6 +77,7 @@ const InfoCard: React.FC<{
         }}
       >
         {desc}
+        {child}
       </div>
       <a href={href} target="_blank" rel="noreferrer">
         了解更多 {'>'}
@@ -110,14 +112,14 @@ const Welcome: React.FC = () => {
               "url('https://gw.alipayobjects.com/mdn/rms_a9745b/afts/img/A*BuFmQqsB2iAAAAAAAAAAAAAAARQnAQ')",
           }}
         >
-          <div
-            style={{
-              fontSize: '20px',
-              color: token.colorTextHeading,
-            }}
-          >
-            欢迎使用 Stock-Trading System
-          </div>
+          {/*<div*/}
+          {/*  style={{*/}
+          {/*    fontSize: '20px',*/}
+          {/*    color: token.colorTextHeading,*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  欢迎使用 Stock-Trading System*/}
+          {/*</div>*/}
 
           <div
             style={{
@@ -128,80 +130,127 @@ const Welcome: React.FC = () => {
           >
             <InfoCard
               index={1}
-              href="https://umijs.org/docs/introduce/introduce"
-              title="了解 umi"
-              desc="umi 是一个可扩展的企业级前端应用框架,umi 以路由为基础的，同时支持配置式路由和约定式路由，保证路由的功能完备，并以此进行功能扩展。"
-            />
-            <InfoCard
-              index={2}
-              title="了解 ant design"
-              href="https://ant.design"
-              desc="antd 是基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。"
-            />
-            <InfoCard
-              index={3}
-              title="了解 Pro Components"
-              href="https://procomponents.ant.design"
-              desc="ProComponents 是一个基于 Ant Design 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"
-            />
+              href="https://www.yuque.com/mwangli/ha7323/axga8dz9imansvl4"
+              title="欢迎使用 Stock-Trading System"
+              // desc="{Stock-Trading System是一款自动化股票交易管理软件，
+              //         可以按照自定义交易策略，进行自动化的股票买卖交易；
+              //         也可以查看股票历史价格，实时价格，买卖记录和相关报表数据}"
+                    child={
+                      <p
+                        style={{
+                          fontSize: '14px',
+                          color: token.colorTextSecondary,
+                          lineHeight: '22px',
+                          marginTop: 16,
+                          marginBottom: 32,
+                          width: '95%',
+                          // fontWeight:'bold'
+                        }}
+                        // hidden={initialState?.currentUser?.access != 'admin'}
+                        hidden={false}
+                      >
+                        <div style={{
+                          fontWeight:'bolder'
+                        }}>
+                          Stock-Trading System是一款自动化股票交易管理软件，可以按照自定义交易策略，进行自动化的股票买卖交易, 也可以查看股票历史价格，实时价格，买卖记录和相关报表数据<br/>
+                        </div>
+                        <div style={{
+                         fontSize:'16px',
+                          fontWeight:'bold',
+                          marginTop:'16px'
+                        }}>
+                          开发日志:
+                        </div>
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            // gap: 16,
+                          }}
+                        >
+                          <div style={{
+                            fontSize: '14px',
+                            color: token.colorTextSecondary,
+                            lineHeight: '22px',
+                            marginTop: 16,
+                            marginBottom: 16,
+                            width: '50%',
+                          }}>
+                            <span>2023-06-03</span> <br/>
+                            1. 修复日期差计算bug <br/>
+                            2. 新增运行日志查询页面 <br/>
+                            <span>2023-06-04</span> <br/>
+                            3. 解决了日志查询滚动条固定到底部的问题 <br/>
+                            <span>2023-06-06</span> <br/>
+                            4. 优化买入金额问题 <br/>
+                            <span>2023-06-09</span> <br/>
+                            5. 增加取消订单的结果查询 <br/>
+                            6. 增加数据分时时段查询功能 <br/>
+                            <span>2023-06-10</span> <br/>
+                            7. 线程池任务执行异常问题修复 <br/>
+                            8. 验证码登录功能实现优化 <br/>
+                            <span>2023-06-11</span> <br/>
+                            9. HttpClient-FormData表单提交优化 <br/>
+                            10. 自动登陆功能实现 <br/>
+                            <span>2023-06-14</span> <br/>
+                            11. 买卖时机策略优化 <br/>
+                            12. 增加终止任务功能 <br/>
+                            <span>2023-06-16</span> <br/>
+                            13. 取消终止任务功能 <br/>
+                            14. 增加日志开关选项 <br/>
+                          </div>
+                          <div style={{
+                            fontSize: '14px',
+                            color: token.colorTextSecondary,
+                            lineHeight: '22px',
+                            marginTop: 16,
+                            marginBottom: 32,
+                            width: '40%',
+                          }}>
+                            <span>2023-06-20</span> <br/>
+                            15. 增加任务中断功能 <br/>
+                            16. 优化交易等待时间 <br/>
+                            <span>2023-06-27</span> <br/>
+                            17. 清除退市股票数据 <br/>
+                            18. 调整交易等待时间 <br/>
+                            <span>2023-06-29</span> <br/>
+                            19. 实数数据获取优化 <br/>
+                            <span>2023-07-04</span> <br/>
+                            20. 任务运行状态优化 <br/>
+                            21. 账户金额显示优化 <br/>
+                            <span>2023-07-17</span> <br/>
+                            22. 购买金额数量优化 <br/>
+                            23. 排名重复数据优化 <br/>
+                            <span>2024-04-8</span> <br/>
+                            22. 后台项目整体框架优化<br/>
+                            23. 使用LSTM模型预测价格 <br/>
+                            <span>2024-04-11</span> <br/>
+                            24. 增加订单查询页面 <br/>
+                            <span>2024-04-12</span> <br/>
+                            24. 优化欢迎页面补充文档 <br/>
+                          </div>
+
+                        </div>
+                      </p>
+                    }
+            >
+
+
+            </InfoCard>
+            {/*<InfoCard*/}
+            {/*  index={2}*/}
+            {/*  title="了解 ant design"*/}
+            {/*  href="https://ant.design"*/}
+            {/*  desc="antd 是基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。"*/}
+            {/*/>*/}
+            {/*<InfoCard*/}
+            {/*  index={3}*/}
+            {/*  title="了解 Pro Components"*/}
+            {/*  href="https://procomponents.ant.design"*/}
+            {/*  desc="ProComponents 是一个基于 Ant Design 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"*/}
+            {/*/>*/}
           </div>
-          <p
-            style={{
-              fontSize: '14px',
-              color: token.colorTextSecondary,
-              lineHeight: '22px',
-              marginTop: 16,
-              marginBottom: 32,
-              width: '65%',
-            }}
-            // hidden={initialState?.currentUser?.access != 'admin'}
-            hidden={false}
-          >
-            Stock-Trading System是一款自动化股票交易管理软件，<br/>
-            可以按照自定义交易策略，进行自动化的股票买卖交易；<br/>
-            也可以查看股票历史价格，实时价格，买卖记录和相关报表数据<br/>
-            <span>2023-06-03</span> <br/>
-            1. 修复日期差计算bug <br/>
-            2. 新增运行日志查询页面 <br/>
-            <span>2023-06-04</span> <br/>
-            3. 解决了日志查询滚动条固定到底部的问题 <br/>
-            <span>2023-06-06</span> <br/>
-            4. 优化买入金额问题 <br/>
-            <span>2023-06-09</span> <br/>
-            5. 增加取消订单的结果查询 <br/>
-            6. 增加数据分时时段查询功能 <br/>
-            <span>2023-06-10</span> <br/>
-            7. 线程池任务执行异常问题修复 <br/>
-            8. 验证码登录功能实现优化 <br/>
-            <span>2023-06-11</span> <br/>
-            9. HttpClient-FormData表单提交优化 <br/>
-            10. 自动登陆功能实现 <br/>
-            <span>2023-06-14</span> <br/>
-            11. 买卖时机策略优化 <br/>
-            12. 增加终止任务功能 <br/>
-            <span>2023-06-16</span> <br/>
-            13. 取消终止任务功能 <br/>
-            14. 增加日志开关选项 <br/>
-            <span>2023-06-20</span> <br/>
-            15. 增加任务中断功能 <br/>
-            16. 优化交易等待时间 <br/>
-            <span>2023-06-27</span> <br/>
-            17. 清除退市股票数据 <br/>
-            18. 调整交易等待时间 <br/>
-            <span>2023-06-29</span> <br/>
-            19. 实数数据获取优化 <br/>
-            <span>2023-07-04</span> <br/>
-            20. 任务运行状态优化 <br/>
-            21. 账户金额显示优化 <br/>
-            <span>2023-07-17</span> <br/>
-            22. 购买金额数量优化 <br/>
-            23. 排名重复数据优化 <br/>
-            <span>2024-04-8</span> <br/>
-            22. 后台项目整体框架优化<br/>
-            23. 使用LSTM模型预测价格 <br/>
-            <span>2024-04-11</span> <br/>
-            24. 增加订单查询页面 <br/>
-          </p>
+
         </div>
       </Card>
     </PageContainer>

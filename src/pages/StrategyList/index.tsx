@@ -281,7 +281,7 @@ const TableList: React.FC = () => {
   return (
     <PageContainer>
       <ProTable<API.RuleListItem, API.PageParams>
-        headerTitle={'选股策略'}
+        headerTitle={'模型策略'}
         actionRef={actionRef}
         rowKey="key"
         search={{
