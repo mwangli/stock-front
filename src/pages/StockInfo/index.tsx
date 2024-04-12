@@ -467,11 +467,15 @@ const TableList: React.FC = () => {
       >
 
         <Area
+          // autoFit={false}
+          // fillOpacity={1}
+          // opacity={1}
           smooth
           height={420}
           data={currentRow?.increaseRateList || []}
           xField="x"
           yField="y"
+          seriesField="type"
           meta={{
             date: {
               alias: '交易日期',
