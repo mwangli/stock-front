@@ -422,10 +422,7 @@ const TableList: React.FC = () => {
         width={1200}
         bodyStyle={{padding: '32px 40px 48px'}}
         destroyOnClose
-        title={intl.formatMessage({
-          id: 'pages.searchTable.pricesList',
-          defaultMessage: '价格趋势',
-        })}
+        title='历史价格'
 
         open={modalOpen}
         footer={null}
@@ -460,10 +457,7 @@ const TableList: React.FC = () => {
         width={1200}
         bodyStyle={{padding: '32px 40px 48px'}}
         destroyOnClose
-        title={intl.formatMessage({
-          id: 'pages.searchTable.pricesList',
-          defaultMessage: '历史价格',
-        })}
+        title='预测价格'
 
         open={modalOpen2}
         footer={null}
@@ -478,13 +472,12 @@ const TableList: React.FC = () => {
           data={currentRow?.increaseRateList || []}
           xField="x"
           yField="y"
-
           meta={{
             date: {
               alias: '交易日期',
             },
             item: {
-              alias: '日增长率(%)',
+              alias: '预测价格曲线',
               // max: currentRow?.maxPrice,
               // min: currentRow?.minPrice,
               maxLimit: currentRow?.maxRate,
