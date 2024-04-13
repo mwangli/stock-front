@@ -1,4 +1,11 @@
-import {addRule, listHistoryPrices,listTestPrices, listStockInfo, removeRule, updateRule} from '@/services/ant-design-pro/api';
+import {
+  addRule,
+  listHistoryPrices,
+  listStockInfo,
+  listTestPrices,
+  removeRule,
+  updateRule
+} from '@/services/ant-design-pro/api';
 import type {ActionType, ProColumns, ProDescriptionsItemProps} from '@ant-design/pro-components';
 import {
   FooterToolbar,
@@ -17,6 +24,7 @@ import UpdateForm from './components/UpdateForm';
 import numeral from "numeral";
 import {Area} from "@ant-design/charts";
 import {history} from "@@/core/history";
+import { Line } from '@ant-design/plots';
 
 /**
  * @en-US Add node
@@ -307,8 +315,9 @@ const TableList: React.FC = () => {
             // debugger
             let promise = listHistoryPrices({code: record.code});
             promise.then(res => {
-              record.pricesList = res.data
-              // debugger
+              record.pricesList = res.data.points
+              record.maxPrice = res?.data?.maxValue
+              record.minPrice = res?.data?.minValue
               setCurrentRow(record);
               setModalOpen(true);
             })
@@ -323,7 +332,9 @@ const TableList: React.FC = () => {
 
              let promise = listTestPrices({code: record.code});
              promise.then(res => {
-               record.increaseRateList = res.data
+               record.increaseRateList = res?.data?.points
+               record.maxRate = res?.data?.maxValue
+               record.minRate = res?.data?.minValue
                // debugger
                setCurrentRow(record);
                setModalOpen2(true);
@@ -441,13 +452,11 @@ const TableList: React.FC = () => {
             date: {
               alias: '交易日期',
             },
-            item: {
-              alias: '开盘价格(元)',
-              max: currentRow?.maxPrice,
-              min: currentRow?.minPrice,
-              // maxLimit: currentRow?.maxPrice,
-              // minLimit: currentRow?.minPrice,
-            },
+           price1: {
+             alias: '开盘价格(元)',
+             max: currentRow?.maxPrice,
+             min: currentRow?.minPrice,
+           },
           }}
         />
       </Modal>
@@ -465,30 +474,56 @@ const TableList: React.FC = () => {
           setModalOpen2(false);
         }}
       >
+        <Line
+          data = {currentRow?.increaseRateList || []}
+        xField = 'x'
+        yField = 'y'
+        seriesField = 'type'
+            meta={{
+              x: {
+                alias: '交易日期',
+              },
+              y: {
+                alias: '预测价格曲线',
+                max: currentRow?.maxRate,
+                min: currentRow?.minRate,
+                // maxLimit: currentRow?.maxRate,
+                // minLimit: currentRow?.minRate,
+              },
+            }}
+        //   xAxis  = {
+        //   type = 'time'
+        // }
+      //   yAxis: {
+      //   label: {
+      //   // 数值格式化为千分位
+      //   formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
+      // },
+      // },
+      //   };
 
-        <Area
-          // autoFit={false}
-          // fillOpacity={1}
-          // opacity={1}
-          smooth
-          height={420}
-          data={currentRow?.increaseRateList || []}
-          xField="x"
-          yField="y"
-          seriesField="type"
-          meta={{
-            date: {
-              alias: '交易日期',
-            },
-            item: {
-              alias: '预测价格曲线',
-              // max: currentRow?.maxPrice,
-              // min: currentRow?.minPrice,
-              maxLimit: currentRow?.maxRate,
-              minLimit: currentRow?.minRate,
-            },
-          }}
         />
+
+        {/*<Area*/}
+        {/*  smooth*/}
+        {/*  height={420}*/}
+        {/*  data={currentRow?.increaseRateList || []}*/}
+        {/*  xField="x"*/}
+        {/*  yField="y"*/}
+        {/*  seriesField="type"*/}
+        {/*  meta={{*/}
+        {/*    x: {*/}
+        {/*      alias: '交易日期',*/}
+        {/*    },*/}
+        {/*    y: {*/}
+        {/*      alias: '预测价格曲线',*/}
+        {/*      max: currentRow?.maxPrice,*/}
+        {/*      min: currentRow?.minPrice,*/}
+        {/*      // maxLimit: currentRow?.maxRate,*/}
+        {/*      // minLimit: currentRow?.minRate,*/}
+        {/*    },*/}
+        {/*  }}*/}
+        {/*/>*/}
       </Modal>
 
       <ModalForm
