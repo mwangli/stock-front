@@ -174,6 +174,7 @@ const TableList: React.FC = () => {
       title: '订单状态',
       dataIndex: 'status',
       valueType: 'textarea',
+      hideInSearch: true,
     },
     // {
     //   title: <FormattedMessage id="pages.searchTable.market" defaultMessage="market"/>,
