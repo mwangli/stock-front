@@ -144,8 +144,9 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
         width: '331px',
       },
     ],
-    links: isDev
-      ? [
+    // links: isDev ?
+   links :
+      [
         <Link
           key="openapi"
               to="/"
@@ -157,8 +158,8 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
            <span>项目文档</span>
         </a>
         </Link>,
-      ]
-      : [],
+      ],
+      // : [],
     menuHeaderRender: undefined,
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
