@@ -170,12 +170,12 @@ const TableList: React.FC = () => {
       dataIndex: 'number',
       valueType: 'textarea',
     },
-    {
-      title: '订单状态',
-      dataIndex: 'status',
-      valueType: 'textarea',
-      hideInSearch: true,
-    },
+    // {
+    //   title: '订单状态',
+    //   dataIndex: 'status',
+    //   valueType: 'textarea',
+    //   hideInSearch: true,
+    // },
     // {
     //   title: <FormattedMessage id="pages.searchTable.market" defaultMessage="market"/>,
     //   dataIndex: 'market',
@@ -217,6 +217,33 @@ const TableList: React.FC = () => {
           id: 'pages.searchTable.yuan',
           defaultMessage: ' 元 ',
         })}` : '-',
+    },
+
+    {
+      title: '订单状态',
+      dataIndex: 'status',
+      hideInForm: true,
+      // order: 1,
+      // sorter: true,
+      valueEnum: {
+        // 2: {
+        //   text: (
+        //     <FormattedMessage
+        //       id="pages.searchTable.nameStatus.default"
+        //       defaultMessage="Shut down"
+        //     />
+        //   ),
+        //   status: 'Default',
+        // },
+        1: {
+          text: '已成交',
+          status: 'Processing',
+        },
+        0: {
+          text: '未成交',
+          status: 'Error',
+        },
+      },
     },
     // {
     //   title: <FormattedMessage id="pages.searchTable.increase" defaultMessage="Description"/>,
