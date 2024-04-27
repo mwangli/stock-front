@@ -37,6 +37,13 @@ const Footer: React.FC = () => {
           href: 'https://github.com/mwangli',
           blankTarget: true,
         },
+        {
+          key: 'mwangli',
+          title: '湘ICP备2024059202号',
+          href: 'https://beian.miit.gov.cn/',
+          blankTarget: true,
+        },
+
       ]}
     />
   );
