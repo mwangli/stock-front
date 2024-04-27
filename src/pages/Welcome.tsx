@@ -201,12 +201,14 @@ const Welcome: React.FC = () => {
                       <span>2023-06-16</span> <br/>
                       13. 取消终止任务功能 <br/>
                       14. 增加日志开关选项 <br/>
+                      <span>2023-06-20</span> <br/>
                       15. 增加任务中断功能 <br/>
                       16. 优化交易等待时间 <br/>
                       <span>2023-06-27</span> <br/>
                       17. 清除退市股票数据 <br/>
                       18. 调整交易等待时间 <br/>
                       <span>2023-06-29</span> <br/>
+                      19. 实数数据获取优化 <br/>
                     </div>
                     <div style={{
                       fontSize: '14px',
@@ -216,8 +218,6 @@ const Welcome: React.FC = () => {
                       marginBottom: 32,
                       width: '40%',
                     }}>
-                      <span>2023-06-20</span> <br/>
-                      19. 实数数据获取优化 <br/>
                       <span>2023-07-04</span> <br/>
                       20. 任务运行状态优化 <br/>
                       21. 账户金额显示优化 <br/>
