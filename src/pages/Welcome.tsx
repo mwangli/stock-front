@@ -238,6 +238,8 @@ const Welcome: React.FC = () => {
                       28. 简化模型参数，提升训练速度 <br/>
                       <span>2024-04-27</span> <br/>
                       29. 优化访客用户登录名称 <br/>
+                      <span>2024-04-28</span> <br/>
+                      30. 买入股票逻辑优化 <br/>
                     </div>
 
                   </div>
