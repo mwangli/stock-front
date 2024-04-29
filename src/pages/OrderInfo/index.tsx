@@ -207,7 +207,7 @@ const TableList: React.FC = () => {
     //   hideInTable: true,
     // },
     {
-      title: '订单金额',
+      title: '订单价格',
       dataIndex: 'price',
       valueType: 'textarea',
       hideInSearch: true,
