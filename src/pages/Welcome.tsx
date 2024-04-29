@@ -240,6 +240,9 @@ const Welcome: React.FC = () => {
                       29. 优化访客用户登录名称 <br/>
                       <span>2024-04-28</span> <br/>
                       30. 买入股票逻辑优化 <br/>
+                      <span>2024-04-29</span> <br/>
+                      31. 买入卖出逻辑优化 <br/>
+                      32. 增加debug日志模式 <br/>
                     </div>
 
                   </div>

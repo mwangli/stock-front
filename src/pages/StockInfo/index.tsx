@@ -446,8 +446,8 @@ const TableList: React.FC = () => {
           smooth
           height={420}
           data={currentRow?.pricesList || []}
-          xField="date"
-          yField="price1"
+          xField="x"
+          yField="y"
           meta={{
             x: {
               alias: '交易日期',
