@@ -199,7 +199,7 @@ const TableList: React.FC = () => {
       dataIndex: 'sort',
       hideInSearch: true,
       // hideInTable: true,
-      tip: 'The jobId is the unique key',
+      // tip: 'The jobId is the unique key',
       // render: (dom, entity, index) => {
       //   return (
       //     // <a

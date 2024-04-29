@@ -113,9 +113,10 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
 
         webSocket.onmessage = (message: any) => {
           const data = "" + message.data;
-          if (data.startsWith("任务执行完成")){
+          if (data.startsWith("任务执行完成")) {
             console.log("任务执行完成,刷新任务状态")
-            history.push(page?.pathname)
+            // debugger
+            history.push({pathname: '/job'})
           }
         }
 
@@ -152,21 +153,21 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
       },
     ],
     // links: isDev ?
-   links :
+    links:
       [
         <Link
           key="openapi"
-              to="/"
-              target="_blank"
-              // ref="https://www.yuque.com/mwangli/kleih7/axga8dz9imansvl4"
+          to="/"
+          target="_blank"
+          // ref="https://www.yuque.com/mwangli/kleih7/axga8dz9imansvl4"
         >
-        <a href={"https://www.yuque.com/mwangli/kleih7/axga8dz9imansvl4"} target={"_blank"}>
-          <LinkOutlined/>
-           <span>项目文档</span>
-        </a>
+          <a href={"https://www.yuque.com/mwangli/kleih7/axga8dz9imansvl4"} target={"_blank"}>
+            <LinkOutlined/>
+            <span>项目文档</span>
+          </a>
         </Link>,
       ],
-      // : [],
+    // : [],
     menuHeaderRender: undefined,
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
