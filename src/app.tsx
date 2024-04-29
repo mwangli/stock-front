@@ -111,6 +111,38 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
         }));
       }
 
+      // // 工作调度页面，每隔5秒刷新一下数据
+      // if (page?.pathname === '/job' && !initialState?.ws) {
+      //   const localServer = "localhost:8080";
+      //   const remoteServer = "124.220.36.95:8080";
+      //   // console.log(JSON.stringify(process.env))
+      //   const server = process.env.NODE_ENV == 'production' ? remoteServer : localServer;
+      //   const webSocket = new WebSocket(`ws://${server}/webSocket`);
+      //
+      //   webSocket.onopen = () => {
+      //     console.log('连接建立成功')
+      //   }
+      //
+      //   webSocket.onclose = () => {
+      //     console.log('连接关闭成功')
+      //   }
+      //
+      //   webSocket.onmessage = (message: any) => {
+      //     // console.log(message.data)
+      //     // setLogs(message.data)
+      //     setInitialState((s) => ({
+      //       ...s,
+      //       // logs: message.data,
+      //       logs: s?.logs ? `${s.logs}\r${message.data}` : message.data,
+      //     }));
+      //   }
+      //
+      //   // setWS(webSocket);
+      //   setInitialState((s) => ({
+      //     ...s,
+      //     ws: webSocket,
+      //   }));
+      // }
       // if (page?.pathname !== '/logs' && initialState?.ws) {
       //   initialState?.ws.close();
       //   setInitialState((s) => ({

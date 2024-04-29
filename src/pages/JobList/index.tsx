@@ -1,10 +1,10 @@
 import {
   createJob,
   deleteJob,
+  interruptJob,
   listJob,
   modifyJob,
   pauseJob,
-  interruptJob,
   resumeJob,
   runJob
 } from '@/services/ant-design-pro/api';
@@ -19,7 +19,7 @@ import {
 } from '@ant-design/pro-components';
 import {FormattedMessage, useIntl} from '@umijs/max';
 import {Button, Input, message} from 'antd';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import type {FormValueType} from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 import {PlusOutlined} from "@ant-design/icons";
@@ -140,7 +140,9 @@ const handleRun = async (fields: FormValueType) => {
   }
 };
 
+
 const TableList: React.FC = () => {
+
   /**
    * @en-US Pop-up window of new window
    * @zh-CN 新建窗口的弹窗
@@ -153,7 +155,7 @@ const TableList: React.FC = () => {
    * */
   const [updateModalOpen, handleUpdateModalOpen] = useState<boolean>(false);
 
-  const [showDetail, setShowDetail] = useState<boolean>(false);
+  const [showDetail, setShowDetail,] = useState<boolean>(false);
 
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<API.RuleListItem>();
@@ -165,10 +167,27 @@ const TableList: React.FC = () => {
    * */
   const intl = useIntl();
 
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
+  //
+  // const {loading, data, mutate, refresh} = useRequest(listJob, {
+  //   // defaultParams: [{
+  //   //   //去除默认值显示全部数据
+  //   //   // startDate: rangePickerValue?.["0"]?.format('YYYYMMDD'),
+  //   //   // endDate: rangePickerValue?.["1"]?.format('YYYYMMDD'),
+  //   // }]
+  // });
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      actionRef.current?.reload()
+      console.log("刷新数据")
+    }, 5000); // 每5秒刷新一次数据
+
+    return () => clearInterval(intervalId); // 清除定时器
+  }, []);
+
+
   const columns: ProColumns<API.RuleListItem>[] = [
     {
       title: (
@@ -192,8 +211,8 @@ const TableList: React.FC = () => {
       //     <span>
       //           {}
       //     </span>
-          // </a>
-        // );
+      // </a>
+      // );
       // },
     },
 
@@ -274,16 +293,26 @@ const TableList: React.FC = () => {
       order: 1,
       sorter: true,
       valueEnum: (a) => {
-        return {
-            1: {
-              text: '调度中',
-              status: 'Processing',
-            },
-            0: {
-              text: '已暂停',
-              status: 'Error',
-            }
+        return a?.running == '1' ? {
+          0: {
+            text: '运行中',
+            status: 'Processing',
+          },
+          1: {
+            text: '运行中',
+            status: 'Processing',
           }
+        } :
+         {
+          1: {
+            text: '调度中',
+            status: 'Success',
+          },
+          0: {
+            text: '已暂停',
+            status: 'Error',
+          }
+        }
       },
     },
     {
@@ -302,12 +331,12 @@ const TableList: React.FC = () => {
              //     }
              //   }
              // } else {
-               const success = await handleRun(record)
-               if (success) {
-                 if (actionRef.current) {
-                   actionRef.current.reload();
-                 }
+             const success = await handleRun(record)
+             if (success) {
+               if (actionRef.current) {
+                 actionRef.current.reload();
                }
+             }
              // }
            }}
         >{record.running == '1' ? '触发' : '触发'}
@@ -377,6 +406,7 @@ const TableList: React.FC = () => {
         })}
         actionRef={actionRef}
         rowKey="key"
+        loading={false}
         search={{
           labelWidth: 120,
         }}
