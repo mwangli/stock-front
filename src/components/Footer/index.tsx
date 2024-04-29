@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
           blankTarget: true,
         },
         {
-          key: 'mwangli',
+          key: 'beian',
           title: '湘ICP备2024059202号',
           href: 'https://beian.miit.gov.cn/',
           blankTarget: true,

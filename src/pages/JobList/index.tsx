@@ -178,14 +178,14 @@ const TableList: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      actionRef.current?.reload()
-      console.log("刷新数据")
-    }, 5000); // 每5秒刷新一次数据
-
-    return () => clearInterval(intervalId); // 清除定时器
-  }, []);
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     actionRef.current?.reload()
+  //     console.log("刷新数据")
+  //   }, 5000); // 每5秒刷新一次数据
+  //
+  //   return () => clearInterval(intervalId); // 清除定时器
+  // }, []);
 
 
   const columns: ProColumns<API.RuleListItem>[] = [
@@ -406,7 +406,7 @@ const TableList: React.FC = () => {
         })}
         actionRef={actionRef}
         rowKey="key"
-        loading={false}
+        // loading={false}
         search={{
           labelWidth: 120,
         }}
