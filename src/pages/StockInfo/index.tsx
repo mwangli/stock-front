@@ -449,10 +449,10 @@ const TableList: React.FC = () => {
           xField="date"
           yField="price1"
           meta={{
-            date: {
+            x: {
               alias: '交易日期',
             },
-           price1: {
+           y: {
              alias: '开盘价格(元)',
              max: currentRow?.maxPrice,
              min: currentRow?.minPrice,
