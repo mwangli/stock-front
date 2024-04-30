@@ -78,37 +78,37 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
     // on
     footerRender: () => <Footer/>,
 
-    onPageChange: (page) => {
+    // onPageChange: (page) => {
 
-      if (page?.pathname === '/logs' && !initialState?.wsLog) {
-        const localServer = "localhost:8080";
-        const remoteServer = "124.220.36.95:8080";
-        // console.log(JSON.stringify(process.env))
-        const server = process.env.NODE_ENV == 'production' ? remoteServer : localServer;
-        const webSocket = new WebSocket(`ws://${server}/webSocket/${page?.pathname}`);
-
-        webSocket.onmessage = (message: any) => {
-          // console.log(message.data)
-          // setLogs(message.data)
-          setInitialState((s) => ({
-            ...s,
-            // logs: message.data,
-            logs: s?.logs ? `${s.logs}\r${message.data}` : message.data,
-          }));
-        }
-
-        // setWS(webSocket);
-        setInitialState((s) => ({
-          ...s,
-          wsLog: webSocket,
-        }));
-      }
+      // if (page?.pathname === '/logs' && !initialState?.wsLog) {
+      //   const localServer = "localhost:8080";
+      //   const remoteServer = "124.220.36.95:8080";
+      //   // console.log(JSON.stringify(process.env))
+      //   const server = process.env.NODE_ENV == 'production' ? remoteServer : localServer;
+      //   const webSocket = new WebSocket(`ws://${server}/webSocket/${page?.pathname}`);
+      //
+      //   webSocket.onmessage = (message: any) => {
+      //     // console.log(message.data)
+      //     // setLogs(message.data)
+      //     setInitialState((s) => ({
+      //       ...s,
+      //       // logs: message.data,
+      //       logs: s?.logs ? `${s.logs}\r${message.data}` : message.data,
+      //     }));
+      //   }
+      //
+      //   // setWS(webSocket);
+      //   setInitialState((s) => ({
+      //     ...s,
+      //     wsLog: webSocket,
+      //   }));
+      // }
 
       // 如果没有登录，重定向到 login
       // if (!initialState?.currentUser && location.pathname !== loginPath) {
       //   history.push(loginPath);
       // }
-    },
+    // },
     layoutBgImgList: [
       {
         src: 'https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/D2LWSqNny4sAAAAAAAAAAAAAFl94AQBr',

@@ -9,6 +9,7 @@ import {useModel} from "@umijs/max";
  * @zh-CN 添加节点
  * @param fields
  */
+
 const LogsInfo: React.FC = () => {
 
     /**
@@ -25,13 +26,28 @@ const LogsInfo: React.FC = () => {
 
     const {initialState, setInitialState} = useModel('@@initialState');
 
+
+    useEffect(() => {
+      const localServer = "localhost:8080";
+      const remoteServer = "124.220.36.95:8080";
+      // console.log(JSON.stringify(process.env))
+      const server = process.env.NODE_ENV == 'production' ? remoteServer : localServer;
+      const webSocket = new WebSocket(`ws://${server}/webSocket/logs`);
+
+      webSocket.onmessage = (message: any) => {
+        setLogs((old) => old == '' ? message.data : `${old}\r${message.data}`
+        )
+      };
+      return () => webSocket.close();
+    }, []);
+
     return (
       <PageContainer>
         <CodeMirror
           editable={false}
           // readOnly={true}
           theme={"dark"}
-          value={initialState?.logs}
+          value={logs}
           height="1000px"
 
           // extensions={[javascript({jsx: true})]}
