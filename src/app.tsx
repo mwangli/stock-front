@@ -104,29 +104,6 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
         }));
       }
 
-      if (page?.pathname === '/job' && !initialState?.wsJob) {
-        const localServer = "localhost:8080";
-        const remoteServer = "124.220.36.95:8080";
-        // console.log(JSON.stringify(process.env))
-        const server = process.env.NODE_ENV == 'production' ? remoteServer : localServer;
-        const webSocket = new WebSocket(`ws://${server}/webSocket/${page?.pathname}`);
-
-        webSocket.onmessage = (message: any) => {
-          const data = "" + message.data;
-          if (data.startsWith("任务执行完成")) {
-            console.log("任务执行完成,刷新任务状态")
-            // debugger
-            history.push({pathname: '/job'})
-          }
-        }
-
-        // setWS(webSocket);
-        setInitialState((s) => ({
-          ...s,
-          wsJob: webSocket,
-        }));
-      }
-
       // 如果没有登录，重定向到 login
       // if (!initialState?.currentUser && location.pathname !== loginPath) {
       //   history.push(loginPath);

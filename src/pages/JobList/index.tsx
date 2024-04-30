@@ -167,25 +167,25 @@ const TableList: React.FC = () => {
    * */
   const intl = useIntl();
 
-  //
-  // const {loading, data, mutate, refresh} = useRequest(listJob, {
-  //   // defaultParams: [{
-  //   //   //去除默认值显示全部数据
-  //   //   // startDate: rangePickerValue?.["0"]?.format('YYYYMMDD'),
-  //   //   // endDate: rangePickerValue?.["1"]?.format('YYYYMMDD'),
-  //   // }]
-  // });
-
   const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     actionRef.current?.reload()
-  //     console.log("刷新数据")
-  //   }, 5000); // 每5秒刷新一次数据
-  //
-  //   return () => clearInterval(intervalId); // 清除定时器
-  // }, []);
+  useEffect(() => {
+    const localServer = "localhost:8080";
+    const remoteServer = "124.220.36.95:8080";
+    // console.log(JSON.stringify(process.env))
+    const server = process.env.NODE_ENV == 'production' ? remoteServer : localServer;
+    const webSocket = new WebSocket(`ws://${server}/webSocket/job`);
+
+    webSocket.onmessage = (message: any) => {
+      const data = "" + message.data;
+      if (data.startsWith("任务执行完成")) {
+        console.log("任务执行完成,刷新任务状态")
+        // debugger
+        actionRef.current?.reload();
+      }
+    }
+    return () => webSocket.close();
+  }, []);
 
 
   const columns: ProColumns<API.RuleListItem>[] = [
