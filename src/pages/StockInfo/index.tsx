@@ -2,7 +2,7 @@ import {
   addRule,
   listHistoryPrices,
   listStockInfo,
-  listTestPrices,
+  listIncreaseRate,
   removeRule,
   updateRule
 } from '@/services/ant-design-pro/api';
@@ -24,7 +24,7 @@ import UpdateForm from './components/UpdateForm';
 import numeral from "numeral";
 import {Area} from "@ant-design/charts";
 import {history} from "@@/core/history";
-import { Line } from '@ant-design/plots';
+import {Line} from '@ant-design/plots';
 
 /**
  * @en-US Add node
@@ -313,8 +313,7 @@ const TableList: React.FC = () => {
           onClick={() => {
             // handleUpdateModalOpen(true);1
             // debugger
-            let promise = listHistoryPrices({code: record.code});
-            promise.then(res => {
+            listHistoryPrices({code: record.code}).then(res => {
               record.pricesList = res.data.points
               record.maxPrice = res?.data?.maxValue
               record.minPrice = res?.data?.minValue
@@ -323,15 +322,12 @@ const TableList: React.FC = () => {
             })
           }}
         >
-          <FormattedMessage id="pages.searchTable.priceList" defaultMessage="历史价格曲线"/>
+         历史价格
         </a>,
         <a key="subscribeAlert"
            onClick={() => {
              // handleUpdateModalOpen(true);
-
-
-             let promise = listTestPrices({code: record.code});
-             promise.then(res => {
+             listIncreaseRate({code: record.code}).then(res => {
                record.increaseRateList = res?.data?.points
                record.maxRate = res?.data?.maxValue
                record.minRate = res?.data?.minValue
@@ -340,9 +336,7 @@ const TableList: React.FC = () => {
                setModalOpen2(true);
              })
            }}>
-          <FormattedMessage
-            id="pages.searchTable.rateList" defaultMessage="预测价格曲线"
-          />
+          日增长率
         </a>,
       ],
     },
@@ -452,78 +446,65 @@ const TableList: React.FC = () => {
             x: {
               alias: '交易日期',
             },
-           y: {
-             alias: '开盘价格(元)',
-             max: currentRow?.maxPrice,
-             min: currentRow?.minPrice,
-           },
+            y: {
+              alias: '开盘价格(元)',
+              max: currentRow?.maxPrice,
+              min: currentRow?.minPrice,
+            },
           }}
         />
       </Modal>
-
 
       <Modal
         width={1200}
         bodyStyle={{padding: '32px 40px 48px'}}
         destroyOnClose
-        title='预测价格'
-
+        title='日增长率'
         open={modalOpen2}
         footer={null}
         onCancel={() => {
           setModalOpen2(false);
         }}
       >
-        <Line
-          data = {currentRow?.increaseRateList || []}
-        xField = 'x'
-        yField = 'y'
-        seriesField = 'type'
-            meta={{
-              x: {
-                alias: '交易日期',
-              },
-              y: {
-                alias: '预测价格曲线',
-                max: currentRow?.maxRate,
-                min: currentRow?.minRate,
-                // maxLimit: currentRow?.maxRate,
-                // minLimit: currentRow?.minRate,
-              },
-            }}
-        //   xAxis  = {
-        //   type = 'time'
-        // }
-      //   yAxis: {
-      //   label: {
-      //   // 数值格式化为千分位
-      //   formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
-      // },
-      // },
-      //   };
-
-        />
-
-        {/*<Area*/}
-        {/*  smooth*/}
-        {/*  height={420}*/}
+        {/*<Line*/}
         {/*  data={currentRow?.increaseRateList || []}*/}
-        {/*  xField="x"*/}
-        {/*  yField="y"*/}
-        {/*  seriesField="type"*/}
+        {/*  xField='x'*/}
+        {/*  yField='y'*/}
+        {/*  seriesField='type'*/}
         {/*  meta={{*/}
         {/*    x: {*/}
         {/*      alias: '交易日期',*/}
         {/*    },*/}
         {/*    y: {*/}
         {/*      alias: '预测价格曲线',*/}
-        {/*      max: currentRow?.maxPrice,*/}
-        {/*      min: currentRow?.minPrice,*/}
+        {/*      max: currentRow?.maxRate,*/}
+        {/*      min: currentRow?.minRate,*/}
         {/*      // maxLimit: currentRow?.maxRate,*/}
         {/*      // minLimit: currentRow?.minRate,*/}
         {/*    },*/}
         {/*  }}*/}
         {/*/>*/}
+
+        <Area
+          smooth
+          height={420}
+          data={currentRow?.increaseRateList || []}
+          xField="x"
+          yField="y"
+          // seriesField="type"
+          meta={{
+            x: {
+              alias: '交易日期',
+            },
+            y: {
+              alias: '日增长率(%)',
+              max: currentRow?.maxRate,
+              min: currentRow?.minRate,
+              // maxLimit: currentRow?.maxRate,
+              // minLimit: currentRow?.minRate,
+            },
+          }}
+        />
       </Modal>
 
       <ModalForm

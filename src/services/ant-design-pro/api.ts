@@ -140,7 +140,7 @@ export async function listHistoryPrices(
 }
 
 /** 获取历史价格 GET /api/listHistoryPrices */
-export async function listTestPrices(
+export async function listIncreaseRate(
   params: {
     // query
     // /** 当前的页码 */
@@ -153,7 +153,7 @@ export async function listTestPrices(
   // sort: object,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/stockInfo/listTestPrices', {
+  return request<API.RuleList>('/api/stockInfo/listIncreaseRate', {
     method: 'GET',
     params: {
       ...params,
