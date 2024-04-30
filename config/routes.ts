@@ -74,10 +74,10 @@ export default [
     access: 'canAdmin',
   },
   {
-    name: 'list.strategy',
+    name: 'list.model',
     icon: 'AlertOutlined',
-    path: '/strategy',
-    component: './StrategyList',
+    path: '/model',
+    component: './ModelList',
     access: 'canAdmin',
   },
   {

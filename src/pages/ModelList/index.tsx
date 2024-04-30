@@ -130,43 +130,45 @@ const TableList: React.FC = () => {
   const intl = useIntl();
 
   const columns: ProColumns<API.RuleListItem>[] = [
-    {
-      title: '策略编号',
-      dataIndex: 'id',
-      hideInSearch: true,
-      // hideInTable: true,
-      // tip: 'The StrategyId is the unique key',
-      render: (dom, entity, index) => {
-        return (
-          // <a
-          //   onClick={() => {
-          //     setCurrentRow(entity);
-          //     // setShowDetail(true);
-          //   }}
-          // >
-          <span>
-            {index + 1}
-          </span>
-          // </a>
-        );
-      },
-    },
+    // {
+    //   title: '模型ID',
+    //   dataIndex: 'id',
+    //   hideInSearch: true,
+    //   // hideInTable: true,
+    //   // tip: 'The StrategyId is the unique key',
+    //   render: (dom, entity, index) => {
+    //     return (
+    //       // <a
+    //       //   onClick={() => {
+    //       //     setCurrentRow(entity);
+    //       //     // setShowDetail(true);
+    //       //   }}
+    //       // >
+    //       <span>
+    //         {index + 1}
+    //       </span>
+    //       // </a>
+    //     );
+    //   },
+    // },
 
     {
-      title: '策略名称',
+      title: '模型名称',
       dataIndex: 'name',
       valueType: 'textarea',
+      sorter: true,
     },
     {
-      title: '策略参数',
-      dataIndex: 'params',
-      valueType: 'textarea',
+      title: '参数量级',
+      dataIndex: 'paramsSize',
+      valueType: 'text',
+      sorter: true,
       // ellipsis: true,
       // tip: '； ;\r\n ',
       // tip: {<span>第一行<br/>第二行<br/>第三行</span>},
-      tooltip: <span>第一个参数为前期增长率数据占比因子,数值越小，前期数据对得分影响越低，范围[0,1];<br/>
-        第二个参数是价格波动容忍度，数值越小，价格波动越小，范围[1,10];<br/>
-        第三个参数为参考数据范围的历史价格条数，范围[10,100]。</span>
+      // tooltip: <span>第一个参数为前期增长率数据占比因子,数值越小，前期数据对得分影响越低，范围[0,1];<br/>
+      //   第二个参数是价格波动容忍度，数值越小，价格波动越小，范围[1,10];<br/>
+      //   第三个参数为参考数据范围的历史价格条数，范围[10,100]。</span>
     },
     // {
     //   title: '排序',
@@ -175,65 +177,106 @@ const TableList: React.FC = () => {
     //   hideInTable: true,
     //   hideInSearch: true
     // },
+
     {
-      title: '参数说明',
-      dataIndex: 'description',
-      valueType: 'textarea',
+      title: '文件大小',
+      dataIndex: 'fileSize',
+      valueType: 'text',
       hideInSearch: true,
+      sorter: true,
       // ellipsis: true,
     },
     {
-      title: <FormattedMessage id="pages.searchTable.createTime" defaultMessage="Description"/>,
-      dataIndex: 'createTime',
-      valueType: 'dateTime',
+      title: '训练时长',
+      dataIndex: 'trainPeriod',
+      valueType: 'text',
       hideInSearch: true,
       sorter: true,
+      // ellipsis: true,
+    },
+    // {
+    //   title: <FormattedMessage id="pages.searchTable.createTime" defaultMessage="Description"/>,
+    //   dataIndex: 'createTime',
+    //   valueType: 'dateTime',
+    //   hideInSearch: true,
+    //   sorter: true,
+    // },
+    {
+      title: '训练次数',
+      sorter: true,
+      dataIndex: 'trainTimes',
+      valueType: 'text',
+      hideInSearch: true,
+    },
+
+    {
+      title: '测试误差',
+      dataIndex: 'testDeviation',
+      valueType: 'text',
+      hideInSearch: true,
+      sorter: true,
+      // ellipsis: true,
     },
     {
-      title: (
-        <FormattedMessage id="pages.searchTable.updateTime" defaultMessage="Last updateTime"/>
-      ),
+      title: '验证误差',
+      dataIndex: 'validateDeviation',
+      valueType: 'text',
+      hideInSearch: true,
+      sorter: true,
+      // ellipsis: true,
+    },
+    {
+      title: '模型评分',
+      dataIndex: 'validateDeviation',
+      valueType: 'text',
+      hideInSearch: true,
+      sorter: true,
+      // ellipsis: true,
+    },
+
+    // {
+    //   title: '选中状态',
+    //   dataIndex: 'status',
+    //   valueType: 'switch',
+    //   hideInSearch: true,
+    //   sorter: true,
+    //   render: (dom, record) => {
+    //     return <Switch
+    //       checked={record?.status}
+    //       onChange={async () => {
+    //         let success = await handleChoose(record);
+    //         if (success) {
+    //           if (actionRef.current) {
+    //             actionRef.current.reload();
+    //           }
+    //         }
+    //       }}
+    //     />
+    //   }
+    // },
+    {
+      title: '上次训练时间',
       sorter: true,
       dataIndex: 'updateTime',
       valueType: 'dateTime',
       hideInSearch: true,
     },
     {
-      title: '选中状态',
+      title: '模型状态',
       dataIndex: 'status',
       hideInForm: true,
-      hideInTable: true,
+      // hideInTable: true,
       sorter: true,
       valueEnum: {
         1: {
-          text: '已选中',
+          text: '正常',
           status: 'Processing',
         },
         0: {
-          text: '未选中',
+          text: '异常',
           status: 'Error',
         },
       },
-    },
-    {
-      title: '选中状态',
-      dataIndex: 'status',
-      valueType: 'switch',
-      hideInSearch: true,
-      sorter: true,
-      render: (dom, record) => {
-        return <Switch
-          checked={record?.status}
-          onChange={async () => {
-            let success = await handleChoose(record);
-            if (success) {
-              if (actionRef.current) {
-                actionRef.current.reload();
-              }
-            }
-          }}
-        />
-      }
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating"/>,
@@ -259,7 +302,7 @@ const TableList: React.FC = () => {
             handleUpdateModalOpen(true);
           }}
         >
-          修改
+          测试结果
         </a>,
         <a key="k3"
            onClick={async () => {
@@ -272,7 +315,7 @@ const TableList: React.FC = () => {
              }
            }}
         >
-          删除
+          验证结果
         </a>,
       ],
     }
