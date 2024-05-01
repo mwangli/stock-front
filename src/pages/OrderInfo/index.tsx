@@ -237,7 +237,7 @@ const TableList: React.FC = () => {
         // },
         1: {
           text: '已成交',
-          status: 'Processing',
+          status: 'Success',
         },
         0: {
           text: '未成交',

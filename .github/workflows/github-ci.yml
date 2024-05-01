@@ -2,12 +2,12 @@ name: deploy
 
 on:
   push:
-    branches:
-      - 'main'
-    paths:
-      - '**.tsx'
-#    tags:
-#      - 'v*.*.*'
+#    branches:
+#      - 'main'
+#    paths:
+#      - '**.tsx'
+    tags:
+      - 'v*.*.*'
 
 jobs:
   build:

@@ -164,6 +164,56 @@ export async function listIncreaseRate(
   });
 }
 
+/** 获取历史价格 GET /api/listHistoryPrices */
+export async function listTestData(
+  params: {
+    // query
+    // /** 当前的页码 */
+    // current?: number;
+    // /** 页面的容量 */
+    // pageSize?: number;
+    name?: string;
+    code?: string;
+  },
+  // sort: object,
+  options?: { [key: string]: any },
+) {
+  return request<API.RuleList>('/api/modelInfo/listTestData', {
+    method: 'GET',
+    params: {
+      ...params,
+      // sortKey: sort ? Object.keys(sort)[0] : '',
+      // sortOrder: sort ? Object.values(sort)[0] : '',
+    },
+    ...(options || {}),
+  });
+}
+
+/** 获取历史价格 GET /api/listHistoryPrices */
+export async function listValidateData(
+  params: {
+    // query
+    // /** 当前的页码 */
+    // current?: number;
+    // /** 页面的容量 */
+    // pageSize?: number;
+    name?: string;
+    code?: string;
+  },
+  // sort: object,
+  options?: { [key: string]: any },
+) {
+  return request<API.RuleList>('/api/modelInfo/listValidateData', {
+    method: 'GET',
+    params: {
+      ...params,
+      // sortKey: sort ? Object.keys(sort)[0] : '',
+      // sortOrder: sort ? Object.values(sort)[0] : '',
+    },
+    ...(options || {}),
+  });
+}
+
 /** 获取定时任务 GET /api/job */
 export async function listJob(
   params: {
@@ -304,7 +354,7 @@ export async function listStrategy(
   sort: object,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/strategy/list', {
+  return request<API.RuleList>('/api/modelInfo/list', {
     method: 'GET',
     params: {
       ...params,

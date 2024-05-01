@@ -243,6 +243,9 @@ const Welcome: React.FC = () => {
                       <span>2024-04-29</span> <br/>
                       31. 买入卖出逻辑优化 <br/>
                       32. 增加debug日志模式 <br/>
+                      <span>2024-05-01</span> <br/>
+                      33. DL4J升级1.0.0版本 <br/>
+                      34. 模型代码数据处理优化 <br/>
                     </div>
 
                   </div>

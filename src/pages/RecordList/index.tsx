@@ -288,12 +288,6 @@ const TableList: React.FC = () => {
         })}` : '-',
     },
     {
-      title: '选股策略',
-      dataIndex: 'strategyName',
-      sorter: true,
-      hideInForm: true,
-    },
-    {
       title: <FormattedMessage id="pages.searchTable.titleStatus" defaultMessage="Status"/>,
       dataIndex: 'sold',
       hideInForm: true,
@@ -311,7 +305,7 @@ const TableList: React.FC = () => {
         // },
         1: {
           text: <FormattedMessage id="pages.searchTable.titleStatus.sold" defaultMessage="sold"/>,
-          status: 'Processing',
+          status: 'Success',
         },
         0: {
           text: (

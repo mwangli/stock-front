@@ -3,24 +3,18 @@ import {
   createStrategy,
   deleteStrategy,
   listStrategy,
+  listTestData,
+  listValidateData,
   modifyStrategy
 } from '@/services/ant-design-pro/api';
 import type {ActionType, ProColumns} from '@ant-design/pro-components';
-import {
-  ModalForm,
-  PageContainer,
-  ProFormDigit,
-  ProFormSwitch,
-  ProFormText,
-  ProFormTextArea,
-  ProTable,
-} from '@ant-design/pro-components';
+import {PageContainer, ProTable,} from '@ant-design/pro-components';
 import {FormattedMessage, useIntl} from '@umijs/max';
-import {Button, message, Switch} from 'antd';
+import {Button, message, Modal} from 'antd';
 import React, {useRef, useState} from 'react';
 import type {FormValueType} from './components/UpdateForm';
-import UpdateForm from './components/UpdateForm';
 import {PlusOutlined} from "@ant-design/icons";
+import {Line} from "@ant-design/plots";
 
 /**
  * @en-US Add node
@@ -123,6 +117,10 @@ const TableList: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<API.RuleListItem>();
   const [selectedRowsState, setSelectedRows] = useState<API.RuleListItem[]>([]);
 
+
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalOpen2, setModalOpen2] = useState<boolean>(false);
+
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
@@ -153,6 +151,12 @@ const TableList: React.FC = () => {
     // },
 
     {
+      title: '股票代码',
+      dataIndex: 'code',
+      valueType: 'textarea',
+      sorter: true,
+    },
+    {
       title: '模型名称',
       dataIndex: 'name',
       valueType: 'textarea',
@@ -163,6 +167,8 @@ const TableList: React.FC = () => {
       dataIndex: 'paramsSize',
       valueType: 'text',
       sorter: true,
+      hideInTable: true,
+      hideInSearch: true,
       // ellipsis: true,
       // tip: '； ;\r\n ',
       // tip: {<span>第一行<br/>第二行<br/>第三行</span>},
@@ -186,14 +192,7 @@ const TableList: React.FC = () => {
       sorter: true,
       // ellipsis: true,
     },
-    {
-      title: '训练时长',
-      dataIndex: 'trainPeriod',
-      valueType: 'text',
-      hideInSearch: true,
-      sorter: true,
-      // ellipsis: true,
-    },
+
     // {
     //   title: <FormattedMessage id="pages.searchTable.createTime" defaultMessage="Description"/>,
     //   dataIndex: 'createTime',
@@ -208,12 +207,20 @@ const TableList: React.FC = () => {
       valueType: 'text',
       hideInSearch: true,
     },
-
+    {
+      title: '训练时长',
+      dataIndex: 'trainPeriod',
+      valueType: 'text',
+      hideInSearch: true,
+      sorter: true,
+      // ellipsis: true,
+    },
     {
       title: '测试误差',
       dataIndex: 'testDeviation',
       valueType: 'text',
       hideInSearch: true,
+      hideInTable: true,
       sorter: true,
       // ellipsis: true,
     },
@@ -222,14 +229,7 @@ const TableList: React.FC = () => {
       dataIndex: 'validateDeviation',
       valueType: 'text',
       hideInSearch: true,
-      sorter: true,
-      // ellipsis: true,
-    },
-    {
-      title: '模型评分',
-      dataIndex: 'validateDeviation',
-      valueType: 'text',
-      hideInSearch: true,
+      hideInTable: true,
       sorter: true,
       // ellipsis: true,
     },
@@ -255,11 +255,20 @@ const TableList: React.FC = () => {
     //   }
     // },
     {
-      title: '上次训练时间',
+      title: '训练时间',
       sorter: true,
       dataIndex: 'updateTime',
       valueType: 'dateTime',
       hideInSearch: true,
+    },
+
+    {
+      title: '模型评分',
+      dataIndex: 'validateDeviation',
+      valueType: 'text',
+      hideInSearch: true,
+      sorter: true,
+      // ellipsis: true,
     },
     {
       title: '模型状态',
@@ -268,12 +277,16 @@ const TableList: React.FC = () => {
       // hideInTable: true,
       sorter: true,
       valueEnum: {
-        1: {
-          text: '正常',
+        0: {
+          text: '训练中',
           status: 'Processing',
         },
-        0: {
-          text: '异常',
+        1: {
+          text: '已训练',
+          status: 'Success',
+        },
+        2: {
+          text: '已废弃',
           status: 'Error',
         },
       },
@@ -298,21 +311,29 @@ const TableList: React.FC = () => {
         <a
           key="k2"
           onClick={async (_) => {
-            setCurrentRow(record)
-            handleUpdateModalOpen(true);
-          }}
+            // setCurrentRow(record)
+            // handleUpdateModalOpen(true);
+            listTestData({code: record.code}).then(res => {
+              record.pricesList = res.data.points
+              record.maxPrice = res?.data?.maxValue
+              record.minPrice = res?.data?.minValue
+              setCurrentRow(record);
+              setModalOpen(true);
+            })
+          }
+          }
         >
           测试结果
         </a>,
         <a key="k3"
            onClick={async () => {
-             setCurrentRow(record)
-             const success = await handleRemove(record)
-             if (success) {
-               if (actionRef.current) {
-                 actionRef.current.reload();
-               }
-             }
+             listValidateData({code: record.code}).then(res => {
+               record.increaseRateList = res.data.points
+               record.maxPrice = res?.data?.maxValue
+               record.minPrice = res?.data?.minValue
+               setCurrentRow(record);
+               setModalOpen2(true);
+             })
            }}
         >
           验证结果
@@ -324,7 +345,7 @@ const TableList: React.FC = () => {
   return (
     <PageContainer>
       <ProTable<API.RuleListItem, API.PageParams>
-        headerTitle={'模型策略'}
+        headerTitle={'模型列表'}
         actionRef={actionRef}
         rowKey="key"
         search={{
@@ -389,73 +410,158 @@ const TableList: React.FC = () => {
       {/*    </Button>*/}
       {/*  </FooterToolbar>*/}
       {/*)}*/}
-      <ModalForm
-        title={'新建策略'}
-        width={"480px"}
-        open={createModalOpen}
-        onOpenChange={handleModalOpen}
-        modalProps={{destroyOnClose: true}}
-        onFinish={async (value) => {
-          const success = await handleAdd(value as API.RuleListItem);
-          if (success) {
-            handleModalOpen(false);
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
-          }
+
+
+      <Modal
+        width={1200}
+        bodyStyle={{padding: '32px 40px 48px'}}
+        destroyOnClose
+        title='日增长率'
+        open={modalOpen}
+        footer={null}
+        onCancel={() => {
+          setModalOpen(false);
         }}
       >
-        <ProFormText width="md" name="id" hidden={true}/>
-        <ProFormText
-          rules={[
-            {
-              required: true,
-              message: '策略名称为必填项',
+        <Line
+          data={currentRow?.pricesList || []}
+          xField='x'
+          yField='y'
+          seriesField='type'
+          meta={{
+            x: {
+              alias: '交易日期',
             },
-          ]}
-          width="md"
-          name="name"
-          label={'策略名称'}
+            y: {
+              alias: '日增长率',
+              max: currentRow?.maxPrice,
+              min: currentRow?.minPrice,
+              // maxLimit: currentRow?.maxRate,
+              // minLimit: currentRow?.minRate,
+            },
+          }}
         />
-        <ProFormTextArea width="md" name="params"
-                         label={'策略参数'}
-                         initialValue={`{"preRateFactor":0.5,"priceTolerance":5,"historyLimit":50}`}
-                         rules={[
-                           {
-                             required: true,
-                             message: '策略参数为必填项',
-                           },
-                         ]}
-        />
-        <ProFormTextArea width="md" name="description"
-                         label={'参数说明'}
-        />
-        <ProFormSwitch name={'status'} label={'是否选中'}
-                       initialValue={false}
-        />
-        <ProFormDigit width="md" name="sort" label={'策略排序'} initialValue={10}/>
+      </Modal>
 
-      </ModalForm>
-      <UpdateForm
-        onSubmit={async (value) => {
-          const success = await handleUpdate(value);
-          if (success) {
-            handleUpdateModalOpen(false);
-            setCurrentRow(undefined);
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
-          }
-        }}
+      <Modal
+        width={1200}
+        bodyStyle={{padding: '32px 40px 48px'}}
+        destroyOnClose
+        title='日增长率'
+        open={modalOpen2}
+        footer={null}
         onCancel={() => {
-          handleUpdateModalOpen(false);
-          if (!showDetail) {
-            setCurrentRow(undefined);
-          }
+          setModalOpen2(false);
         }}
-        updateModalOpen={updateModalOpen}
-        values={currentRow || {}}
-      />
+      >
+        <Line
+          data={currentRow?.increaseRateList || []}
+          xField='x'
+          yField='y'
+          seriesField='type'
+          meta={{
+            x: {
+              alias: '交易日期',
+            },
+            y: {
+              alias: '日增长率',
+              max: currentRow?.maxPrice,
+              min: currentRow?.minPrice,
+              // maxLimit: currentRow?.maxRate,
+              // minLimit: currentRow?.minRate,
+            },
+          }}
+        />
+
+        {/*<Area*/}
+        {/*  smooth*/}
+        {/*  height={420}*/}
+        {/*  data={currentRow?.increaseRateList || []}*/}
+        {/*  xField="x"*/}
+        {/*  yField="y"*/}
+        {/*  // seriesField="type"*/}
+        {/*  meta={{*/}
+        {/*    x: {*/}
+        {/*      alias: '交易日期',*/}
+        {/*    },*/}
+        {/*    y: {*/}
+        {/*      alias: '日增长率(%)',*/}
+        {/*      max: currentRow?.maxRate,*/}
+        {/*      min: currentRow?.minRate,*/}
+        {/*      // maxLimit: currentRow?.maxRate,*/}
+        {/*      // minLimit: currentRow?.minRate,*/}
+        {/*    },*/}
+        {/*  }}*/}
+        {/*/>*/}
+      </Modal>
+
+      {/*<ModalForm*/}
+      {/*  title={'新建策略'}*/}
+      {/*  width={"480px"}*/}
+      {/*  open={createModalOpen}*/}
+      {/*  onOpenChange={handleModalOpen}*/}
+      {/*  modalProps={{destroyOnClose: true}}*/}
+      {/*  onFinish={async (value) => {*/}
+      {/*    const success = await handleAdd(value as API.RuleListItem);*/}
+      {/*    if (success) {*/}
+      {/*      handleModalOpen(false);*/}
+      {/*      if (actionRef.current) {*/}
+      {/*        actionRef.current.reload();*/}
+      {/*      }*/}
+      {/*    }*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <ProFormText width="md" name="id" hidden={true}/>*/}
+      {/*  <ProFormText*/}
+      {/*    rules={[*/}
+      {/*      {*/}
+      {/*        required: true,*/}
+      {/*        message: '策略名称为必填项',*/}
+      {/*      },*/}
+      {/*    ]}*/}
+      {/*    width="md"*/}
+      {/*    name="name"*/}
+      {/*    label={'策略名称'}*/}
+      {/*  />*/}
+      {/*  <ProFormTextArea width="md" name="params"*/}
+      {/*                   label={'策略参数'}*/}
+      {/*                   initialValue={`{"preRateFactor":0.5,"priceTolerance":5,"historyLimit":50}`}*/}
+      {/*                   rules={[*/}
+      {/*                     {*/}
+      {/*                       required: true,*/}
+      {/*                       message: '策略参数为必填项',*/}
+      {/*                     },*/}
+      {/*                   ]}*/}
+      {/*  />*/}
+      {/*  <ProFormTextArea width="md" name="description"*/}
+      {/*                   label={'参数说明'}*/}
+      {/*  />*/}
+      {/*  <ProFormSwitch name={'status'} label={'是否选中'}*/}
+      {/*                 initialValue={false}*/}
+      {/*  />*/}
+      {/*  <ProFormDigit width="md" name="sort" label={'策略排序'} initialValue={10}/>*/}
+
+      {/*</ModalForm>*/}
+      {/*<UpdateForm*/}
+      {/*  onSubmit={async (value) => {*/}
+      {/*    const success = await handleUpdate(value);*/}
+      {/*    if (success) {*/}
+      {/*      handleUpdateModalOpen(false);*/}
+      {/*      setCurrentRow(undefined);*/}
+      {/*      if (actionRef.current) {*/}
+      {/*        actionRef.current.reload();*/}
+      {/*      }*/}
+      {/*    }*/}
+      {/*  }}*/}
+      {/*  onCancel={() => {*/}
+      {/*    handleUpdateModalOpen(false);*/}
+      {/*    if (!showDetail) {*/}
+      {/*      setCurrentRow(undefined);*/}
+      {/*    }*/}
+      {/*  }}*/}
+      {/*  updateModalOpen={updateModalOpen}*/}
+      {/*  values={currentRow || {}}*/}
+      {/*/>*/}
 
       {/*<Drawer*/}
       {/*  width={600}*/}
