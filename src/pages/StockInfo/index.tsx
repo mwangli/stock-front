@@ -324,20 +324,20 @@ const TableList: React.FC = () => {
         >
          历史价格
         </a>,
-        <a key="subscribeAlert"
-           onClick={() => {
-             // handleUpdateModalOpen(true);
-             listIncreaseRate({code: record.code}).then(res => {
-               record.increaseRateList = res?.data?.points
-               record.maxRate = res?.data?.maxValue
-               record.minRate = res?.data?.minValue
-               // debugger
-               setCurrentRow(record);
-               setModalOpen2(true);
-             })
-           }}>
-          日增长率
-        </a>,
+        // <a key="subscribeAlert"
+        //    onClick={() => {
+        //      // handleUpdateModalOpen(true);
+        //      listIncreaseRate({code: record.code}).then(res => {
+        //        record.increaseRateList = res?.data?.points
+        //        record.maxRate = res?.data?.maxValue
+        //        record.minRate = res?.data?.minValue
+        //        // debugger
+        //        setCurrentRow(record);
+        //        setModalOpen2(true);
+        //      })
+        //    }}>
+        //   日增长率
+        // </a>,
       ],
     },
   ];

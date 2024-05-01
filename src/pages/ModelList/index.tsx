@@ -325,19 +325,19 @@ const TableList: React.FC = () => {
         >
           测试结果
         </a>,
-        <a key="k3"
-           onClick={async () => {
-             listValidateData({code: record.code}).then(res => {
-               record.increaseRateList = res.data.points
-               record.maxPrice = res?.data?.maxValue
-               record.minPrice = res?.data?.minValue
-               setCurrentRow(record);
-               setModalOpen2(true);
-             })
-           }}
-        >
-          验证结果
-        </a>,
+        // <a key="k3"
+        //    onClick={async () => {
+        //      listValidateData({code: record.code}).then(res => {
+        //        record.increaseRateList = res.data.points
+        //        record.maxPrice = res?.data?.maxValue
+        //        record.minPrice = res?.data?.minValue
+        //        setCurrentRow(record);
+        //        setModalOpen2(true);
+        //      })
+        //    }}
+        // >
+        //   验证结果
+        // </a>,
       ],
     }
   ];
