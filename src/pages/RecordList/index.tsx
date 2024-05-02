@@ -5,6 +5,7 @@ import {FormattedMessage, useIntl} from '@umijs/max';
 import {Drawer, Input} from 'antd';
 import React, {useRef, useState} from 'react';
 import {history} from "umi";
+import numeral from "numeral";
 
 
 const TableList: React.FC = () => {
@@ -188,8 +189,8 @@ const TableList: React.FC = () => {
       sorter: true,
       hideInSearch: true,
       hideInForm: true,
-      renderText: (val: string) =>
-        val != null ? `${val}${intl.formatMessage({
+        renderText: (val: string) =>
+          val != null ? `${numeral(val).format('0.0000')}${intl.formatMessage({
           id: 'pages.searchTable.percent',
           defaultMessage: ' % ',
         })}` : '-',

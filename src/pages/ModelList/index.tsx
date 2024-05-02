@@ -13,6 +13,7 @@ import {Button, message, Modal} from 'antd';
 import React, {useRef, useState} from 'react';
 import {PlusOutlined} from "@ant-design/icons";
 import {Line} from "@ant-design/plots";
+import numeral from "numeral";
 
 const TableList: React.FC = () => {
 
@@ -95,6 +96,9 @@ const TableList: React.FC = () => {
       valueType: 'text',
       hideInSearch: true,
       sorter: true,
+      renderText: (val: string) =>
+        val != null ? `${numeral(val).format('0.00')} 分`
+          : '-',
     },
     {
       title: '模型状态',
