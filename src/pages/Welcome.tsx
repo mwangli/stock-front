@@ -1,97 +1,16 @@
 import {PageContainer} from '@ant-design/pro-components';
 import {useModel} from '@umijs/max';
 import {Card, theme} from 'antd';
-import React from 'react';
-
-
-/**
- * 每个单独的卡片，为了复用样式抽成了组件
- * @param param0
- * @returns
- */
-const InfoCard: React.FC<{
-  title: string;
-  index: number;
-  desc: string;
-  href: string;
-  child: any;
-}> = ({title, href, index, desc, child}) => {
-  const {useToken} = theme;
-
-  const {token} = useToken();
-
-  return (
-    <div
-      style={{
-        backgroundColor: token.colorBgContainer,
-        boxShadow: token.boxShadow,
-        borderRadius: '8px',
-        fontSize: '14px',
-        color: token.colorTextSecondary,
-        lineHeight: '22px',
-        padding: '16px 19px',
-        minWidth: '220px',
-        flex: 1,
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          gap: '4px',
-          alignItems: 'center',
-        }}
-      >
-        <div
-          style={{
-            width: 48,
-            height: 48,
-            lineHeight: '22px',
-            backgroundSize: '100%',
-            textAlign: 'center',
-            padding: '8px 16px 16px 12px',
-            color: '#FFF',
-            fontWeight: 'bold',
-            backgroundImage:
-              "url('https://gw.alipayobjects.com/zos/bmw-prod/daaf8d50-8e6d-4251-905d-676a24ddfa12.svg')",
-          }}
-        >
-          {index}
-        </div>
-        <div
-          style={{
-            fontSize: '16px',
-            color: token.colorText,
-            paddingBottom: 8,
-          }}
-        >
-          {title}
-        </div>
-      </div>
-      <div
-        style={{
-          fontSize: '14px',
-          color: token.colorTextSecondary,
-          textAlign: 'justify',
-          lineHeight: '22px',
-          marginBottom: 8,
-        }}
-      >
-        {desc}
-        {child}
-      </div>
-      <a href={href} target="_blank" rel="noreferrer">
-        了解更多 {'>'}
-      </a>
-    </div>
-  );
-};
+import React from "react/index";
 
 const Welcome: React.FC = () => {
   const {token} = theme.useToken();
   const {initialState} = useModel('@@initialState');
 
-  // @ts-ignore
-  // @ts-ignore
+  const index = 1;
+  const tittle = "StockTrading System";
+  const href = "https://www.yuque.com/mwangli/ha7323/axga8dz9imansvl4";
+
   return (
     <PageContainer>
       <Card
@@ -114,15 +33,6 @@ const Welcome: React.FC = () => {
               "url('https://gw.alipayobjects.com/mdn/rms_a9745b/afts/img/A*BuFmQqsB2iAAAAAAAAAAAAAAARQnAQ')",
           }}
         >
-          {/*<div*/}
-          {/*  style={{*/}
-          {/*    fontSize: '20px',*/}
-          {/*    color: token.colorTextHeading,*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  欢迎使用 Stock-Trading System*/}
-          {/*</div>*/}
-
           <div
             style={{
               display: 'flex',
@@ -130,15 +40,61 @@ const Welcome: React.FC = () => {
               gap: 16,
             }}
           >
-            <InfoCard
-              desc={""}
-              index={1}
-              href="https://www.yuque.com/mwangli/ha7323/axga8dz9imansvl4"
-              title="欢迎使用 Stock-Trading System"
-              // desc="{Stock-Trading System是一款自动化股票交易管理软件，
-              //         可以按照自定义交易策略，进行自动化的股票买卖交易；
-              //         也可以查看股票历史价格，实时价格，买卖记录和相关报表数据}"
-              child={
+            <div
+              style={{
+                backgroundColor: token.colorBgContainer,
+                boxShadow: token.boxShadow,
+                borderRadius: '8px',
+                fontSize: '14px',
+                color: token.colorTextSecondary,
+                lineHeight: '22px',
+                padding: '16px 19px',
+                minWidth: '220px',
+                flex: 1,
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  gap: '4px',
+                  alignItems: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    lineHeight: '22px',
+                    backgroundSize: '100%',
+                    textAlign: 'center',
+                    padding: '8px 16px 16px 12px',
+                    color: '#FFF',
+                    fontWeight: 'bold',
+                    backgroundImage:
+                      "url('https://gw.alipayobjects.com/zos/bmw-prod/daaf8d50-8e6d-4251-905d-676a24ddfa12.svg')",
+                  }}
+                >
+                  {index}
+                </div>
+                <div
+                  style={{
+                    fontSize: '16px',
+                    color: token.colorText,
+                    paddingBottom: 8,
+                  }}
+                >
+                  {tittle}
+                </div>
+              </div>
+              <div
+                style={{
+                  fontSize: '14px',
+                  color: token.colorTextSecondary,
+                  textAlign: 'justify',
+                  lineHeight: '22px',
+                  marginBottom: 8,
+                }}
+              >
                 <p
                   style={{
                     fontSize: '14px',
@@ -147,9 +103,7 @@ const Welcome: React.FC = () => {
                     marginTop: 16,
                     marginBottom: 32,
                     width: '95%',
-                    // fontWeight:'bold'
                   }}
-                  // hidden={initialState?.currentUser?.access != 'admin'}
                   hidden={false}
                 >
                   <div style={{
@@ -250,26 +204,23 @@ const Welcome: React.FC = () => {
 
                   </div>
                 </p>
-              }
-
-            >
-
-
-            </InfoCard>
-            {/*<InfoCard*/}
-            {/*  index={2}*/}
-            {/*  title="了解 ant design"*/}
-            {/*  href="https://ant.design"*/}
-            {/*  desc="antd 是基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。"*/}
-            {/*/>*/}
-            {/*<InfoCard*/}
-            {/*  index={3}*/}
-            {/*  title="了解 Pro Components"*/}
-            {/*  href="https://procomponents.ant.design"*/}
-            {/*  desc="ProComponents 是一个基于 Ant Design 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"*/}
-            {/*/>*/}
+              </div>
+              <div
+                style={{
+                  fontSize: '14px',
+                  color: token.colorTextSecondary,
+                  textAlign: 'justify',
+                  lineHeight: '22px',
+                  marginBottom: 8,
+                }}
+              >
+                {""}
+              </div>
+              <a href={href} target="_blank" rel="noreferrer">
+                了解更多 {'>'}
+              </a>
+            </div>
           </div>
-
         </div>
       </Card>
     </PageContainer>

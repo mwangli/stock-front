@@ -54,7 +54,7 @@ export async function listFoundTrading(
   sort: object,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/tradingRecord/list', {
+  return request<any>('/api/tradingRecord/list', {
     method: 'GET',
     params: {
       ...params,
@@ -79,7 +79,7 @@ export async function listStockInfo(
   sort: object,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/stockInfo/list', {
+  return request<any>('/api/stockInfo/list', {
     method: 'GET',
     params: {
       ...params,
@@ -103,7 +103,7 @@ export async function listOrderInfo(
   sort: object,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/orderInfo/list', {
+  return request('/api/orderInfo/list', {
     method: 'GET',
     params: {
       ...params,
@@ -128,7 +128,7 @@ export async function listHistoryPrices(
   // sort: object,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/stockInfo/listHistoryPrices', {
+  return request<any>('/api/stockInfo/listHistoryPrices', {
     method: 'GET',
     params: {
       ...params,
@@ -153,7 +153,7 @@ export async function listIncreaseRate(
   // sort: object,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/stockInfo/listIncreaseRate', {
+  return request('/api/stockInfo/listIncreaseRate', {
     method: 'GET',
     params: {
       ...params,
@@ -178,7 +178,7 @@ export async function listTestData(
   // sort: object,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/modelInfo/listTestData', {
+  return request<any>('/api/modelInfo/listTestData', {
     method: 'GET',
     params: {
       ...params,
@@ -203,7 +203,7 @@ export async function listValidateData(
   // sort: object,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/modelInfo/listValidateData', {
+  return request<any>('/api/modelInfo/listValidateData', {
     method: 'GET',
     params: {
       ...params,
@@ -228,7 +228,7 @@ export async function listJob(
   // sort: any,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/job/list', {
+  return request<any>('/api/job/list', {
     method: 'GET',
     params: {
       ...params,
@@ -241,7 +241,7 @@ export async function listJob(
 
 /** 新建规则 PUT /api/rule */
 export async function updateRule(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/job/run', {
+  return request<any>('/api/job/run', {
     method: 'POST',
     ...(options || {}),
   });
@@ -249,7 +249,7 @@ export async function updateRule(options?: { [key: string]: any }) {
 
 /** 新建规则 POST /api/rule */
 export async function addRule(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/rule', {
+  return request<any>('/api/rule', {
     method: 'POST',
     ...(options || {}),
   });
@@ -264,7 +264,7 @@ export async function removeRule(options?: { [key: string]: any }) {
 }
 
 export async function createJob(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/job/create', {
+  return request<any>('/api/job/create', {
     method: 'POST',
     ...(options || {}),
   });
@@ -278,42 +278,42 @@ export async function modifyJob(options?: { [key: string]: any }) {
 }
 
 export async function deleteJob(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/job/delete', {
+  return request<any>('/api/job/delete', {
     method: 'DELETE',
     ...(options || {}),
   });
 }
 
 export async function runJob(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/job/run', {
+  return request<any>('/api/job/run', {
     method: 'POST',
     ...(options || {}),
   });
 }
 
 export async function pauseJob(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/job/pause', {
+  return request<any>('/api/job/pause', {
     method: 'POST',
     ...(options || {}),
   });
 }
 
 export async function interruptJob(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/job/interrupt', {
+  return request<any>('/api/job/interrupt', {
     method: 'POST',
     ...(options || {}),
   });
 }
 
 export async function resumeJob(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/job/resume', {
+  return request<any>('/api/job/resume', {
     method: 'POST',
     ...(options || {}),
   });
 }
 
 export async function createStrategy(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/strategy/create', {
+  return request<any>('/api/strategy/create', {
     method: 'POST',
     ...(options || {}),
   });
@@ -334,7 +334,7 @@ export async function chooseStrategy(options?: { [key: string]: any }) {
 }
 
 export async function deleteStrategy(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/strategy/delete', {
+  return request<any>('/api/strategy/delete', {
     method: 'DELETE',
     ...(options || {}),
   });
@@ -354,7 +354,7 @@ export async function listStrategy(
   sort: object,
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/modelInfo/list', {
+  return request<any>('/api/modelInfo/list', {
     method: 'GET',
     params: {
       ...params,

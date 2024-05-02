@@ -23,7 +23,7 @@ const CustomTab = ({
       />
     </Col>
     <Col span={12} style={{ paddingTop: 36 }}>
-      <RingProgress forceFit height={60} width={60} percent={data.cvr} />
+      <RingProgress height={60} width={60} percent={data.cvr} />
     </Col>
   </Row>
 );
@@ -49,10 +49,10 @@ const OfflineData = ({
         <TabPane tab={<CustomTab data={shop} currentTabKey={activeKey} />} key={shop.name}>
           <div style={{ padding: '0 24px' }}>
             <Line
-              forceFit
+              // forceFit
               height={400}
               data={offlineChartData}
-              responsive
+              // responsive
               xField="date"
               yField="value"
               seriesField="type"
@@ -63,7 +63,7 @@ const OfflineData = ({
                 },
               ]}
               legend={{
-                position: 'top-center',
+                position: 'top',
               }}
             />
           </div>

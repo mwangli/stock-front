@@ -23,7 +23,7 @@ export default {
   'menu.form.advanced-form': '高级表单',
   'menu.list': '列表页',
   'menu.list.table-list': '交易记录',
-  'menu.list.upload-image': '图片上传',
+  'menu.list.upload-image': '账单生成',
   'menu.list.stock-info': '实时价格',
   'menu.list.order-info': '订单查询',
   'menu.list.time-job': '定时任务',

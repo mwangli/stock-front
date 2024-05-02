@@ -87,13 +87,6 @@ export default [
     component: './JobList',
     access: 'canAdmin',
   },
-  // {
-  //   name: 'list.power-demo',
-  //   icon: 'FieldTimeOutlined',
-  //   path: '/demo',
-  //   component: './PowerDemo',
-  //   access: 'canTest',
-  // },
   {
     name: 'list.run-logs',
     icon: 'OrderedListOutlined',

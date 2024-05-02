@@ -1,11 +1,11 @@
 import {Card, Col, DatePicker, Row, Tabs} from 'antd';
-import type {RangePickerProps} from 'antd/es/date-picker/generatePicker';
 import type moment from 'moment';
 import {Area, Column} from '@ant-design/charts';
 
 import numeral from 'numeral';
 import type {DataItem} from '../data';
 import styles from '../style.less';
+import {RangePickerProps} from "antd/lib/date-picker/generatePicker/interface";
 
 type RangePickerValue = RangePickerProps<moment.Moment>['value'];
 export type TimeType = 'today' | 'week' | 'month' | 'year';

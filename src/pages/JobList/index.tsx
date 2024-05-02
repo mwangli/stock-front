@@ -148,7 +148,6 @@ const TableList: React.FC = () => {
    * @zh-CN 新建窗口的弹窗
    *  */
   const [createModalOpen, handleModalOpen] = useState<boolean>(false);
-  const [resetModal, setResetModal] = useState<boolean>(false);
   /**
    * @en-US The pop-up window of the distribution update window
    * @zh-CN 分布更新窗口的弹窗
@@ -159,7 +158,6 @@ const TableList: React.FC = () => {
 
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<API.RuleListItem>();
-  const [selectedRowsState, setSelectedRows] = useState<API.RuleListItem[]>([]);
 
   /**
    * @en-US International configuration
@@ -167,12 +165,9 @@ const TableList: React.FC = () => {
    * */
   const intl = useIntl();
 
-  const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     const localServer = "localhost:8080";
     const remoteServer = "124.220.36.95:8080";
-    // console.log(JSON.stringify(process.env))
     const server = process.env.NODE_ENV == 'production' ? remoteServer : localServer;
     const webSocket = new WebSocket(`ws://${server}/webSocket/job`);
 
@@ -198,22 +193,6 @@ const TableList: React.FC = () => {
       ),
       dataIndex: 'sort',
       hideInSearch: true,
-      // hideInTable: true,
-      // tip: 'The jobId is the unique key',
-      // render: (dom, entity, index) => {
-      //   return (
-      //     // <a
-      //     //   onClick={() => {
-      //     //     setCurrentRow(entity);
-      //     //     // setShowDetail(true);
-      //     //   }}
-      //     // >
-      //     <span>
-      //           {}
-      //     </span>
-      // </a>
-      // );
-      // },
     },
 
     {
@@ -228,14 +207,7 @@ const TableList: React.FC = () => {
       render: (dom, entity, index) => {
         let split = entity?.className.split(".");
         let lastPart = split[split.length - 1];
-        // debugger
         return (
-          // <a
-          //   onClick={() => {
-          //     setCurrentRow(entity);
-          //     // setShowDetail(true);
-          //   }}
-          // >
           <span>
               {`**.*.${lastPart}`}
           </span>)
@@ -322,22 +294,12 @@ const TableList: React.FC = () => {
       render: (_, record) => [
         <a key="k1"
            onClick={async () => {
-             // setCurrentRow(record);
-             // if (record.running == "1") {
-             //   const success = await handleInterrupt(record)
-             //   if (success) {
-             //     if (actionRef.current) {
-             //       actionRef.current.reload();
-             //     }
-             //   }
-             // } else {
              const success = await handleRun(record)
              if (success) {
                if (actionRef.current) {
                  actionRef.current.reload();
                }
              }
-             // }
            }}
         >{record.running == '1' ? '触发' : '触发'}
         </a>,
@@ -424,51 +386,7 @@ const TableList: React.FC = () => {
         ]}
         request={listJob}
         columns={columns}
-        // rowSelection={{
-        //   onChange: (_, selectedRows) => {
-        //     setSelectedRows(selectedRows);
-        //   },
-        // }}
       />
-      {/*{selectedRowsState?.length > 0 && (*/}
-      {/*  <FooterToolbar*/}
-      {/*    extra={*/}
-      {/*      <div>*/}
-      {/*        <FormattedMessage id="pages.searchTable.chosen" defaultMessage="Chosen"/>{' '}*/}
-      {/*        <a style={{fontWeight: 600}}>{selectedRowsState.length}</a>{' '}*/}
-      {/*        <FormattedMessage id="pages.searchTable.item" defaultMessage="项"/>*/}
-      {/*        &nbsp;&nbsp;*/}
-      {/*        <span>*/}
-      {/*          <FormattedMessage*/}
-      {/*            id="pages.searchTable.totalServiceCalls"*/}
-      {/*            defaultMessage="Total number of service calls"*/}
-      {/*          />{' '}*/}
-      {/*          {selectedRowsState.reduce((pre, item) => pre + item.callNo!, 0)}{' '}*/}
-      {/*          <FormattedMessage id="pages.searchTable.tenThousand" defaultMessage="万"/>*/}
-      {/*        </span>*/}
-      {/*      </div>*/}
-      {/*    }*/}
-      {/*  >*/}
-      {/*    <Button*/}
-      {/*      onClick={async () => {*/}
-      {/*        await handleRemove(selectedRowsState);*/}
-      {/*        setSelectedRows([]);*/}
-      {/*        actionRef.current?.reloadAndRest?.();*/}
-      {/*      }}*/}
-      {/*    >*/}
-      {/*      <FormattedMessage*/}
-      {/*        id="pages.searchTable.batchDeletion"*/}
-      {/*        defaultMessage="Batch deletion"*/}
-      {/*      />*/}
-      {/*    </Button>*/}
-      {/*    <Button type="primary">*/}
-      {/*      <FormattedMessage*/}
-      {/*        id="pages.searchTable.batchApproval"*/}
-      {/*        defaultMessage="Batch approval"*/}
-      {/*      />*/}
-      {/*    </Button>*/}
-      {/*  </FooterToolbar>*/}
-      {/*)}*/}
       <ModalForm
         title={intl.formatMessage({
           id: 'pages.searchTable.createForm.newRule',
@@ -560,30 +478,6 @@ const TableList: React.FC = () => {
         updateModalOpen={updateModalOpen}
         values={currentRow || {}}
       />
-
-      {/*<Drawer*/}
-      {/*  width={600}*/}
-      {/*  open={showDetail}*/}
-      {/*  onClose={() => {*/}
-      {/*    setCurrentRow(undefined);*/}
-      {/*    setShowDetail(false);*/}
-      {/*  }}*/}
-      {/*  closable={false}*/}
-      {/*>*/}
-      {/*  {currentRow?.name && (*/}
-      {/*    <ProDescriptions<API.RuleListItem>*/}
-      {/*      column={2}*/}
-      {/*      title={currentRow?.name}*/}
-      {/*      request={async () => ({*/}
-      {/*        data: currentRow || {},*/}
-      {/*      })}*/}
-      {/*      params={{*/}
-      {/*        id: currentRow?.name,*/}
-      {/*      }}*/}
-      {/*      columns={columns as ProDescriptionsItemProps<API.RuleListItem>[]}*/}
-      {/*    />*/}
-      {/*  )}*/}
-      {/*</Drawer>*/}
     </PageContainer>
   );
 };
