@@ -91,7 +91,7 @@ const TableList: React.FC = () => {
 
     {
       title: '模型评分',
-      dataIndex: 'validateDeviation',
+      dataIndex: 'score',
       valueType: 'text',
       hideInSearch: true,
       sorter: true,
