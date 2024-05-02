@@ -24,7 +24,7 @@ export default {
   'menu.list': '列表页',
   'menu.list.table-list': '交易记录',
   'menu.list.upload-image': '账单生成',
-  'menu.list.stock-info': '实时价格',
+  'menu.list.stock-info': '股票信息',
   'menu.list.order-info': '订单查询',
   'menu.list.time-job': '定时任务',
   'menu.list.power-demo': '系统推荐',

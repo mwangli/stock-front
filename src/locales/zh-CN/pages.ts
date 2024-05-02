@@ -95,7 +95,7 @@ export default {
   'pages.searchTable.permission.forbidden': '无权限',
   'pages.searchTable.priceList': '历史价格',
   'pages.searchTable.rateList': '预测价格',
-  'pages.searchTable.nowPriceTitle': '实时价格',
+  'pages.searchTable.nowPriceTitle': '股票信息',
   'pages.searchTable.orderInfoList': '订单查询',
   'pages.searchTable.jobId': '任务编号',
   'pages.searchTable.jobName': '任务名称',
