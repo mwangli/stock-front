@@ -243,7 +243,7 @@ const TableList: React.FC = () => {
           text: (
             <FormattedMessage id="pages.searchTable.titleStatus.notSold" defaultMessage="notSold"/>
           ),
-          status: 'Error',
+          status: 'Processing',
         },
       },
     },
