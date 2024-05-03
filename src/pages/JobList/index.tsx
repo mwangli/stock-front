@@ -5,8 +5,7 @@ import {
   listJob,
   modifyJob,
   pauseJob,
-  resumeJob,
-  runJob
+  resumeJob, runJob
 } from '@/services/ant-design-pro/api';
 import type {ActionType, ProColumns} from '@ant-design/pro-components';
 import {
@@ -24,62 +23,48 @@ import type {FormValueType} from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 import {PlusOutlined} from "@ant-design/icons";
 
-/**
- * @en-US Add node
- * @zh-CN 添加节点
- * @param fields
- */
 const handleAdd = async (fields: API.RuleListItem) => {
   const hide = message.loading('正在创建任务...');
   try {
-    await createJob({data: fields});
     hide();
-    message.success('任务创建成功！');
-    return true;
+    const res = await createJob({data: fields});
+    if (res.success) {
+      message.success('任务创建成功！');
+    } else {
+      message.error('任务创建失败！');
+    }
   } catch (error) {
     hide();
-    // message.error('任务创建失败');
-    return false;
   }
 };
 
-/**
- * @en-US Update node
- * @zh-CN 更新节点
- *
- * @param fields
- */
 const handleUpdate = async (fields: FormValueType) => {
   const hide = message.loading('正在修改任务...');
   try {
-    await modifyJob({data: fields});
     hide();
-    message.success('任务修改成功！');
-    return true;
+    let res = await modifyJob({data: fields});
+    if (res.success) {
+      message.success('任务修改成功！');
+    } else {
+      message.error('任务修改失败！');
+    }
   } catch (error) {
     hide();
-    // message.error('任务修改失败！');
-    return false;
   }
 };
 
-/**
- *  Delete node
- * @zh-CN 删除节点
- *
- * @param selectedRows
- */
 const handleRemove = async (fields: FormValueType) => {
   const hide = message.loading('正在删除任务...');
   try {
-    await deleteJob({data: fields});
     hide();
-    message.success('删除任务成功！');
-    return true;
+    let res = await deleteJob({data: fields});
+    if (res.success) {
+      message.success('任务删除成功！');
+    } else {
+      message.error('任务删除失败！');
+    }
   } catch (error) {
     hide();
-    // message.error('删除任务失败！');
-    return false;
   }
 };
 
@@ -87,59 +72,62 @@ const handleRemove = async (fields: FormValueType) => {
 const handlePause = async (fields: FormValueType) => {
   const hide = message.loading('正在停止任务...');
   try {
-    await pauseJob({data: fields});
     hide();
-    message.success('停止任务成功！');
-    return true;
+    let res = await pauseJob({data: fields});
+    if (res.success) {
+      message.success('停止任务成功！');
+    } else {
+      message.error('停止任务成功！');
+    }
   } catch (error) {
     hide();
-    // message.error('停止任务失败！');
-    return false;
   }
 };
 
 const handleInterrupt = async (fields: FormValueType) => {
   const hide = message.loading('正在终止任务...');
   try {
-    await interruptJob({data: fields});
-    hide();
-    message.success('终止任务成功！');
-    return true;
+    hide()
+    const res = await interruptJob({data: fields});
+    if (res?.success) {
+      message.success('终止任务成功！');
+    } else {
+      message.error('终止任务失败！');
+    }
   } catch (error) {
-    hide();
-    // message.error('终止任务失败！');
-    return false;
+    hide()
   }
 };
 
 const handleResume = async (fields: FormValueType) => {
   const hide = message.loading('正在恢复任务...');
   try {
-    await resumeJob({data: fields});
     hide();
-    message.success('恢复任务成功！');
-    return true;
+    let res = await resumeJob({data: fields});
+    if (res?.success) {
+      message.success('恢复任务成功！');
+    } else {
+      message.error('恢复任务失败！');
+    }
   } catch (error) {
     hide();
-    // message.error('恢复任务失败！');
-    return false;
   }
 };
 
 const handleRun = async (fields: FormValueType) => {
   const hide = message.loading(`${fields.name},正在触发任务...`);
   try {
-    await runJob({data: fields});
     hide();
-    message.success(`${fields.name},触发任务成功！`);
-    return true;
+    let res = await runJob({data: fields});
+    if (res?.success) {
+      message.success('触发任务成功！');
+    } else {
+      message.error('触发任务失败！');
+    }
   } catch (error) {
     hide();
-    // message.error(`${fields.name},触发任务失败！`);
-    return false;
   }
 };
-
 
 const TableList: React.FC = () => {
 
@@ -153,8 +141,6 @@ const TableList: React.FC = () => {
    * @zh-CN 分布更新窗口的弹窗
    * */
   const [updateModalOpen, handleUpdateModalOpen] = useState<boolean>(false);
-
-  const [showDetail, setShowDetail,] = useState<boolean>(false);
 
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<API.RuleListItem>();
@@ -266,25 +252,25 @@ const TableList: React.FC = () => {
       sorter: true,
       valueEnum: (a) => {
         return a?.running == '1' ? {
-          0: {
-            text: '运行中',
-            status: 'Processing',
-          },
-          1: {
-            text: '运行中',
-            status: 'Processing',
+            0: {
+              text: '运行中',
+              status: 'Processing',
+            },
+            1: {
+              text: '运行中',
+              status: 'Processing',
+            }
+          } :
+          {
+            1: {
+              text: '调度中',
+              status: 'Success',
+            },
+            0: {
+              text: '已暂停',
+              status: 'Default',
+            }
           }
-        } :
-         {
-          1: {
-            text: '调度中',
-            status: 'Success',
-          },
-          0: {
-            text: '已暂停',
-            status: 'Error',
-          }
-        }
       },
     },
     {
@@ -294,33 +280,23 @@ const TableList: React.FC = () => {
       render: (_, record) => [
         <a key="k1"
            onClick={async () => {
-             const success = await handleRun(record)
-             if (success) {
-               if (actionRef.current) {
-                 actionRef.current.reload();
-               }
+             if (record.running == "1") {
+               await handleInterrupt(record)
+             } else {
+               await handleRun(record)
              }
+             actionRef?.current?.reload();
            }}
-        >{record.running == '1' ? '触发' : '触发'}
+        >{record.running == '1' ? '终止' : '触发'}
         </a>,
         <a
           key="k2"
           onClick={async (_) => {
             setCurrentRow(record);
             if (record.status == "1") {
-              const success = await handlePause(record)
-              if (success) {
-                if (actionRef.current) {
-                  actionRef.current.reload();
-                }
-              }
+              await handlePause(record)
             } else {
-              const success = await handleResume(record)
-              if (success) {
-                if (actionRef.current) {
-                  actionRef.current.reload();
-                }
-              }
+              await handleResume(record)
             }
             actionRef?.current?.reload()
           }}
@@ -342,12 +318,8 @@ const TableList: React.FC = () => {
         <a key="k4"
            onClick={async () => {
              setCurrentRow(record);
-             const success = await handleRemove(record);
-             if (success) {
-               if (actionRef.current) {
-                 actionRef.current.reload();
-               }
-             }
+             await handleRemove(record);
+             actionRef?.current?.reload()
            }}
         >
           <FormattedMessage
@@ -368,7 +340,6 @@ const TableList: React.FC = () => {
         })}
         actionRef={actionRef}
         rowKey="key"
-        // loading={false}
         search={{
           labelWidth: 120,
         }}
@@ -397,13 +368,9 @@ const TableList: React.FC = () => {
         onOpenChange={handleModalOpen}
         modalProps={{destroyOnClose: true}}
         onFinish={async (value) => {
-          const success = await handleAdd(value as API.RuleListItem);
-          if (success) {
-            handleModalOpen(false);
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
-          }
+          await handleAdd(value as API.RuleListItem);
+          handleModalOpen(false);
+          actionRef?.current?.reload();
         }}
       >
         <ProFormText width="md" name="id" hidden={true}/>
@@ -460,20 +427,14 @@ const TableList: React.FC = () => {
       </ModalForm>
       <UpdateForm
         onSubmit={async (value) => {
-          const success = await handleUpdate(value);
-          if (success) {
-            handleUpdateModalOpen(false);
-            setCurrentRow(undefined);
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
-          }
+          await handleUpdate(value);
+          handleUpdateModalOpen(false);
+          setCurrentRow(undefined);
+          actionRef?.current?.reload();
         }}
         onCancel={() => {
           handleUpdateModalOpen(false);
-          if (!showDetail) {
-            setCurrentRow(undefined);
-          }
+          setCurrentRow(undefined);
         }}
         updateModalOpen={updateModalOpen}
         values={currentRow || {}}

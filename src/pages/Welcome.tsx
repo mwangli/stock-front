@@ -200,6 +200,8 @@ const Welcome: React.FC = () => {
                       <span>2024-05-01</span> <br/>
                       33. DL4J升级1.0.0版本 <br/>
                       34. 模型代码数据处理优化 <br/>
+                      <span>2024-05-03</span> <br/>
+                      35. 增加任务终止功能 <br/>
                     </div>
 
                   </div>
