@@ -53,17 +53,17 @@ export default [
     access: 'canAdmin',
   },
   {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './RecordList',
-    access: 'canAdmin',
-  },
-  {
     name: 'list.stock-info',
     icon: 'FundOutlined',
     path: '/info',
     component: './StockInfo',
+    access: 'canAdmin',
+  },
+  {
+    name: 'list.table-list',
+    icon: 'table',
+    path: '/list',
+    component: './RecordList',
     access: 'canAdmin',
   },
   {
