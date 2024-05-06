@@ -32,7 +32,7 @@ const TableList: React.FC = () => {
       sorter: true,
     },
     {
-      title: '模型名称',
+      title: '股票名称',
       dataIndex: 'name',
       valueType: 'textarea',
       sorter: true,
@@ -83,14 +83,6 @@ const TableList: React.FC = () => {
       sorter: true,
     },
     {
-      title: '训练时间',
-      sorter: true,
-      dataIndex: 'updateTime',
-      valueType: 'dateTime',
-      hideInSearch: true,
-    },
-
-    {
       title: '模型评分',
       dataIndex: 'score',
       valueType: 'text',
@@ -99,6 +91,13 @@ const TableList: React.FC = () => {
       renderText: (val: string) =>
         val != null ? `${numeral(val).format('0.00')} 分`
           : '-',
+    },
+    {
+      title: '训练时间',
+      sorter: true,
+      dataIndex: 'updateTime',
+      valueType: 'dateTime',
+      hideInSearch: true,
     },
     {
       title: '模型状态',
