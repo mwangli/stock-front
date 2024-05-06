@@ -46,7 +46,7 @@ export default {
   'pages.searchTable.titleCallNo': '服务调用次数',
   'pages.searchTable.titleStatus': '是否出售',
   'pages.searchTable.titleStatus.sold': '已出售',
-  'pages.searchTable.titleStatus.notSold': '未出售',
+  'pages.searchTable.titleStatus.notSold': '持仓中',
   'pages.searchTable.nameStatus.default': '关闭',
   'pages.searchTable.nameStatus.running': '运行中',
   'pages.searchTable.nameStatus.online': '已上线',
