@@ -19,94 +19,56 @@ const columns = [
       dailyIncomeRate: number;
       status: number
     }, index: number) => (
-      <Trend flag={record.dailyIncomeRate > 0 ? 'up' : 'down'}>
+      // <Trend flag={record.dailyIncomeRate > 0 ? 'up' : 'down'}>
         <span style={{marginRight: 4}}>{index + 1}</span>
-      </Trend>
+       // </Trend>
     ),
   },
   {
     title: '股票信息',
     dataIndex: 'name',
     key: 'name',
-    render: (text: string) => <a href={`/info?code=${text?.split("-")[0]}`}>{text}</a>,
+    render: (text: string, record : {code: string, name :string}) => <a href={`/list?code=${record.code}`}>{record.code.concat('-').concat(record.name)}</a>,
   },
   {
-    title: '当前价格',
+    title: '买入价格',
     dataIndex: 'buyPrice',
-    key: 'price',
-    // sorter: (a: { count: number }, b: { count: number }) => a.count - b.count,
-    // className: styles.alignRight,
+    key: 'buyPrice',
     render: (text: React.ReactNode, record: { status: number }) => (
-      // <Trend flag={record.status === 1 ? 'down' : 'up'}>
-      //   <span style={{ marginRight: 4 }}>{text}%</span>
-      // </Trend>
       `${numeral(text).format('0.00')}元`
     ),
   },
   {
-    title: '预测价格',
+    title: '卖出价格',
     dataIndex: 'salePrice',
     key: 'predictPrice',
-    // sorter: (a: { count: number }, b: { count: number }) => a.count - b.count,
     className: styles.alignRight,
     render: (text: React.ReactNode, record: { status: number }) => (
-      // <Trend flag={record.status === 1 ? 'down' : 'up'}>
-      //   <span style={{ marginRight: 4 }}>{text}%</span>
-      // </Trend>
       `${numeral(text).format('0.00')}元`
     ),
   },
-  // {
-  //   title: '持仓天数',
-  //   dataIndex: 'holdDays',
-  //   key: 'holdDays',
-  //   render: (text: React.ReactNode) => `${text}天`,
-  // },
   {
-    title: '收益率',
-    dataIndex: 'incomeRate',
-    key: 'dailyRate',
-    // sorter: (a: { range: number }, b: { range: number }) => a.range - b.range,
-    render: (text: React.ReactNode, record: { status: number }) => (
-      // <Trend flag={record.status === 1 ? 'down' : 'up'}>
-      //   <span style={{ marginRight: 4 }}>{text}%</span>
-      // </Trend>
+    title: '收益金额',
+    dataIndex: 'income',
+    key: 'income',
+    className: styles.alignRight,
+    render: (text: React.ReactNode) => (
+      `${numeral(text).format('0.00')}元`
+    ),
+  },
+  {
+    title: '日收益率',
+    dataIndex: 'dailyIncomeRate',
+    key: 'dailyIncomeRate',
+    render: (text: React.ReactNode) => (
       `${numeral(text).format('0.0000')}%`
     ),
   },
   {
-    title: '预测得分',
-    dataIndex: 'sold',
-    key: 'income',
-    // sorter: (a: { count: number }, b: { count: number }) => a.count - b.count,
-    className: styles.alignRight,
-    render: (text: React.ReactNode, record: { status: number }) => (
-      // <Trend flag={record.status === 1 ? 'down' : 'up'}>
-      //   <span style={{ marginRight: 4 }}>{text}%</span>
-      // </Trend>
-      `${numeral(text).format('0.00')}`
-    ),
-  },
-  // {
-  //   title: '更新时间',
-  //   dataIndex: 'updateTime',
-  //   valueType: 'date',
-  //   // hideInSearch: true,
-  //   // // hideInTable: true,
-  //   // sorter: true,
-  // },
-  {
-    title: '更新时间',
+    title: '卖出时间',
     dataIndex: 'saleDateString',
-    key: 'updateTime',
-    // sorter: (a: { count: number }, b: { count: number }) => a.count - b.count,
+    key: 'saleDateString',
     className: styles.alignRight,
-    // render: (text: React.ReactNode, record: { status: number }) => (
-    //   // <Trend flag={record.status === 1 ? 'down' : 'up'}>
-    //   //   <span style={{ marginRight: 4 }}>{text}%</span>
-    //   // </Trend>
-    //   {}
-    // ),
   },
 ];
 
@@ -122,13 +84,13 @@ const TopSearch = ({
   <Card
     loading={loading}
     bordered={false}
-    title="预测收益率排行"
+    title="日收益率排行"
     extra={dropdownGroup}
     style={{
       height: '100%',
     }}
   >
-    <Row gutter={68}>
+    {/*<Row gutter={68}>*/}
       {/*<Col sm={24} xs={24} style={{ marginBottom: 24 }}>*/}
       {/*  <NumberInfo*/}
       {/*    // subTitle={*/}
@@ -163,7 +125,7 @@ const TopSearch = ({
       {/*  />*/}
       {/*  <TinyArea xField="x" height={45} forceFit yField="y" smooth data={visitData2} />*/}
       {/*</Col>*/}
-    </Row>
+    {/*</Row>*/}
     <Table<any>
       rowKey={(record) => record.index}
       size="small"

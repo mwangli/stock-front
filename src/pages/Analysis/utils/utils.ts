@@ -1,19 +1,15 @@
 import moment from 'moment';
-import type { RangePickerProps } from 'antd/es/date-picker/generatePicker';
+import {RangePickerProps} from "antd/es/date-picker/generatePicker/interface";
 
 type RangePickerValue = RangePickerProps<moment.Moment>['value'];
 
 export function fixedZero(val: number) {
-  return val * 1 < 10 ? `0${val}` : val;
+  return val < 10 ? `0${val}` : val;
 }
 
 export function getTimeDistance(type: 'today' | 'week' | 'month' | 'year'| 'all'): RangePickerValue {
   const now = new Date();
   const oneDay = 1000 * 60 * 60 * 24;
-
-  if (type === 'all') {
-    return null;
-  }
 
   if (type === 'today') {
     now.setHours(0);
@@ -52,5 +48,14 @@ export function getTimeDistance(type: 'today' | 'week' | 'month' | 'year'| 'all'
     ];
   }
 
-  return [moment(`${year}-01-01 00:00:00`), moment(`${year}-12-31 23:59:59`)];
+  if (type === 'year'){
+    return [moment(`${year}-01-01 00:00:00`), moment(`${year}-12-31 23:59:59`)];
+  }
+
+
+  if (type === 'all') {
+    return [moment(`2022-01-01 00:00:00`), moment(`2030-12-31 23:59:59`)];
+  }
+
+  return null;
 }

@@ -202,6 +202,8 @@ const Welcome: React.FC = () => {
                       34. 模型代码数据处理优化 <br/>
                       <span>2024-05-03</span> <br/>
                       35. 增加任务终止功能 <br/>
+                      <span>2024-05-07</span> <br/>
+                      36. 数据分析页面优化 <br/>
                     </div>
 
                   </div>
