@@ -118,10 +118,8 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       // 登录
-      // debugger
+
       const msg = await login({...values, type});
-      console.log(msg);
-      // debugger
       if (msg?.success === true) {
         isLogin = true;
         const defaultLoginSuccessMessage = intl.formatMessage({
@@ -133,15 +131,10 @@ const Login: React.FC = () => {
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/welcome');
-
-        setInitialState((s) => ({
-          ...s,
-        }));
-        return;
+      } else {
+        message.error(msg?.errorMessage)
+        setUserLoginState(msg);
       }
-      console.log(msg);
-      // 如果失败去设置用户错误信息
-      setUserLoginState(msg);
     } catch (error) {
       const defaultLoginFailureMessage = intl.formatMessage({
         id: 'pages.login.failure',

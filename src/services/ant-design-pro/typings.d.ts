@@ -24,6 +24,7 @@ declare namespace API {
   };
 
   type LoginResult = {
+    errorMessage: string;
     success: boolean;
     data: any;
     status?: string;
