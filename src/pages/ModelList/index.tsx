@@ -66,7 +66,7 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       sorter: true,
       renderText: (val: number) =>
-        val != null ? `${numeral(val *100).format('0.00')} %`
+        val != null ? `${numeral(val).format('0.0000')}`
           : '-',
     },
     {
@@ -76,7 +76,7 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       sorter: true,
       renderText: (val: number) =>
-        val != null ? `${numeral(val*100).format('0.00')} %`
+        val != null ? `${numeral(val).format('0.0000')}`
           : '-',
     },
     {
