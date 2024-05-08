@@ -46,13 +46,6 @@ const TableList: React.FC = () => {
       hideInSearch: true,
     },
     {
-      title: '文件大小',
-      dataIndex: 'fileSize',
-      valueType: 'text',
-      hideInSearch: true,
-      sorter: true,
-    },
-    {
       title: '训练次数',
       sorter: true,
       dataIndex: 'trainTimes',
@@ -71,16 +64,20 @@ const TableList: React.FC = () => {
       dataIndex: 'testDeviation',
       valueType: 'text',
       hideInSearch: true,
-      hideInTable: true,
       sorter: true,
+      renderText: (val: number) =>
+        val != null ? `${numeral(val *100).format('0.00')} %`
+          : '-',
     },
     {
       title: '验证误差',
       dataIndex: 'validateDeviation',
       valueType: 'text',
       hideInSearch: true,
-      hideInTable: true,
       sorter: true,
+      renderText: (val: number) =>
+        val != null ? `${numeral(val*100).format('0.00')} %`
+          : '-',
     },
     {
       title: '模型评分',
