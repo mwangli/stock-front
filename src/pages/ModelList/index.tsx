@@ -70,16 +70,6 @@ const TableList: React.FC = () => {
           : '-',
     },
     {
-      title: '验证误差',
-      dataIndex: 'validateDeviation',
-      valueType: 'text',
-      hideInSearch: true,
-      sorter: true,
-      renderText: (val: number) =>
-        val != null ? `${numeral(val).format('0.0000')}`
-          : '-',
-    },
-    {
       title: '模型评分',
       dataIndex: 'score',
       valueType: 'text',
