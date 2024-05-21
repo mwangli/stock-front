@@ -206,6 +206,7 @@ const Welcome: React.FC = () => {
                       36. 数据分析页面优化 <br/>
                       <span>2024-05-21</span> <br/>
                       37. 股票评分系数优化<br/>
+                      38. 历史数据同步BUG修复<br/>
                     </div>
 
                   </div>
