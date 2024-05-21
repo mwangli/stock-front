@@ -3,7 +3,7 @@ import {
   createStrategy,
   deleteStrategy,
   listStrategy,
-  listTestData,
+  listTestData, listValidateData,
   modifyStrategy
 } from '@/services/ant-design-pro/api';
 import type {ActionType, ProColumns} from '@ant-design/pro-components';
@@ -108,7 +108,7 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating"/>,
+      title: '预测结果',
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
@@ -116,9 +116,6 @@ const TableList: React.FC = () => {
           key="k2"
           onClick={async (_) => {
             listTestData({code: record.code}).then(res => {
-              // setCurrentRow(record)
-              // handleUpdateModalOpen(true);
-              // @ts-ignore
               record.pricesList = res?.data?.points
               record.maxPrice = res?.data?.maxValue
               record.minPrice = res?.data?.minValue
@@ -128,8 +125,24 @@ const TableList: React.FC = () => {
           }
           }
         >
-          预测结果
-        </a>
+          测试集
+        </a>,
+
+        <a
+          key="k3"
+          onClick={async (_) => {
+            listValidateData({code: record.code}).then(res => {
+              record.pricesList = res?.data?.points
+              record.maxPrice = res?.data?.maxValue
+              record.minPrice = res?.data?.minValue
+              setCurrentRow(record);
+              setModalOpen(true);
+            })
+          }
+          }
+        >
+          验证集
+        </a>,
       ],
     }
   ];

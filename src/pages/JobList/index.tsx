@@ -274,7 +274,7 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating"/>,
+      title: '相关操作',
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [

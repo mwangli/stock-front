@@ -151,7 +151,7 @@ const TableList: React.FC = () => {
     //   hideInTable: true,
     // },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating"/>,
+      title: '数据查看',
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
