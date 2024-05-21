@@ -163,6 +163,12 @@ const Welcome: React.FC = () => {
                       18. 调整交易等待时间 <br/>
                       <span>2023-06-29</span> <br/>
                       19. 实数数据获取优化 <br/>
+                      <span>2023-07-04</span> <br/>
+                      20. 任务运行状态优化 <br/>
+                      21. 账户金额显示优化 <br/>
+                      <span>2023-07-17</span> <br/>
+                      22. 购买金额数量优化 <br/>
+                      23. 排名重复数据优化 <br/>
                     </div>
                     <div style={{
                       fontSize: '14px',
@@ -172,12 +178,6 @@ const Welcome: React.FC = () => {
                       marginBottom: 32,
                       width: '40%',
                     }}>
-                      <span>2023-07-04</span> <br/>
-                      20. 任务运行状态优化 <br/>
-                      21. 账户金额显示优化 <br/>
-                      <span>2023-07-17</span> <br/>
-                      22. 购买金额数量优化 <br/>
-                      23. 排名重复数据优化 <br/>
                       <span>2024-04-8</span> <br/>
                       22. 后台项目整体框架优化<br/>
                       23. 使用LSTM模型预测价格 <br/>
@@ -204,6 +204,8 @@ const Welcome: React.FC = () => {
                       35. 增加任务终止功能 <br/>
                       <span>2024-05-07</span> <br/>
                       36. 数据分析页面优化 <br/>
+                      <span>2024-05-21</span> <br/>
+                      37. 股票评分系数优化<br/>
                     </div>
 
                   </div>
