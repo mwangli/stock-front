@@ -132,7 +132,7 @@ const Login: React.FC = () => {
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/welcome');
       } else {
-        message.error(msg?.errorMessage)
+        // message.error(msg?.errorMessage)
         setUserLoginState(msg);
       }
     } catch (error) {

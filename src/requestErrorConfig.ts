@@ -1,6 +1,7 @@
 ﻿import type {RequestOptions} from '@@/plugin-request/request';
 import type {RequestConfig} from '@umijs/max';
 import {history} from '@umijs/max';
+import {message} from "antd";
 
 
 // 与后端约定的响应数据格式
@@ -39,6 +40,10 @@ export const errorConfig: RequestConfig = {
       if (data?.errorCode == 1001) {
         // token失效，重定向到登录页面
         history.push('/user/login')
+      }
+
+      if (!data?.success) {
+        message.error(data.errorMessage)
       }
 
       return response;
