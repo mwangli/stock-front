@@ -133,7 +133,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         />
         <ProFormSelect
           width="md"
-          name="skipTrain"
+          name="skipWaiting"
           label="是否启用跳过训练"
           initialValue={''}
           valueEnum={{
