@@ -210,6 +210,9 @@ const Welcome: React.FC = () => {
                       <span>2024-05-28</span> <br/>
                       39. 价格预测BUG修复<br/>
                       40. 线程池代码优化<br/>
+                      <span>2024-06-17</span> <br/>
+                      39. 预测结果展示修复<br/>
+                      40. 买入选股数量优化<br/>
                     </div>
 
                   </div>
